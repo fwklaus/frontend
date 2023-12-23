@@ -12,22 +12,6 @@ import {
   Text
 } from 'react-native';
 
-function GetRestaurants() {
-    // request restaurant data based on proximity to current location
-    // calculate distance
-    // get rating
-    // all done through Google?
-   const DATA = [{ id: 1, title: 'The Red Pickle', category: 'American', distance: 5.2, rating: 5 }];
-
-    return (
-        <FlatList
-          data={DATA}
-          renderItem={({item})=> <Item title={item.title} category={item.category} distance={item.distance} rating={item.rating} />}
-          keyExtractor={item => item.id}
-        />
-    );
-}
-
 function Item ({title, category, distance, rating}) {
   return (
     <Pressable onPress={() => console.log('Interesting')}>
@@ -42,6 +26,22 @@ function Item ({title, category, distance, rating}) {
       </View>
     </Pressable>
   );
+}
+
+function GetRestaurants() {
+    // request restaurant data based on proximity to current location
+    // calculate distance
+    // get rating
+    // all done through Google?
+   const DATA = [{ id: 1, title: 'The Red Pickle', category: 'American', distance: 5.2, rating: 5 }];
+
+    return (
+        <FlatList
+          data={DATA}
+          renderItem={({item})=> <Item title={item.title} category={item.category} distance={item.distance} rating={item.rating} />}
+          keyExtractor={item => item.id}
+        />
+    );
 }
 
 export function HomeTab({navigation}) {
@@ -68,7 +68,6 @@ export function HomeTab({navigation}) {
 {/*       <Button title="Temporary: Go To Red Pickle" onPress={() => navigation.navigate("RestaurantExample")}/> */}
 {/*     </View> */}
     <GetRestaurants />
-
   </SafeAreaView>
   );
 }
@@ -83,13 +82,7 @@ export function ServicesTab() {
 
   return(
      <SafeAreaView>
-       <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Our Services</Text>
-{/*        <Stack.Navigator> */}
-{/*          <Stack.Screen name="HowItWorks(1)" component={HowItWorksN}/> */}
-{/*          <Stack.Screen name="HowItWorks(2)" component={HowItWorksN}/> */}
-{/*          <Stack.Screen name="HowItWorks(3)" component={HowItWorksN}/> */}
-{/*          <Stack.Screen name="HowItWorks(4)" component={HowItWorksN}/> */}
-{/*        </Stack.Navigator> */}
+        <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Our Services</Text>
         <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[0]}</Text>
         <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[1]}</Text>
         <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[2]}</Text>
@@ -138,26 +131,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
   },
-  innerContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  main: {
-    flex: 1,
-    backgroundColor: "white",
-  },
-//   mainTextContainer: {
-//     textAlign: "center",
-//     height: 60,
-//     backgroundColor: "white",
-//     borderColor: 'black',
-//     borderBottomWidth: 1,
-//   },
-  loadingText: {
-    width: 275,
-    color: 'black',
-    marginTop: 20,
-    textAlign: "center"
-  }
 });
