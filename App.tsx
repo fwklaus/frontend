@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, {useState} from 'react';
 // import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -12,6 +12,7 @@ import {
   View,
   Image,
   Button,
+  SectionList
 } from 'react-native';
 
 import { HomeTab, ServicesTab, TermsTab } from './MainTabs'
@@ -62,8 +63,8 @@ function MyTabs() {
       }
     }}>
       <Tab.Screen name="Home" component={ HomeTab }/>
-      <Tab.Screen name="Our Services" component={ServicesTab}/>
-      <Tab.Screen name="Terms" component={TermsTab}/>
+      <Tab.Screen name="Our Services" component={ ServicesTab }/>
+      <Tab.Screen name="Terms" component={ TermsTab }/>
     </Tab.Navigator>
   );
 }
@@ -76,10 +77,57 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function RestaurantTemplate() {
+function RestaurantTemplate({route, navigation}) {
+  let params = route.params;
+  let id = params.id;
+  let title = params.title;
+  let category = params.category;
+  let distance = params.distance;
+  let rating = params.rating;
+  let phone = params.phone;
+  let hours = params.hours;
+//   const [expanded]
+
+  // request menu data using params.id
+  //  let menuData = []
+
+  // menu example for id 1
+  let menuData = [
+    {
+      title: 'Breakfast',
+      data: ['Eggs', 'Pancakes']
+    },
+    {
+      title: 'Lunch',
+      data: ['Sandwich', 'Burger']
+    },
+    {
+      title: 'Drinks',
+      data: ['Soda', 'Beer']
+    },
+    {
+      title: 'Dessert',
+      data: ['Pie', 'Ice Cream']
+    },
+  ];
+
   return (
     <SafeAreaView style={[styles.container, {backgroundColor: "white"}]}>
-        <Text style={{color: "black"}}>Insert details and render SectionList here</ Text>
+        {/*}<Text style={{color: "black"}}>Insert details and render SectionList here for: {id}</ Text>*/}
+        <SectionList
+           sections={menuData}
+           keyExtractor={(item, index) => item + index}
+           renderItem={({item}) => (
+             <View>
+               <Text style={styles.sectionItems}>{item}</Text>
+             </View>
+           )}
+           renderSectionHeader={({section: {title}}) => (
+             <View>
+              <Text style={styles.headers}>{title}</Text>
+             </View>
+           )}
+        />
     </ SafeAreaView>
   );
 }
@@ -132,10 +180,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: '#FBF501',
   },
-  listContainer: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
   innerContainer: {
     flex: 1,
     justifyContent: "center",
@@ -146,6 +190,16 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 20,
     textAlign: "center"
+  },
+  sectionItems: {
+    padding: 20,
+    marginVertical: 8,
+    color: 'black'
+  },
+  headers: {
+    color: 'black',
+    fontSize: 24,
+    backgroundColor: '#fff',
   }
 });
 

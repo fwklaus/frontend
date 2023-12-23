@@ -23,7 +23,7 @@ const DATA = [
   { id: 6, title: 'Taste of Jerusalem', category: 'Middle-Eastern', distance: 1.3, rating: 4 },
 ];
 
-function Item ({id, title, category, distance, rating}) {
+function Item ({id, title, category, distance, rating, phone, hours}) {
   // require does not work with dynamic values?
     // can't pass the image URL to require at runtime
   // find another way to load the image
@@ -31,7 +31,7 @@ function Item ({id, title, category, distance, rating}) {
   const navigation = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.navigate('RestaurantTemplate')}>
+    <Pressable onPress={() => navigation.navigate('RestaurantTemplate', {id, title, category, distance, rating, phone, hours})}>
       <View style={[styles.item, {flexDirection: 'row'}]}>
         <Image source={require(url)} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
         <View style={{marginLeft: 10, flex: 2}}>
@@ -45,7 +45,7 @@ function Item ({id, title, category, distance, rating}) {
   );
 }
 
-function MainListHeader(currentAddress, nResults) {
+function MainListHeader({currentAddress}) {
   return (
     <View>
       <View style={[styles.item, {padding: 10}]}>
@@ -54,9 +54,14 @@ function MainListHeader(currentAddress, nResults) {
       <View style={[styles.item, {padding: 10}]}>
         <Text style={{color: 'black'}}>Restaurants Near You (Carryout Only)</Text>
       </View>
-      <View style={[styles.item, {padding: 10}]}>
-        <Text  style={{color: 'black'}}>{nResults} Results</Text>
-      </View>
+    </View>
+  );
+}
+
+function ListResults(nResults) {
+  return (
+    <View style={[styles.item, {padding: 10}]}>
+      <Text  style={{color: 'black'}}>{nResults} Results</Text>
     </View>
   );
 }
@@ -72,11 +77,20 @@ export function HomeTab({navigation}) {
 
   return(
     <SafeAreaView style={styles.listContainer}>
+        <MainListHeader currentAddress={currentAddress} />
         <FlatList
           data={DATA}
-          renderItem={({item})=> <Item id={item.id} title={item.title} category={item.category} distance={item.distance} rating={item.rating}/>}
+          renderItem={({item})=> <Item
+              id={item.id}
+              title={item.title}
+              category={item.category}
+              distance={item.distance}
+              rating={item.rating}
+              phone={item.phone}
+              hours={item.hours}
+            />}
           keyExtractor={item => item.id}
-          ListHeaderComponent={MainListHeader(currentAddress, nResults)}
+          ListHeaderComponent={ListResults(nResults)}
         />
     </SafeAreaView>
   );
