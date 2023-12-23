@@ -76,6 +76,14 @@ function HomeScreen({ navigation }) {
   );
 }
 
+function RestaurantTemplate() {
+  return (
+    <SafeAreaView style={[styles.container, {backgroundColor: "white"}]}>
+        <Text style={{color: "black"}}>Insert details and render SectionList here</ Text>
+    </ SafeAreaView>
+  );
+}
+
 function App(): React.JSX.Element {
   return (
     <NavigationContainer>
@@ -91,6 +99,19 @@ function App(): React.JSX.Element {
           name="HomeScreen"
           component={HomeScreen}
           options={{
+            title: "OrderWeasel",
+            headerTintColor: "blue",
+            headerStyle: {
+              backgroundColor: "#FBF501",
+            },
+            headerTitleAlign: "center",
+            headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="RestaurantTemplate"
+          component={RestaurantTemplate}
+          options= {{
             title: "OrderWeasel",
             headerTintColor: "blue",
             headerStyle: {

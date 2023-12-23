@@ -1,5 +1,6 @@
 import React from 'react';
 import {} from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 import {
   SafeAreaView,
@@ -12,12 +13,28 @@ import {
   Text
 } from 'react-native';
 
-function Item ({title, category, distance, rating}) {
+
+const DATA = [
+  { id: 1, title: 'The Red Pickle', category: 'American', distance: 5.2, rating: 5 },
+  { id: 2, title: 'Yes Siam Thai', category: 'Thai', distance: 6, rating: 5 },
+  { id: 3, title: 'Classic Burgers', category: 'American', distance: 6, rating: 3.5 },
+  { id: 4, title: 'Arharn', category: 'Thai', distance: 2.1, rating: 5 },
+  { id: 5, title: 'Pakwan', category: 'Indian', distance: 1.4, rating: 4 },
+  { id: 6, title: 'Taste of Jerusalem', category: 'Middle-Eastern', distance: 1.3, rating: 4 },
+];
+
+function Item ({id, title, category, distance, rating}) {
+  // require does not work with dynamic values?
+    // can't pass the image URL to require at runtime
+  // find another way to load the image
+  let url = './images/order_weasel_small.jpg'
+  const navigation = useNavigation();
+
   return (
-    <Pressable onPress={() => console.log('Interesting')}>
+    <Pressable onPress={() => navigation.navigate('RestaurantTemplate')}>
       <View style={[styles.item, {flexDirection: 'row'}]}>
-        <Image source={require('./images/order_weasel_small.jpg')} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
-        <View style={{marginLeft: 10}}>
+        <Image source={require(url)} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
+        <View style={{marginLeft: 10, flex: 2}}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.title}>Category: {category}</Text>
           <Text style={styles.title}>Distance(mi): {distance}</Text>
@@ -28,47 +45,40 @@ function Item ({title, category, distance, rating}) {
   );
 }
 
-function GetRestaurants() {
-    // request restaurant data based on proximity to current location
-    // calculate distance
-    // get rating
-    // all done through Google?
-   const DATA = [{ id: 1, title: 'The Red Pickle', category: 'American', distance: 5.2, rating: 5 }];
-
-    return (
-        <FlatList
-          data={DATA}
-          renderItem={({item})=> <Item title={item.title} category={item.category} distance={item.distance} rating={item.rating} />}
-          keyExtractor={item => item.id}
-        />
-    );
+function MainListHeader(currentAddress, nResults) {
+  return (
+    <View>
+      <View style={[styles.item, {padding: 10}]}>
+        <Text style={{color: 'black'}}>{currentAddress}</Text>
+      </View>
+      <View style={[styles.item, {padding: 10}]}>
+        <Text style={{color: 'black'}}>Restaurants Near You (Carryout Only)</Text>
+      </View>
+      <View style={[styles.item, {padding: 10}]}>
+        <Text  style={{color: 'black'}}>{nResults} Results</Text>
+      </View>
+    </View>
+  );
 }
 
 export function HomeTab({navigation}) {
-  return(
-  <SafeAreaView style={styles.listContainer}>
-{/*      <View style={styles.mainTextContainer}> */}
-{/*        <Text style={{color: 'black'}}> */}
-{/*          Location */}
-{/*        </Text> */}
-{/*      </View> */}
-{/*      <View></View> */}
-{/*      <View style={styles.mainTextContainer}> */}
-{/*        <Text style={{color: 'black'}}> */}
-{/*          Restaurants Near You (Carryout Only) */}
-{/*        </Text> */}
-{/*      </View> */}
-{/*      <View style={styles.mainTextContainer}> */}
-{/*       <Text style={{color: 'black'}}> */}
-{/*          1 result */}
-{/*       </Text> */}
-{/*      </View> */}
+  // request restaurant data based on proximity to current location
+  // calculate distance
+  // get rating
+  // all done through Google?
+  let currentAddress = '5555 Oak Street';
+  let nResults = 1;
+// const DATA = reassign based on proximity to current location if the user changes their location
 
-{/*     <View style={styles.mainTextContainer}> */}
-{/*       <Button title="Temporary: Go To Red Pickle" onPress={() => navigation.navigate("RestaurantExample")}/> */}
-{/*     </View> */}
-    <GetRestaurants />
-  </SafeAreaView>
+  return(
+    <SafeAreaView style={styles.listContainer}>
+        <FlatList
+          data={DATA}
+          renderItem={({item})=> <Item id={item.id} title={item.title} category={item.category} distance={item.distance} rating={item.rating}/>}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={MainListHeader(currentAddress, nResults)}
+        />
+    </SafeAreaView>
   );
 }
 
@@ -118,12 +128,10 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
   },
   item: {
     backgroundColor: 'white',
     padding: 20,
-    marginVertical: 8,
     borderColor: 'black',
     borderBottomWidth: 1,
   },
