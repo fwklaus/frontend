@@ -1,6 +1,7 @@
 import React from 'react';
 import {} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import { RestaurantScreen } from './RestaurantScreen';
 
 import {
   SafeAreaView,
@@ -27,11 +28,11 @@ function Item ({id, title, category, distance, rating, phone, hours}) {
   // require does not work with dynamic values?
     // can't pass the image URL to require at runtime
   // find another way to load the image
-  let url = './images/order_weasel_small.jpg'
+  let url = '../images/order_weasel_small.jpg'
   const navigation = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.navigate('RestaurantTemplate', {id, title, category, distance, rating, phone, hours})}>
+    <Pressable onPress={() => navigation.navigate('RestaurantScreen', {id, title, category, distance, rating, phone, hours})}>
       <View style={[styles.item, {flexDirection: 'row'}]}>
         <Image source={require(url)} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
         <View style={{marginLeft: 10, flex: 2}}>
