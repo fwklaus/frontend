@@ -11,7 +11,7 @@ import {
 import { HomeTab, ServicesTab, TermsTab } from './MainTabs'
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+function MainTabs() {
   return (
     <Tab.Navigator screenOptions={{
       headerShown: false,
@@ -36,7 +36,7 @@ function MyTabs() {
 export function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={[styles.container, {backgroundColor: "white"}]}>
-        <MyTabs />
+        <MainTabs />
     </ SafeAreaView>
   );
 }
