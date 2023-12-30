@@ -49,6 +49,16 @@ function RestaurantHeader({params}) {
   );
 }
 
+function RestaurantFooter() {
+  return (
+    <View style={styles.bottom}>
+        <Pressable style={styles.button} onPress={() => (console.log('Interesting'))}>
+          <Text style={styles.buttonText}>View Cart</Text>
+        </Pressable>
+    </View>
+  );
+}
+
 export function RestaurantScreen({route, navigation}) {
   let params = route.params;
   const [expandedSections, setExpandedSections] = useState(new Set());
@@ -105,6 +115,7 @@ export function RestaurantScreen({route, navigation}) {
            </Pressable>
          )}
       />
+      <RestaurantFooter />
     </ SafeAreaView>
   );
 }
@@ -148,4 +159,28 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderBottomWidth: 1,
   },
+  button: {
+    width: '100%',
+    height: 60,
+    backgroundColor: 'white',
+    borderColor: 'black',
+    borderTopWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+   buttonText: {
+     fontSize: 16,
+     width: '90%',
+     color: 'black',
+     textAlign: 'center',
+     backgroundColor: '#FBF501',
+     padding: 8,
+     borderRadius: 8,
+     borderColor: 'black',
+     borderWidth: 1
+   },
+   bottom: {
+     flex: 1,
+     justifyContent: 'flex-end',
+   },
 });
