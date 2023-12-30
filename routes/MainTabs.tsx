@@ -29,10 +29,10 @@ function Item ({id, title, category, distance, rating, phone, hours}) {
       <View style={[styles.item, {flexDirection: 'row'}]}>
         <Image source={require(url)} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
         <View style={{marginLeft: 10, flex: 2}}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.title}>Category: {category}</Text>
-          <Text style={styles.title}>Distance(mi): {distance}</Text>
-          <Text style={styles.title}>Rating: {rating}</Text>
+          <Text style={styles.text}>{title}</Text>
+          <Text style={styles.text}>Category: {category}</Text>
+          <Text style={styles.text}>Distance(mi): {distance}</Text>
+          <Text style={styles.text}>Rating: {rating}</Text>
         </View>
       </View>
     </Pressable>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderBottomWidth: 1,
   },
-  title: {
+  text: {
     fontSize: 16,
     color: 'black',
   },
