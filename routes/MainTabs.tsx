@@ -17,7 +17,7 @@ import {
 // fetching nearby restaurant data example
 import restaurantData from '../data/restaurantData.js';
 
-function Item ({id, title, category, distance, rating, phone, hours}) {
+function Item ({id, title, category, distance, rating, phone, hours, address}) {
   // require does not work with dynamic values?
     // can't pass the image URL to require at runtime
   // find another way to load the image
@@ -25,7 +25,7 @@ function Item ({id, title, category, distance, rating, phone, hours}) {
   const navigation = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.navigate('RestaurantScreen', {id, title, category, distance, rating, phone, hours})}>
+    <Pressable onPress={() => navigation.navigate('RestaurantScreen', {id, title, category, distance, rating, phone, hours, address})}>
       <View style={[styles.item, {flexDirection: 'row'}]}>
         <Image source={require(url)} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
         <View style={{marginLeft: 10, flex: 2}}>
@@ -82,6 +82,7 @@ export function HomeTab({navigation}) {
               rating={item.rating}
               phone={item.phone}
               hours={item.hours}
+              address={item.address}
             />}
           keyExtractor={item => item.id}
           ListHeaderComponent={ListResults(nResults)}

@@ -21,15 +21,6 @@ function RestaurantHeader({params}) {
   let url = '../images/order_weasel_small.jpg'
   let id = params.id;
   let title = params.title;
-//   let category = params.category;
-//   let distance = params.distance;
-//   let rating = params.rating;
-//   let phone = params.phone;
-//   let hours = params.hours;
-//
-//   // example
-//   hours = '8:00-8:00'
-//   phone = '(456)567-7895'
 
   return (
     <View>
@@ -41,36 +32,10 @@ function RestaurantHeader({params}) {
   );
 }
 
-function CartModal() {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  return(
-    <SafeAreaView style={styles.centeredView}>
-      <Modal
-        animationType="none"
-        transparent={true}
-        visible={modalVisible}
-       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Pressable
-              style={styles.modalButtonClose}
-              onPress={() => {setModalVisible(!modalVisible)}}
-            >
-              <Text style={styles.modalButtonText}>Close Modal</Text>
-            </Pressable>
-            <Pressable></Pressable>
-          </View>
-        </View>
-      </Modal>
-    </SafeAreaView>
-  );
-}
-
-function AddToCart() {
-
-
-}
+// function AddToCart() {
+//
+//
+// }
 
 function RestaurantFooter() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -78,30 +43,29 @@ function RestaurantFooter() {
   return (
     <View>
       <Modal
-        animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed');
           setModalVisible(!modalVisible)
         }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}> Hello World! </Text>
+        <View style={modalStyles.centeredView}>
+          <View style={modalStyles.modalView}>
+            <Text style={modalStyles.modalText}> Hello World! </Text>
             <Pressable
-              style={styles.modalButtonClose}
+              style={modalStyles.modalButtonClose}
               onPress={() => {setModalVisible(!modalVisible)}}
             >
-              <Text style={styles.modalButtonText}>Close Modal</Text>
+              <Text style={modalStyles.modalButtonText}>Close</Text>
             </Pressable>
             <Pressable
-              style={styles.addToCartButton}
+              style={modalStyles.addToCartButton}
               onPress={() => {
                 setModalVisible(!modalVisible)
-                console.log('Add to Cart!')
+                console.log('Implement AddToCart!')
               }}
             >
-              <Text style={styles.modalButtonText}>Add to Cart</Text>
+              <Text style={modalStyles.modalButtonText}>Add to Cart</Text>
             </Pressable>
           </View>
         </View>
@@ -118,31 +82,20 @@ function RestaurantFooter() {
   );
 }
 
-function GetAddress({id}) {
-   // use id to get address, or do we already have that information from the earlier request?
-  //   let address = get address for id
+function GetDirections({address}) {
+  // clicking on the address should request Google API for directions to restaurant
 
   return (
-    <Pressable onPress={() => (console.log('Interesting'))}>
-      <Text style={{color: 'blue', textDecorationLine: 'underline'}}>5555 Main St, City, State, Zip, Country  </Text>
+    <Pressable onPress={() => (console.log('Connect to Google API'))}>
+      <Text style={{color: 'blue', textDecorationLine: 'underline'}}>{address}   </Text>
     </Pressable>
   );
 }
 
-function ListHeader({id, title, category, distance, rating, phone, hours}) {
-//     let id = params.id;
-//     let title = params.title;
-//     let category = params.category;
-//     let distance = params.distance;
-//     let rating = params.rating;
-//     let phone = params.phone;
-//     let hours = params.hours;
-
+function ListHeader({id, title, category, distance, rating, phone, hours, address}) {
     // example
     hours = '8:00-8:00';
     phone = '(456)567-7895'
-
-// need address for restaurant
 
   return (
     <View>
@@ -151,11 +104,11 @@ function ListHeader({id, title, category, distance, rating, phone, hours}) {
         <Text style={styles.text}>{hours}</Text>
         <Text style={styles.text}>{phone}</Text>
       </View>
-      <View style={[styles.topSection, {padding: 2, paddingLeft: 10}]}>
+      <View style={[styles.topSection, {height: 100, padding: 2, paddingLeft: 10}]}>
         <Text style={styles.text}>This is a pickup order</Text>
-        <Text style={[styles.text, {}]}>
+        <Text style={styles.text}>
           You'll need to go to {title} to pick up this order at:
-          <GetAddress id={id}/>
+          <GetDirections address={address}/>
         </Text>
       </View>
     </View>
@@ -198,6 +151,17 @@ export function RestaurantScreen({route, navigation}) {
          sections={DATA}
          extraData={expandedSections}
          keyExtractor={(item, index) => item + index}
+         ListHeaderComponent={ListHeader(params)}
+         renderSectionHeader={({section: {title}}) => (
+           <Pressable onPress={() => {
+             handleToggle(title);
+           }}>
+             <View style={[styles.headerContainer, {flexDirection: 'row', justifyContent: 'space-between'}]}>
+               <Text style={styles.headerText}>{title}</Text>
+               <Image style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}} source={require('../images/angle-small-down.png')} />
+             </View>
+           </Pressable>
+         )}
          renderItem={({section: {title}, item}) => {
            const isExpanded = expandedSections.has(title);
 
@@ -209,14 +173,6 @@ export function RestaurantScreen({route, navigation}) {
              </View>
            );
          }}
-         renderSectionHeader={({section: {title}}) => (
-           <Pressable onPress={() => handleToggle(title)}>
-             <View style={styles.headerContainer}>
-               <Text style={styles.headerText}>{title}</Text>
-             </View>
-           </Pressable>
-         )}
-         ListHeaderComponent={ListHeader(params)}
          ListFooterComponent={ListFooter}
       />
       <RestaurantFooter />
@@ -248,11 +204,11 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingLeft: 16
   },
-  headerContainer: {
-    borderColor: 'black',
-    borderBottomWidth: 1,
-    flex: 1,
-  },
+//   headerContainer: {
+//     borderColor: 'black',
+//     borderBottomWidth: 1,
+//     flex: 1,
+//   },
   itemContainer: {
     borderColor: 'black',
     borderWidth: 1,
@@ -286,52 +242,55 @@ const styles = StyleSheet.create({
      flex: 1,
      justifyContent: 'flex-end',
    },
-   centeredView: {
-     flex: 1,
-     justifyContent: 'center',
-     alignItems: 'center',
-//      backgroundColor: 'rgba(52, 52, 52, 0.4)'
-   },
-   modalView: {
-     margin: 20,
-     backgroundColor: 'white',
-     borderRadius: 16,
-     padding: 35,
-     alignItems: 'center',
-     shadowColor: '#000',
-     shadowOffset: {
-       width: 0,
-       height: 2,
+});
+
+const modalStyles = StyleSheet.create({
+     centeredView: {
+       flex: 1,
+       justifyContent: 'center',
+       alignItems: 'center',
+       backgroundColor: 'rgba(52, 52, 52, 0.4)'
      },
-     shadowOpacity: 0.25,
-     shadowRadius: 4,
-     elevation: 5,
-     width: '75%',
-     height: '45%'
-   },
-   modalText: {
-     marginBottom: 15,
-     textAlign: 'center',
-   },
-   modalButtonClose: {
-     backgroundColor: 'grey',
-     borderRadius: 20,
-     padding: 10,
-     elevation: 2,
-     bottom: -200,
-     left: -75
-   },
-   addToCartButton: {
-    backgroundColor: 'blue',
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    bottom: -158,
-    left: 70
-   },
-   modalButtonText: {
-     color: 'white',
-     fontWeight: 'bold',
-     textAlign: 'center',
-   },
+     modalView: {
+       margin: 20,
+       backgroundColor: 'white',
+       borderRadius: 16,
+       padding: 35,
+       alignItems: 'center',
+       shadowColor: '#000',
+       shadowOffset: {
+         width: 0,
+         height: 2,
+       },
+       shadowOpacity: 0.25,
+       shadowRadius: 4,
+       elevation: 5,
+       width: '75%',
+       height: '45%'
+     },
+     modalText: {
+       marginBottom: 15,
+       textAlign: 'center',
+     },
+     modalButtonClose: {
+       backgroundColor: 'grey',
+       borderRadius: 20,
+       padding: 10,
+       elevation: 2,
+       bottom: -200,
+       left: -75
+     },
+     addToCartButton: {
+      backgroundColor: 'blue',
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2,
+      bottom: -158,
+      left: 70
+     },
+     modalButtonText: {
+       color: 'white',
+       fontWeight: 'bold',
+       textAlign: 'center',
+     },
 });
