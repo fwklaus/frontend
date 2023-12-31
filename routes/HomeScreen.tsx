@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
+  Button
 } from 'react-native'
 import { HomeTab, ServicesTab, TermsTab } from './MainTabs'
 const Tab = createBottomTabNavigator();
@@ -25,6 +25,7 @@ function MainTabs() {
         marginBottom: 10,
       }
     }}>
+
       <Tab.Screen name="Home" component={ HomeTab }/>
       <Tab.Screen name="Our Services" component={ ServicesTab }/>
       <Tab.Screen name="Terms" component={ TermsTab }/>

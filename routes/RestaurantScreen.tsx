@@ -8,7 +8,7 @@ import {
   Pressable,
   Image,
   Modal,
-  Alert
+  Alert,
 } from 'react-native'
 
 // fetching menu data for a restaurant example
@@ -157,7 +157,7 @@ export function RestaurantScreen({route, navigation}) {
              handleToggle(title);
            }}>
              <View style={[styles.headerContainer, {flexDirection: 'row', justifyContent: 'space-between'}]}>
-               <Text style={styles.headerText}>{title}</Text>
+               <Text style={[styles.headerText, { width: '90%' }]}>{title}</Text>
                <Image style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}} source={require('../images/angle-small-down.png')} />
              </View>
            </Pressable>
@@ -165,11 +165,22 @@ export function RestaurantScreen({route, navigation}) {
          renderItem={({section: {title}, item}) => {
            const isExpanded = expandedSections.has(title);
 
+           let name = item.name;
+           let cost = item.cost;
+           let desc = item.description;
+//            let url =  item.picture
+           let url = '../images/order_weasel_small.jpg';
+
            if (!isExpanded) return null;
 
            return (
-             <View style={styles.itemContainer}>
-               <Text style={styles.sectionItems}>{item}</Text>
+             <View style={[styles.itemContainer, {flexDirection: 'row', padding: 8}]}>
+               <View style={{justifyContent: 'center', flex: 1, marginLeft: 32}}>
+                 <Text style={styles.text}>{name}</Text>
+                 <Text style={styles.text}>{desc}</Text>
+                 <Text style={styles.text}>{cost}</Text>
+               </View>
+               <Image style={{marginRight: 32}} source={require(url)} />
              </View>
            );
          }}

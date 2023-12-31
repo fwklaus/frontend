@@ -11,7 +11,7 @@ import {
   Pressable,
   View,
   Image,
-  Text
+  Text,
 } from 'react-native';
 
 // fetching nearby restaurant data example
