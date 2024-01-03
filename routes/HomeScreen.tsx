@@ -10,33 +10,27 @@ import {
 import { HomeTab, ServicesTab, TermsTab } from './MainTabs'
 const Tab = createBottomTabNavigator();
 
-function MainTabs() {
-  return (
-    <Tab.Navigator screenOptions={{
-      headerShown: false,
-      tabBarStyle: {
-        backgroundColor: 'yellow',
-      },
-      tabBarIconStyle: {
-        display: 'none',
-      },
-      tabBarLabelStyle: {
-        fontSize: 16,
-        marginBottom: 10,
-      }
-    }}>
-
-      <Tab.Screen name="Home" component={ HomeTab }/>
-      <Tab.Screen name="Our Services" component={ ServicesTab }/>
-      <Tab.Screen name="Terms" component={ TermsTab }/>
-    </Tab.Navigator>
-  );
-}
-
 export function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={[styles.container, {backgroundColor: "white"}]}>
-        <MainTabs />
+      <Tab.Navigator screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: 'yellow',
+        },
+        tabBarIconStyle: {
+          display: 'none',
+        },
+        tabBarLabelStyle: {
+          fontSize: 16,
+          marginBottom: 10,
+        }
+      }}>
+
+        <Tab.Screen name="Home" component={ HomeTab }/>
+        <Tab.Screen name="Our Services" component={ ServicesTab }/>
+        <Tab.Screen name="Terms" component={ TermsTab }/>
+      </Tab.Navigator>
     </ SafeAreaView>
   );
 }

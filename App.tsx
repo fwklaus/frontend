@@ -16,7 +16,7 @@ import {
 import { LoadingScreen } from './routes/LoadingScreen';
 import { HomeScreen } from './routes/HomeScreen';
 import { RestaurantScreen } from './routes/RestaurantScreen';
-import { CartScreen } from './routes/CartScreen';
+import { CheckoutScreen } from './routes/CheckoutScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +64,18 @@ function App(): React.JSX.Element {
             headerTitleAlign: "center",
           }}
         />
+         <Stack.Screen
+            name="CheckoutScreen"
+            component={CheckoutScreen}
+            options= {{
+              title: "OrderWeasel",
+              headerTintColor: "blue",
+              headerStyle: {
+                backgroundColor: "#FBF501",
+              },
+              headerTitleAlign: "center",
+            }}
+          />
       </Stack.Navigator>
     </ NavigationContainer>
   );
