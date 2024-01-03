@@ -1,8 +1,6 @@
 import React, {useState, createContext} from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -15,7 +13,6 @@ import {
   SectionList
 } from 'react-native';
 
-// import { HomeTab, ServicesTab, TermsTab } from './routes/MainTabs'
 import { LoadingScreen } from './routes/LoadingScreen';
 import { HomeScreen } from './routes/HomeScreen';
 import { RestaurantScreen } from './routes/RestaurantScreen';
@@ -30,12 +27,6 @@ const Stack = createNativeStackNavigator();
 //   LearnMoreLinks,
 //   ReloadInstructions,
 // } from 'react-native/Libraries/NewAppScreen';
-
-// type SectionProps = PropsWithChildren<{
-//   title: string;
-// }>;
-
-// export const ShoppingCart = createContext([]);
 
 function App(): React.JSX.Element {
   return (
@@ -64,18 +55,6 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name="RestaurantScreen"
           component={RestaurantScreen}
-          options= {{
-            title: "OrderWeasel",
-            headerTintColor: "blue",
-            headerStyle: {
-              backgroundColor: "#FBF501",
-            },
-            headerTitleAlign: "center",
-          }}
-        />
-        <Stack.Screen
-          name="CartScreen"
-          component={CartScreen}
           options= {{
             title: "OrderWeasel",
             headerTintColor: "blue",

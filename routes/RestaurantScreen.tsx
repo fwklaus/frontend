@@ -11,6 +11,7 @@ import {
 import { RestaurantHeader, RestaurantFooter } from './ResScreenComponents';
 import { ListHeader, ListFooter } from './ResListComponents';
 import { CartScreen } from './CartScreen';
+import { MenuItem } from './MenuItem';
 import menuData from '../data/menuData.js'
 
 // fetching menu data for a restaurant example
@@ -62,23 +63,10 @@ export function RestaurantScreen({route, navigation}) {
          renderItem={({section: {title}, item}) => {
            const isExpanded = expandedSections.has(title);
 
-           let name = item.name;
-           let cost = item.cost;
-           let desc = item.description;
-//            let url =  item.picture
-           let url = '../images/order_weasel_small.jpg';
-
            if (!isExpanded) return null;
 
            return (
-             <View style={[styles.itemContainer, {flexDirection: 'row', padding: 8}]}>
-               <View style={{justifyContent: 'center', flex: 1, marginLeft: 32}}>
-                 <Text style={styles.text}>{name}</Text>
-                 <Text style={[styles.text, {fontSize: 12}]}>{desc}</Text>
-                 <Text style={styles.text}>{cost}</Text>
-               </View>
-               <Image style={{marginRight: 32, width: 75, height: 75}} source={require(url)} />
-             </View>
+             <MenuItem item={item}/>
            );
          }}
          ListFooterComponent={ListFooter}
@@ -122,5 +110,3 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
 });
-
-const Styles = StyleSheet.create({});
