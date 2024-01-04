@@ -24,13 +24,13 @@ export function RestaurantHeader({params}) {
   );
 }
 
-export function RestaurantFooter({params}) {
+export function RestaurantFooter({params, navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View>
       <View style={styles.bottom}>
-          <Pressable style={styles.button} onPress={() => console.log("implement cart")}>
+          <Pressable style={styles.button} onPress={()=> navigation.navigate('Cart')}>
             <View style={styles.buttonText}>
               <Text style={[styles.text, {width: 100, textAlign: 'center'}]}>View Cart</Text>
               <Text style={[styles.text, {right: -135, width: 100, textAlign: 'center'}]}>$0.00</Text>

@@ -42,8 +42,6 @@ export function MenuTab({route, navigation}) {
   //   // this will be an asynchronous call to the backend API
     const DATA = getMenuData(id);
 
-
-//   debugger;
   return (
     <SafeAreaView style={styles.container}>
       <RestaurantHeader params={params}/>
@@ -73,7 +71,7 @@ export function MenuTab({route, navigation}) {
          }}
          ListFooterComponent={ListFooter}
       />
-      <RestaurantFooter params={params}/>
+      <RestaurantFooter params={params} navigation={navigation}/>
     </ SafeAreaView>
   );
 }

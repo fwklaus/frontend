@@ -9,7 +9,8 @@ import {
   Image
 } from 'react-native'
 
-export function CartTab() {
+export function CartTab({params, navigation}) {
+
   return(
     <SafeAreaView>
       <Text>CartTab</Text>

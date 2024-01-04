@@ -35,7 +35,7 @@ export function RestaurantScreen({route, navigation}) {
       <Tab.Navigator screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: 'white',
+          display: 'none',
         },
         tabBarIconStyle: {
           display: 'none',
@@ -45,8 +45,16 @@ export function RestaurantScreen({route, navigation}) {
           marginBottom: 10,
         }
       }}>
-        <Tab.Screen name="Menu" component={ MenuTab } initialParams={{params: params}}/>
-        <Tab.Screen name="Cart" component={ CartTab }/>
+        <Tab.Screen
+          name="Menu"
+          component={ MenuTab }
+          initialParams={{params: params}}
+        />
+        <Tab.Screen
+          name="Cart"
+          component={ CartTab }
+          initialParams={{params: params}}
+        />
       </ Tab.Navigator>
     </ SafeAreaView>
   );
