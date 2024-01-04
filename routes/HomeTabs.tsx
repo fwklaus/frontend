@@ -2,7 +2,6 @@ import React from 'react';
 import {} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { RestaurantScreen } from './RestaurantScreen';
-
 import {
   SafeAreaView,
   StyleSheet,
@@ -52,7 +51,8 @@ function MainListHeader({currentAddress}) {
   );
 }
 
-function ListResults(nResults) {
+function ListResults(list) {
+  let nResults = list.length;
   return (
     <View style={[styles.item, {padding: 10}]}>
       <Text  style={{color: 'black'}}>{nResults} Results</Text>
@@ -66,7 +66,6 @@ export function HomeTab({navigation}) {
   // get rating
   // all done through Google?
   let currentAddress = '5555 Oak Street';
-  let nResults = 1;
 // const DATA = reassign based on proximity to current location if the user changes their location
 
   return(
@@ -85,7 +84,7 @@ export function HomeTab({navigation}) {
               address={item.address}
             />}
           keyExtractor={item => item.id}
-          ListHeaderComponent={ListResults(nResults)}
+          ListHeaderComponent={ListResults(restaurantData)}
         />
     </SafeAreaView>
   );

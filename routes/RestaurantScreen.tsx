@@ -9,12 +9,6 @@ import {
   Pressable,
   Image
 } from 'react-native'
-// import { RestaurantHeader, RestaurantFooter } from './ResScreenComponents';
-// import { ListHeader, ListFooter } from './ResListComponents';
-// import { CartScreen } from './CartScreen';
-// import { MenuItem } from './MenuItem';
-// import menuData from '../data/menuData.js'
-
 import { MenuTab } from './MenuTab';
 import { CartTab } from './CartTab';
 const Tab = createBottomTabNavigator();
@@ -66,31 +60,5 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "center",
     backgroundColor: 'white',
-  },
-//   sectionItems: {
-//     padding: 20,
-//     marginVertical: 8,
-//     color: 'black'
-//   },
-//   topSection: {
-//     backgroundColor: 'white',
-//     borderColor: 'black',
-//     borderBottomWidth: 1,
-//   },
-//   headerText: {
-//     color: 'black',
-//     fontSize: 16,
-//     backgroundColor: '#fff',
-//     padding: 20,
-//     paddingLeft: 16
-//   },
-//   itemContainer: {
-//     borderColor: 'black',
-//     borderWidth: 1,
-//     margin: 10,
-//   },
-//   text: {
-//     color: 'black',
-//     fontSize: 16
-//   },
+  }
 });

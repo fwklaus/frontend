@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   SafeAreaView,
-  SectionList,
+  FlatList,
   View,
   Text,
   StyleSheet,
@@ -9,9 +9,12 @@ import {
   Image
 } from 'react-native'
 
-const DATA = [];
+import CartData from '../data/cartData'
+// data required from the context hook in RestaurantScreen
+// example using seedData
+const DATA = CartData;
 
-export function CartHeader({params}) {
+function CartHeader({params}) {
   let url = '../images/order_weasel_small.jpg'
   let id = params.id;
   let title = params.title;
@@ -29,13 +32,16 @@ export function CartHeader({params}) {
 function CartFooter({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
 
+   // need to insert Totals view at the top of the footer
+
+
   return (
     <View style={[styles.bottom,  {borderTopWidth: 1, borderColor: 'black'}]}>
       <Pressable style={styles.closeCart}onPress={()=> navigation.navigate('Menu')}>
-        <Text style={styles.text}>Close Cart</Text>
+        <Text style={styles.cartButtonText}>Close Cart</Text>
       </Pressable>
       <Pressable style={styles.checkout} onPress={()=> navigation.navigate('CheckoutScreen')}>
-        <Text style={styles.text}>Checkout</Text>
+        <Text style={styles.cartButtonText}>Checkout</Text>
       </Pressable>
     </View>
   );
@@ -47,8 +53,34 @@ export function CartTab({route, navigation}) {
   return(
     <SafeAreaView style={styles.container}>
       <CartHeader params={params}/>
-      <SectionList
-        sections={DATA}
+      <FlatList
+        data={DATA}
+        renderItem={({item}) => {
+          let cost = item.cost;
+          let name = item.name;
+          let quantity = item.quantity;
+          let trash = '../images/trash_small.png'
+
+          return(
+            <View style={{flex: 1, flexDirection: 'row', marginBottom: 8, marginTop: 16, height: 40}}>
+              <Text style={[styles.text, {flex: 2, paddingLeft: 24}]}>{quantity} X {name}</Text>
+              <Text style={[styles.text, {flex: 1}]}>${(cost * quantity).toFixed(2)}</Text>
+              <View style={{flex: .5}}>
+                <Pressable onPress={() => {console.log('implement cart item deletion')}}>
+                  <Image style={{height: 25, width: 25}} source={require(trash)}/>
+                </Pressable>
+              </View>
+            </View>
+          );
+        }}
+        ListHeaderComponent={() => {
+          return (
+            <View style={{borderBottomWidth: 1, borderColor: 'black'}}>
+              <Text style={[styles.text, {textAlign: 'center', marginTop: 4, marginBottom: 4}]}>Your items</Text>
+            </View>
+          );
+        }}
+        keyExtractor={ item => item.id}
       />
       <CartFooter navigation={navigation}/>
     </SafeAreaView>
@@ -67,10 +99,15 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderBottomWidth: 1,
   },
-  text: {
+  cartButtonText: {
     color: 'white',
     fontSize: 16,
     textAlign: 'center'
+  },
+  text: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold'
   },
    closeCart: {
      fontSize: 16,
