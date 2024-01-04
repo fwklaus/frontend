@@ -53,7 +53,7 @@ export function RestaurantScreen({route, navigation}) {
         <Tab.Screen
           name="Cart"
           component={ CartTab }
-          initialParams={{params: params}}
+          backBehavior="RestaurantScreen"
         />
       </ Tab.Navigator>
     </ SafeAreaView>
