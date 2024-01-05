@@ -29,20 +29,50 @@ function CartHeader({params}) {
   );
 }
 
-function CartFooter({navigation}) {
+function CartFooter({params, navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
 
-   // need to insert Totals view at the top of the footer
+  let id = params.id;
+  let address = params.address;
+  let logo = params.picture;
+  logo = '../images/order_weasel_small.jpg';
 
+  // need access to the cart here - comes from the context
+  // Do we need to send any of the params to checkout?
+      // picture (change picture to logo)
+      // id
+      // address
+
+      // Send Total values calculated from the Context
 
   return (
-    <View style={[styles.bottom,  {borderTopWidth: 1, borderColor: 'black'}]}>
-      <Pressable style={styles.closeCart}onPress={()=> navigation.navigate('Menu')}>
-        <Text style={styles.cartButtonText}>Close Cart</Text>
-      </Pressable>
-      <Pressable style={styles.checkout} onPress={()=> navigation.navigate('CheckoutScreen')}>
-        <Text style={styles.cartButtonText}>Checkout</Text>
-      </Pressable>
+    <View style={{flex: 1, borderTopWidth: 1, borderColor: 'black'}}>
+      <View style={{flex: 1}}>
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <View>
+                <Text style={styles.text}>Subtotal:</Text>
+                <Text style={styles.text}>Estimated Tax:</Text>
+                <Text style={styles.text}>Total:</Text>
+              </View>
+           </View>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+               <View>
+                 <Text style={styles.text}>$0.00</Text>
+                 <Text style={styles.text}>$0.00</Text>
+                 <Text style={styles.text}>$0.00</Text>
+               </View>
+            </View>
+        </View>
+      </View>
+      <View style={[styles.bottom,  {borderTopWidth: 1, borderColor: 'black'}]}>
+        <Pressable style={styles.closeCart}onPress={()=> navigation.navigate('Menu')}>
+          <Text style={styles.cartButtonText}>Close Cart</Text>
+        </Pressable>
+        <Pressable style={styles.checkout} onPress={()=> navigation.navigate('CheckoutScreen')}>
+          <Text style={styles.cartButtonText}>Checkout</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -62,7 +92,7 @@ export function CartTab({route, navigation}) {
           let trash = '../images/trash_small.png'
 
           return(
-            <View style={{flex: 1, flexDirection: 'row', marginBottom: 8, marginTop: 16, height: 40}}>
+            <View style={{flexDirection: 'row', marginBottom: 8, marginTop: 16, height: 40}}>
               <Text style={[styles.text, {flex: 2, paddingLeft: 24}]}>{quantity} X {name}</Text>
               <Text style={[styles.text, {flex: 1}]}>${(cost * quantity).toFixed(2)}</Text>
               <View style={{flex: .5}}>
@@ -82,7 +112,7 @@ export function CartTab({route, navigation}) {
         }}
         keyExtractor={ item => item.id}
       />
-      <CartFooter navigation={navigation}/>
+      <CartFooter navigation={navigation} params={params}/>
     </SafeAreaView>
   );
 }
