@@ -99,7 +99,7 @@ export function ServicesTab() {
   ];
 
   return(
-     <SafeAreaView>
+     <SafeAreaView style={[styles.container, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
         <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Our Services</Text>
         <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[0]}</Text>
         <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[1]}</Text>
@@ -111,7 +111,7 @@ export function ServicesTab() {
 
 export function TermsTab() {
   return(
-    <SafeAreaView>
+    <SafeAreaView style={[styles.container, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
       <View>
         <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Terms of Service</Text>
       </View>

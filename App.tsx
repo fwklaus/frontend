@@ -22,10 +22,6 @@ const Stack = createNativeStackNavigator();
 
 // import {
 //   Colors,
-//   DebugInstructions,
-//   Header,
-//   LearnMoreLinks,
-//   ReloadInstructions,
 // } from 'react-native/Libraries/NewAppScreen';
 
 function App(): React.JSX.Element {
@@ -56,7 +52,7 @@ function App(): React.JSX.Element {
           name="RestaurantScreen"
           component={RestaurantScreen}
           options= {{
-            title: "OrderWeasel",
+            title: "Order",
             headerTintColor: "blue",
             headerStyle: {
               backgroundColor: "#FBF501",
@@ -68,7 +64,7 @@ function App(): React.JSX.Element {
             name="CheckoutScreen"
             component={CheckoutScreen}
             options= {{
-              title: "OrderWeasel",
+              title: "Checkout",
               headerTintColor: "blue",
               headerStyle: {
                 backgroundColor: "#FBF501",

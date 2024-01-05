@@ -20,11 +20,11 @@ function CartHeader({params}) {
   let title = params.title;
 
   return (
-    <View>
-      <View style={[styles.topSection, {flexDirection: 'row', justifyContent: 'space-around', padding: 5, paddingLeft: 10}]}>
+    <View style={[styles.topSection, {flexDirection: 'row', padding: 5, paddingLeft: 10}]}>
+      <View style={{flex: 1, marginLeft: 10}}>
         <Image source={require(url)} style={{width: 50, height: 50}}></Image>
-        <Text style={{width: 300, verticalAlign: 'middle', color: 'black'}}>{title}</Text>
       </View>
+      <Text style={[styles.text, {flex: 3, verticalAlign: 'middle', color: 'black'}]}>{title}</Text>
     </View>
   );
 }
@@ -32,18 +32,7 @@ function CartHeader({params}) {
 function CartFooter({params, navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
 
-  let id = params.id;
-  let address = params.address;
-  let logo = params.picture;
-  logo = '../images/order_weasel_small.jpg';
-
-  // need access to the cart here - comes from the context
-  // Do we need to send any of the params to checkout?
-      // picture (change picture to logo)
-      // id
-      // address
-
-      // Send Total values calculated from the Context
+  // Send Total values calculated from the Context to CheckoutScreen
 
   return (
     <View style={{flex: 1, borderTopWidth: 1, borderColor: 'black'}}>
@@ -69,7 +58,7 @@ function CartFooter({params, navigation}) {
         <Pressable style={styles.closeCart}onPress={()=> navigation.navigate('Menu')}>
           <Text style={styles.cartButtonText}>Close Cart</Text>
         </Pressable>
-        <Pressable style={styles.checkout} onPress={()=> navigation.navigate('CheckoutScreen')}>
+        <Pressable style={styles.checkout} onPress={()=> navigation.navigate('CheckoutScreen', params)}>
           <Text style={styles.cartButtonText}>Checkout</Text>
         </Pressable>
       </View>
