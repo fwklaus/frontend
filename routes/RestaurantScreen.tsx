@@ -24,6 +24,8 @@ export function RestaurantScreen({route, navigation}) {
     // Do we use Context or State hooks?
   let params = route.params
 
+
+
   return (
     <SafeAreaView style={styles.container}>
       <Tab.Navigator screenOptions={{

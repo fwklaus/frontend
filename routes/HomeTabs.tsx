@@ -42,10 +42,10 @@ function MainListHeader({currentAddress}) {
   return (
     <View>
       <View style={[styles.item, {padding: 10}]}>
-        <Text style={{color: 'black'}}>{currentAddress}</Text>
+        <Text style={styles.headingText}>{currentAddress}</Text>
       </View>
       <View style={[styles.item, {padding: 10}]}>
-        <Text style={{color: 'black'}}>Restaurants Near You (Carryout Only)</Text>
+        <Text style={[styles.headingText, {color: 'blue'}]}>Restaurants Near You (Carryout Only)</Text>
       </View>
     </View>
   );
@@ -55,7 +55,7 @@ function ListResults(list) {
   let nResults = list.length;
   return (
     <View style={[styles.item, {padding: 10}]}>
-      <Text  style={{color: 'black'}}>{nResults} Results</Text>
+      <Text  style={[styles.headingText, {color: '#A1000E', fontSize: 16}]}>{nResults} Results</Text>
     </View>
   );
 }
@@ -101,10 +101,10 @@ export function ServicesTab() {
   return(
      <SafeAreaView style={[styles.container, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
         <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Our Services</Text>
-        <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[0]}</Text>
-        <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[1]}</Text>
-        <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[2]}</Text>
-        <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>-{text[3]}</Text>
+        <Text style={styles.serviceTermsText}>-{text[0]}</Text>
+        <Text style={styles.serviceTermsText}>-{text[1]}</Text>
+        <Text style={styles.serviceTermsText}>-{text[2]}</Text>
+        <Text style={styles.serviceTermsText}>-{text[3]}</Text>
      </SafeAreaView>
   );
 }
@@ -116,10 +116,10 @@ export function TermsTab() {
         <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Terms of Service</Text>
       </View>
       <View >
-        <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>
+        <Text style={styles.serviceTermsText}>
           This is a student project...
         </Text>
-       <Text style={{color: 'black', marginBottom: 10, fontSize: 16}}>
+       <Text style={styles.serviceTermsText}>
           We are not liable...
        </Text>
       </View>
@@ -146,5 +146,17 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     color: 'black',
+    fontWeight: 'bold'
   },
+  headingText: {
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  serviceTermsText: {
+     fontWeight: 'bold',
+     color: 'black',
+     fontSize: 16,
+     marginBottom: 10
+  }
 });

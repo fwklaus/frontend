@@ -18,7 +18,6 @@ function Address({address}) {
   );
 }
 
-
 function ContactInfo() {
   return(
     <View style={{flex: 3}}>

@@ -34,27 +34,29 @@ function RestaurantHeader({params}) {
   let title = params.title;
 
   return (
-    <View>
-      <View style={[styles.topSection, {flexDirection: 'row', justifyContent: 'space-around', padding: 5, paddingLeft: 10}]}>
-        <Image source={require(url)} style={{width: 50, height: 50}}></Image>
-        <Text style={[styles.text, {width: 300, verticalAlign: 'middle'}]}>{title}</Text>
-      </View>
+  <View style={[styles.topSection, {padding: 10, flexDirection: 'row', paddingLeft: 20,  alignItems: 'center'}]}>
+    <View style={{flex: 1}}>
+      <Image source={require(url)} style={{width: 50, height: 50}}></Image>
     </View>
+    <Text style={[styles.headingText, {flex: 3}]}>{title}</Text>
+  </View>
   );
 }
 
 function RestaurantFooter({params, navigation}) {
-  const [modalVisible, setModalVisible] = useState(false);
-
   return (
-      <View style={styles.bottom}>
-        <Pressable style={styles.button} onPress={()=> navigation.navigate('Cart', params)}>
-          <View style={styles.buttonText}>
-            <Text style={[styles.text, {width: 100, textAlign: 'center'}]}>View Cart</Text>
-            <Text style={[styles.text, {right: -135, width: 100, textAlign: 'center'}]}>$0.00</Text>
-          </View>
-        </Pressable>
-    </View>
+    <Pressable style={styles.button} onPress={()=> navigation.navigate('Cart', params)}>
+      <View style={{flex: 0.5}}></View>
+      <View style={[styles.buttonText, {flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}]}>
+        <View style={{flex: 1}}>
+          <Text style={[styles.headingText, {textAlign: 'center'}]}>View Cart</Text>
+        </View>
+        <View style={{flex: 1}}>
+          <Text style={[styles.headingText,  {textAlign: 'center'}]}>$0.00</Text>
+        </View>
+      </View>
+      <View style={{flex: 0.5}}></View>
+    </Pressable>
   );
 }
 
@@ -64,17 +66,18 @@ function ListHeader({id, title, category, distance, rating, phone, hours, addres
     phone = '(456)567-7895'
 
   return (
-    <View>
-      <View style={[styles.topSection, {height: 80, padding: 2, paddingLeft: 10}]}>
-        <Text style={[styles.text, {width: '100%'}]}>{rating} | {category} | {distance}mi</Text>
-        <Text style={styles.text}>{hours}</Text>
-        <Text style={styles.text}>{phone}</Text>
+    <View style={{flex: 1}}>
+      <View style={[styles.topSection, {flex: 1}]}>
+        <View style={{flex: 1, padding: 10, paddingLeft: 40, paddingRight: 40}}>
+          <Text style={styles.headingText}>{rating} | {category} | {distance}mi</Text>
+          <Text style={styles.headingText}>{hours}</Text>
+          <Text style={styles.headingText}>{phone}</Text>
+        </View>
       </View>
-      <View style={[styles.topSection, {height: 100, padding: 2, paddingLeft: 10}]}>
+      <View style={[styles.topSection, {padding: 10}]}>
         <Text style={styles.text}>This is a pickup order</Text>
         <Text style={styles.text}>
-          You'll need to go to {title} to pick up this order at:
-          <GetDirections address={address}/>
+          You'll need to go to {title} to pick up this order at: <GetDirections address={address}/>
         </Text>
       </View>
     </View>
@@ -92,7 +95,7 @@ export function MenuTab({route, navigation}) {
     let params = route.params.params;
     const [expandedSections, setExpandedSections] = useState(new Set());
 
-    let id = params.id;
+    let restaurantId = params.id;
 
     const handleToggle = (title) => {
        setExpandedSections((expandedSections) => {
@@ -109,7 +112,7 @@ export function MenuTab({route, navigation}) {
   //   // request menu data using params.id
   //   //  let Data = getMenuData for the given params.id
   //   // this will be an asynchronous call to the backend API
-    const DATA = getMenuData(id);
+    const DATA = getMenuData(restaurantId);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -135,7 +138,7 @@ export function MenuTab({route, navigation}) {
            if (!isExpanded) return null;
 
            return (
-             <MenuItem item={item}/>
+             <MenuItem item={item} restaurantId={restaurantId}/>
            );
          }}
          ListFooterComponent={ListFooter}
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
     },
     headerText: {
       color: 'black',
-      fontSize: 16,
+      fontSize: 20,
       backgroundColor: '#fff',
       padding: 20,
       paddingLeft: 16
@@ -176,20 +179,21 @@ const styles = StyleSheet.create({
        padding: 8,
        borderRadius: 8,
        borderColor: 'black',
-       borderWidth: 1,
-       flexDirection: 'row'
-     },
-     bottom: {
-       flex: 1,
-       justifyContent: 'flex-end',
+       borderWidth: 1
      },
     topSection: {
        backgroundColor: 'white',
        borderColor: 'black',
        borderBottomWidth: 1,
      },
-     text: {
-       color: 'black',
-       fontSize: 16
-     },
+    text: {
+     color: 'black',
+     fontSize: 16,
+     fontWeight: 'bold'
+    },
+    headingText: {
+     color: 'black',
+     fontSize: 20,
+     fontWeight: 'bold'
+    },
 });

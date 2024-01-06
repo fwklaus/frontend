@@ -4,9 +4,9 @@ export default {
       "title": "Pancakes",
       "data":
         [
-          {name: 'blueberry', cost: 8.99, description: 'Yummy...', picture: '../images/order_weasel_small.jpg'},
-          {name: 'chocolate chip', cost: 7.99, description: 'Messy...', picture: '../images/order_weasel_small.jpg'},
-          {name: 'buttermilk', cost: 5.99, description: 'The classic ...', picture: '../images/order_weasel_small.jpg'}
+          {id: 1, name: 'blueberry', cost: 8.99, description: 'Yummy...', picture: '../images/order_weasel_small.jpg'},
+          {id: 2, name: 'chocolate chip', cost: 7.99, description: 'Messy...', picture: '../images/order_weasel_small.jpg'},
+          {id: 3, name: 'buttermilk', cost: 5.99, description: 'The classic ...', picture: '../images/order_weasel_small.jpg'}
         ],
 
     },
@@ -14,18 +14,18 @@ export default {
       "title": "Eggs",
       "data":
         [
-          { name: "scrambled", cost: '3.50', description: '...', picture: '../images/order_weasel_small.jpg' },
-          { name: "sunny-side up", cost: '2.00', description: '...', picture: '../images/order_weasel_small.jpg' },
-          { name: "overeasy", cost: '1.00', description: '...', picture: '../images/order_weasel_small.jpg' }
+          {id: 4, name: "scrambled", cost: '3.50', description: '...', picture: '../images/order_weasel_small.jpg' },
+          {id: 5, name: "sunny-side up", cost: '2.00', description: '...', picture: '../images/order_weasel_small.jpg' },
+          {id: 6, name: "overeasy", cost: '1.00', description: '...', picture: '../images/order_weasel_small.jpg' }
         ],
     },
     {
       "title": "drinks",
       "data":
        [
-         { name: "coffee", cost: '3.50', description: 'House Brew', picture: '../images/order_weasel_small.jpg' },
-         { name: "orange juice", cost: '2.50', description: 'Freshly squeezed. No pulp', picture: '../images/order_weasel_small.jpg' },
-         { name: "milk", cost: '2.00', description: 'Not very popular these days', picture: '../images/order_weasel_small.jpg' }
+         {id: 7, name: "coffee", cost: '3.50', description: 'House Brew', picture: '../images/order_weasel_small.jpg' },
+         {id: 8, name: "orange juice", cost: '2.50', description: 'Freshly squeezed. No pulp', picture: '../images/order_weasel_small.jpg' },
+         {id: 9, name: "milk", cost: '2.00', description: 'Not very popular these days', picture: '../images/order_weasel_small.jpg' }
        ]
     }
   ],
@@ -34,9 +34,9 @@ export default {
         "title": "Burger",
         "data":
           [
-            {name: 'Cheeseburger', cost: 8.99, description: 'Decadent...', picture: '../images/order_weasel_small.jpg'},
-            {name: 'Burger', cost: 6.99, description: 'Plain...', picture: '../images/order_weasel_small.jpg'},
-            {name: 'GreenChiliCheeseBurger', cost: 10.99, description: 'Smothered, open-face...', picture: '../images/order_weasel_small.jpg'}
+            {id: 10, name: 'Cheeseburger', cost: 8.99, description: 'Decadent...', picture: '../images/order_weasel_small.jpg'},
+            {id: 11, name: 'Burger', cost: 6.99, description: 'Plain...', picture: '../images/order_weasel_small.jpg'},
+            {id: 12, name: 'GreenChiliCheeseBurger', cost: 10.99, description: 'Smothered, open-face...', picture: '../images/order_weasel_small.jpg'}
           ],
 
      },
@@ -44,16 +44,16 @@ export default {
        "title": "Vegan",
        "data":
          [
-           {name: 'Impossible', cost: 8.99, description: 'Indistinguishable...', picture: '../images/order_weasel_small.jpg'},
-           {name: 'BeyondMeat', cost: 6.99, description: 'Odd aftertaste...', picture: '../images/order_weasel_small.jpg'}
+           {id: 13, name: 'Impossible', cost: 8.99, description: 'Indistinguishable...', picture: '../images/order_weasel_small.jpg'},
+           {id: 14, name: 'BeyondMeat', cost: 6.99, description: 'Odd aftertaste...', picture: '../images/order_weasel_small.jpg'}
          ],
      },
      {
        "title": "Drinks",
        "data":
          [
-           {name: 'Soda', cost: 3.00, description: 'Remember when these were 1 dollar...', picture: '../images/order_weasel_small.jpg'},
-           {name: 'Beer', cost: 6.99, description: 'Not very popular with the kids...', picture: '../images/order_weasel_small.jpg'}
+           {id: 15, name: 'Soda', cost: 3.00, description: 'Remember when these were 1 dollar...', picture: '../images/order_weasel_small.jpg'},
+           {id: 16, name: 'Beer', cost: 6.99, description: 'Not very popular with the kids...', picture: '../images/order_weasel_small.jpg'}
          ],
      },
   ],
@@ -61,27 +61,27 @@ export default {
     {
       "title": "Beer",
       "data": [
-        {name: 'Coors', cost: 6.99, description: 'Tastes cheap', picture: '../images/order_weasel_small.jpg'},
-        {name: 'Blue Moon', cost: 6.99, description: 'Gateway from Coors to better beers', picture: '../images/order_weasel_small.jpg'},
-        {name: 'Fat Tire', cost: 6.99, description: 'The new Coors...', picture: '../images/order_weasel_small.jpg'},
-        {name: 'Easy Street', cost: 6.99, description: 'What you should be drinking in the summer', picture: '../images/order_weasel_small.jpg'}
+        {id: 17, name: 'Coors', cost: 6.99, description: 'Tastes cheap', picture: '../images/order_weasel_small.jpg'},
+        {id: 18, name: 'Blue Moon', cost: 6.99, description: 'Gateway from Coors to better beers', picture: '../images/order_weasel_small.jpg'},
+        {id: 19, name: 'Fat Tire', cost: 6.99, description: 'The new Coors...', picture: '../images/order_weasel_small.jpg'},
+        {id: 20, name: 'Easy Street', cost: 6.99, description: 'What you should be drinking in the summer', picture: '../images/order_weasel_small.jpg'}
       ]
     },
     {
       "title": "Cocktails",
       "data": [
-        {name: 'Egg Nog', cost: 11.50, description: 'Great around the holidays', picture: '../images/order_weasel_small.jpg'},
-        {name: 'Old Fashioned', cost: 10.50, description: 'Classic, simple, makes you feel adult', picture: '../images/order_weasel_small.jpg'},
-        {name: 'Manhattan', cost: 12.99, description: "Never had this one, but it's expensive", picture: '../images/order_weasel_small.jpg'},
-        {name: 'Tom Collins', cost: 11.50, description: 'As seen in "Meet the Parents"', picture: '../images/order_weasel_small.jpg'}
+        {id: 21, name: 'Egg Nog', cost: 11.50, description: 'Great around the holidays', picture: '../images/order_weasel_small.jpg'},
+        {id: 22, name: 'Old Fashioned', cost: 10.50, description: 'Classic, simple, makes you feel adult', picture: '../images/order_weasel_small.jpg'},
+        {id: 23, name: 'Manhattan', cost: 12.99, description: "Never had this one, but it's expensive", picture: '../images/order_weasel_small.jpg'},
+        {id: 24, name: 'Tom Collins', cost: 11.50, description: 'As seen in "Meet the Parents"', picture: '../images/order_weasel_small.jpg'}
       ]
     },
     {
       "title": "Eats",
       "data": [
-        {name: 'Mixed Nuts', cost: 5.00, description: 'Like they serve in Coach', picture: '../images/order_weasel_small.jpg'},
-        {name: 'Pickled Veg', cost: 6.00, description: 'First-class', picture: '../images/order_weasel_small.jpg'},
-        {name: 'Jalapeño Poppers', cost: 8.00 , description: 'Honey, cancel the flight. Meet me in the lounge', picture: '../images/order_weasel_small.jpg'},
+        {id: 25, name: 'Mixed Nuts', cost: 5.00, description: 'Like they serve in Coach', picture: '../images/order_weasel_small.jpg'},
+        {id: 26, name: 'Pickled Veg', cost: 6.00, description: 'First-class', picture: '../images/order_weasel_small.jpg'},
+        {id: 27, name: 'Jalapeño Poppers', cost: 8.00 , description: 'Honey, cancel the flight. Meet me in the lounge', picture: '../images/order_weasel_small.jpg'},
       ]
     },
   ],

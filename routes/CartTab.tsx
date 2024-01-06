@@ -32,7 +32,7 @@ function CartHeader({params}) {
 function CartFooter({params, navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Send Total values calculated from the Context to CheckoutScreen
+  // Send Total values calculated from the Context to CheckoutScreen along with params
 
   return (
     <View style={{flex: 1, borderTopWidth: 1, borderColor: 'black'}}>

@@ -9,8 +9,7 @@ import {
 } from 'react-native'
 import { CartModal } from './CartModal';
 
-export function MenuItem(params) {
-  let item = params.item;
+export function MenuItem({item, restaurantId}) {
   let name = item.name;
   let cost = item.cost;
   let desc = item.description;
@@ -25,7 +24,7 @@ export function MenuItem(params) {
 
   return(
     <View>
-      <CartModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+      <CartModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} restaurantId={restaurantId}/>
       <Pressable style={styles.button} onPress={() => setModalVisible(true)}>
         <View style={[styles.itemContainer, {flexDirection: 'row', padding: 8}]}>
          <View style={{justifyContent: 'center', flex: 1, marginLeft: 32}}>
