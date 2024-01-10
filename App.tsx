@@ -1,4 +1,5 @@
-import React, {useState, createContext} from 'react';
+import React from 'react';
+import {useState, createContext} from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
@@ -20,24 +21,6 @@ import { RestaurantScreen } from './routes/RestaurantScreen';
 import { CheckoutScreen } from './routes/CheckoutScreen';
 
 const Stack = createNativeStackNavigator();
-
-// import {
-//   Colors,
-// } from 'react-native/Libraries/NewAppScreen';
-
-// function headerRight(props) {
-//   return (
-//     <View style={{flexDirection: "row",justifyContent: "flex-end",paddingRight:10,width: 120}}>
-//         <Pressable
-//           onPress={() => console.log(props)}
-//           >
-//           <Image style={{width: 25, height: 25}} source={require('./images/shopping_cart_small.png')}/>
-//         </Pressable>
-//       </View>
-//
-//   );
-// }
-
 
 function App(): React.JSX.Element {
   return (
