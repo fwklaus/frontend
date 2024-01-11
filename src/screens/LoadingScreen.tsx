@@ -12,7 +12,7 @@ export function LoadingScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
-        <Image source={require('./res/images/order_weasel_small.jpg')} />
+        <Image source={require('../res/images/order_weasel_small.jpg')} />
         <Text  style={[styles.loadingText, {color: 'blue'}]}>SEARCHING FOR RESTAURANTS...</Text>
       </View>
 

@@ -16,7 +16,7 @@ function QuantityInput() {
         <View style={{flex: 1}}></View>
         <View style={{flex: 0.75}}>
           <Pressable onPress={() => console.log("decrease quantity")}>
-            <Text style={[styles.inputBox, {borderRightWidth: 0, textAlign: 'center', lineHeight: 40, borderTopLeftRadius: 16, borderBottomLeftRadius: 16}]}>
+            <Text style={[styles.inputBox, styles.quantityAugment]}>
               -
             </Text>
           </Pressable>
@@ -30,7 +30,7 @@ function QuantityInput() {
         </View>
         <View style={{flex: 0.75}}>
           <Pressable onPress={() => console.log("increase quantity")}>
-            <Text style={[styles.inputBox, {borderLeftWidth: 0, textAlign: 'center', lineHeight: 40, borderTopRightRadius: 16, borderBottomRightRadius: 16}]}>
+            <Text style={[styles.inputBox, styles.quantityAugment]}>
               +
             </Text>
           </Pressable>
@@ -148,5 +148,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  quantityAugment: {
+    borderLeftWidth: 0,
+    textAlign: 'center',
+    lineHeight: 40,
+    borderTopRightRadius: 16,
+    borderBottomRightRadius: 16
   }
 });

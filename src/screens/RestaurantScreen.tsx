@@ -8,8 +8,8 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native'
-import { MenuTab } from './MenuTab';
-import { CartTab } from './CartTab';
+import { MenuTab } from '../tab-navigator/MenuTab';
+import { CartTab } from '../tab-navigator/CartTab';
 const Tab = createBottomTabNavigator();
 
 // // fetching menu data for a restaurant example

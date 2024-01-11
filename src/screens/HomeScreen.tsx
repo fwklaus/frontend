@@ -7,7 +7,7 @@ import {
   View,
   Button
 } from 'react-native'
-import { HomeTab, ServicesTab, TermsTab } from './HomeTabs'
+import { HomeTab, ServicesTab, TermsTab } from '../tab-navigator/HomeTabs'
 const Tab = createBottomTabNavigator();
 
 export function HomeScreen({ navigation }) {

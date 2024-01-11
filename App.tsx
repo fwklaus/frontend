@@ -14,10 +14,10 @@ import {
   Pressable
 } from 'react-native';
 
-import { LoadingScreen } from './src/LoadingScreen';
-import { HomeScreen } from './src/HomeScreen';
-import { RestaurantScreen } from './src/RestaurantScreen';
-import { CheckoutScreen } from './src/CheckoutScreen';
+import { LoadingScreen } from './src/screens/LoadingScreen';
+import { HomeScreen } from './src/screens/HomeScreen';
+import { RestaurantScreen } from './src/screens/RestaurantScreen';
+import { CheckoutScreen } from './src/screens/CheckoutScreen';
 
 const Stack = createNativeStackNavigator();
 

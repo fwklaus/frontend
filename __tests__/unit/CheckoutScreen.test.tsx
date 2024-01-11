@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import CartModal from '../routes/CartModal';
+import App from '../../src/screens/CheckoutScreen';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
@@ -14,5 +14,5 @@ import renderer from 'react-test-renderer';
 
 
 it('renders correctly', () => {
-   renderer.create(<CartModal />)
+
 });

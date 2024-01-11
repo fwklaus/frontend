@@ -15,7 +15,7 @@ import CartData from '../data/cartData'
 const DATA = CartData;
 
 function CartHeader({params}) {
-  let url = './res/images/order_weasel_small.jpg'
+  let url = '../res/images/order_weasel_small.jpg'
   let id = params.id;
   let title = params.title;
 
@@ -78,7 +78,7 @@ export function CartTab({route, navigation}) {
           let cost = item.cost;
           let name = item.name;
           let quantity = item.quantity;
-          let trash = '../images/trash_small.png'
+          let trash = '../res/images/trash_small.png'
 
           return(
             <View style={{flexDirection: 'row', marginBottom: 8, marginTop: 16, height: 40}}>

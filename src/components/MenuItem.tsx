@@ -17,7 +17,7 @@ export function MenuItem({item, restaurantId}) {
 
   // how are we going to get the picture for the item since we can't call require dynamically?
   // for demonstration purposes
-  let url = './res/images/order_weasel_small.jpg';
+  let url = '../res/images/order_weasel_small.jpg';
 
   // modal state
   const [modalVisible, setModalVisible] = useState(false);

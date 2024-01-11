@@ -9,8 +9,8 @@ import {
   Image
 } from 'react-native'
 
-import { CartScreen } from './CartScreen';
-import { MenuItem } from './MenuItem';
+import { CartScreen } from '../screens/CartScreen';
+import { MenuItem } from '../components/MenuItem';
 import menuData from '../data/menuData.js'
 
 // fetching menu data for a restaurant example
@@ -29,7 +29,7 @@ function GetDirections({address}) {
 }
 
 function RestaurantHeader({params}) {
-  let url = './res/images/order_weasel_small.jpg'
+  let url = '../res/images/order_weasel_small.jpg'
   let id = params.id;
   let title = params.title;
 
@@ -128,7 +128,7 @@ export function MenuTab({route, navigation}) {
            }}>
              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                <Text style={[styles.headerText, { width: '90%' }]}>{title}</Text>
-               <Image style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}} source={require('../images/angle-small-down.png')} />
+               <Image style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}} source={require('../res/images/angle-small-down.png')} />
              </View>
            </Pressable>
          )}
