@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-let textStyles = StyleSheet.create({
+const textStyles = StyleSheet.create({
   cartButtonText: {
     color: 'white',
     fontSize: 16,

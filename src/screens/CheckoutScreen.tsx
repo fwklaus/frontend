@@ -8,101 +8,11 @@ import {
   Image,
   TextInput,
 } from 'react-native'
-import CheckBox from '@react-native-community/checkbox';
 import { textStyles } from '../res/styles/text';
 import { containerStyles } from '../res/styles/container';
-
-function Address({address}) {
-  return(
-    <Pressable onPress={() => console.log('Google API to get directions')}>
-      <Text style={{color: 'blue', textDecorationLine: 'underline', fontWeight: 'bold'}}>{address}</Text>
-    </Pressable>
-  );
-}
-
-function ContactInfo() {
-  return(
-    <View style={{flex: 3}}>
-     <View style={{marginLeft: 8, flex: 1, justifyContent: 'center'}}>
-       <Text style={[textStyles.text, {fontSize: 20}]}>Contact Info</Text>
-       <Text style={{color: 'red', fontSize: 12}}>All fields required</Text>
-     </View>
-     <View style={{flex: 4}}>
-       <TextInput style={styles.input}
-         placeholder="First Name"
-       />
-       <TextInput style={styles.input}
-         placeholder="Last Name"
-       />
-       <TextInput style={styles.input}
-         placeholder="Email"
-       />
-       <TextInput style={styles.input}
-         placeholder="Phone"
-       />
-     </View>
-    </View>
-  );
-}
-
-function Notifications() {
-  const [toggleCheckBox1, setToggleCheckBox1] = useState(false);
-  const [toggleCheckBox2, setToggleCheckBox2] = useState(false);
-  const [toggleCheckBox3, setToggleCheckBox3] = useState(false);
-  const [toggleCheckBox4, setToggleCheckBox4] = useState(false);
-
-  return(
-    <View style={{flex: 2, paddingLeft: 10}}>
-      <View style={{flex: 1}}>
-        <Text style={[textStyles.text, {fontSize: 20}]}>Text & Email Notifications</Text>
-      </View>
-      <View style={{flex: 3}}>
-        <View style={{flexDirection: 'column', flex: 1}}>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <CheckBox
-             disabled={false}
-             value={toggleCheckBox1}
-             onValueChange={(newValue) => setToggleCheckBox1(newValue)}
-             style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4}}
-             tintColors={{ true: '#F15927', false: 'black' }}
-            />
-            <Text style={[textStyles.text, {flex: 12}]}>Yes, I'd like to receive text and email</Text>
-          </View>
-          <View style={{flex: 1,flexDirection: 'row'}}>
-             <CheckBox
-              disabled={false}
-              value={toggleCheckBox2}
-              onValueChange={(newValue) => setToggleCheckBox2(newValue)}
-              style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4 }}
-              tintColors={{ true: '#F15927', false: 'black' }}
-            />
-            <Text style={textStyles.text}>Yes, I'd like to receive text</Text>
-          </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <CheckBox
-              disabled={false}
-              value={toggleCheckBox3}
-              onValueChange={(newValue) => setToggleCheckBox3(newValue)}
-              style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4 }}
-              tintColors={{ true: '#F15927', false: 'black' }}
-            />
-            <Text style={textStyles.text}>Yes, I'd like to receive email</Text>
-          </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-              <CheckBox
-                disabled={false}
-                value={toggleCheckBox4}
-                onValueChange={(newValue) => setToggleCheckBox4(newValue)}
-                style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4 }}
-                tintColors={{ true: '#F15927', false: 'black' }}
-              />
-            <Text style={textStyles.text}>No. Just notify me in the app</Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  );
-}
+import { Address } from '../components/api/Address';
+import { ContactInfo } from '../components/ui/ContactInfo';
+import { Notifications } from '../components/ui/Notifications';
 
 export function CheckoutScreen({route, navigation}) {
   let params = route.params;
@@ -157,7 +67,6 @@ export function CheckoutScreen({route, navigation}) {
       </SafeAreaView>
   );
 }
-
 
 const styles = StyleSheet.create({
   input: {

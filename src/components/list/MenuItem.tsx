@@ -7,9 +7,9 @@ import {
   Image,
   Modal,
 } from 'react-native'
-import { CartModal } from './CartModal';
-import { textStyles } from '../res/styles/text';
-import { containerStyles } from '../res/styles/container';
+import { CartModal } from '../ui/CartModal';
+import { textStyles } from '../../res/styles/text';
+import { containerStyles } from '../../res/styles/container';
 
 export function MenuItem({item, restaurantId}) {
   let name = item.name;
@@ -19,7 +19,7 @@ export function MenuItem({item, restaurantId}) {
 
   // how are we going to get the picture for the item since we can't call require dynamically?
   // for demonstration purposes
-  let url = '../res/images/order_weasel_small.jpg';
+  let url = '../../res/images/order_weasel_small.jpg';
 
   // modal state
   const [modalVisible, setModalVisible] = useState(false);

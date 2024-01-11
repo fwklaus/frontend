@@ -4,43 +4,11 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  Modal,
-  TextInput
+  Modal
 } from 'react-native';
-import { textStyles } from '../res/styles/text';
-
-export function QuantityInput() {
-  return(
-    <View style={{flex: 1}}>
-      <Text style={[textStyles.text, {flex: 1}]}>Quantity:</Text>
-      <View style={{flex: 2, flexDirection: 'row', alignItems: 'center'}}>
-        <View style={{flex: 1}}></View>
-        <View style={{flex: 0.75}}>
-          <Pressable onPress={() => console.log("decrease quantity")}>
-            <Text style={[textStyles.text, styles.quantityAugment, {color: "white"}]}>
-              -
-            </Text>
-          </Pressable>
-        </View>
-        <View style={{flex: 1}}>
-          <TextInput
-            value={'1'}
-            style={[styles.inputBox, textStyles.text]}
-            textAlign='center'
-          />
-        </View>
-        <View style={{flex: 0.75}}>
-          <Pressable onPress={() => console.log("increase quantity")}>
-            <Text style={[textStyles.text, styles.quantityAugment, {color: "white"}]}>
-              +
-            </Text>
-          </Pressable>
-        </View>
-        <View style={{flex: 1}}></View>
-      </View>
-    </View>
-  );
-}
+import { textStyles } from '../../res/styles/text';
+import { buttonStyles } from '../../res/styles/button';
+import { QuantityInput } from './QuantityInput';
 
 export function CartModal({modalVisible, setModalVisible, item, restaurantId}) {
     let itemId = item.id;
@@ -83,7 +51,7 @@ export function CartModal({modalVisible, setModalVisible, item, restaurantId}) {
             <View style={{flex: 1}}></View>
             <View style={{flex: 1}}>
               <Pressable
-                style={styles.addToCartButton}
+                style={buttonStyles.addToCartButton}
                 onPress={() => {
                   setModalVisible(!modalVisible)
                   console.log('Implement AddToCart!')
@@ -121,26 +89,5 @@ const styles = StyleSheet.create({
     elevation: 5,
     width: '90%',
     flex: 1
-  },
-  addToCartButton: {
-    backgroundColor: 'blue',
-    borderRadius: 20,
-    padding: 8,
-    elevation: 2,
-  },
-  inputBox: {
-    borderColor: 'black',
-    borderWidth: 1,
-    fontSize: 16,
-    fontWeight: 'bold',
-    borderRadius: 10
-  },
-  quantityAugment: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    borderRadius: 32,
-    textAlign: 'center',
-    margin: 4,
-    backgroundColor: 'blue',
   }
 });
