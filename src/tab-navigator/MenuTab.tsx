@@ -11,6 +11,8 @@ import {
 
 import { CartScreen } from '../screens/CartScreen';
 import { MenuItem } from '../components/MenuItem';
+import { textStyles } from '../res/styles/text'
+import { containerStyles } from '../res/styles/container'
 import menuData from '../data/menuData.js'
 
 // fetching menu data for a restaurant example
@@ -38,7 +40,7 @@ function RestaurantHeader({params}) {
     <View style={{flex: 1}}>
       <Image source={require(url)} style={{width: 50, height: 50}}></Image>
     </View>
-    <Text style={[styles.headingText, {flex: 3}]}>{title}</Text>
+    <Text style={[textStyles.headingText, {flex: 3}]}>{title}</Text>
   </View>
   );
 }
@@ -47,12 +49,12 @@ function RestaurantFooter({params, navigation}) {
   return (
     <Pressable style={styles.button} onPress={()=> navigation.navigate('Cart', params)}>
       <View style={{flex: 0.5}}></View>
-      <View style={[styles.buttonText, {flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}]}>
+      <View style={[textStyles.buttonText, {flex: 1, alignItems: 'center', flexDirection: 'row', justifyContent: 'center'}]}>
         <View style={{flex: 1}}>
-          <Text style={[styles.headingText, {textAlign: 'center'}]}>View Cart</Text>
+          <Text style={[textStyles.headingText, {textAlign: 'center'}]}>View Cart</Text>
         </View>
         <View style={{flex: 1}}>
-          <Text style={[styles.headingText,  {textAlign: 'center'}]}>$0.00</Text>
+          <Text style={[textStyles.headingText,  {textAlign: 'center'}]}>$0.00</Text>
         </View>
       </View>
       <View style={{flex: 0.5}}></View>
@@ -69,14 +71,14 @@ function ListHeader({id, title, category, distance, rating, phone, hours, addres
     <View style={{flex: 1}}>
       <View style={[styles.topSection, {flex: 1}]}>
         <View style={{flex: 1, padding: 10, paddingLeft: 40, paddingRight: 40}}>
-          <Text style={styles.headingText}>{rating} | {category} | {distance}mi</Text>
-          <Text style={styles.headingText}>{hours}</Text>
-          <Text style={styles.headingText}>{phone}</Text>
+          <Text style={textStyles.headingText}>{rating} | {category} | {distance}mi</Text>
+          <Text style={textStyles.headingText}>{hours}</Text>
+          <Text style={textStyles.headingText}>{phone}</Text>
         </View>
       </View>
       <View style={[styles.topSection, {padding: 10}]}>
-        <Text style={styles.text}>This is a pickup order</Text>
-        <Text style={styles.text}>
+        <Text style={textStyles.text}>This is a pickup order</Text>
+        <Text style={textStyles.text}>
           You'll need to go to {title} to pick up this order at: <GetDirections address={address}/>
         </Text>
       </View>
@@ -89,7 +91,6 @@ function ListFooter() {
     <View style={{height: 70}}></View>
   );
 }
-
 
 export function MenuTab({route, navigation}) {
     let params = route.params.params;
@@ -115,7 +116,7 @@ export function MenuTab({route, navigation}) {
     const DATA = getMenuData(restaurantId);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={containerStyles.main}>
       <RestaurantHeader params={params}/>
       <SectionList
          sections={DATA}
@@ -127,7 +128,7 @@ export function MenuTab({route, navigation}) {
              handleToggle(title);
            }}>
              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-               <Text style={[styles.headerText, { width: '90%' }]}>{title}</Text>
+               <Text style={[textStyles.headerText, { width: '90%' }]}>{title}</Text>
                <Image style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}} source={require('../res/images/angle-small-down.png')} />
              </View>
            </Pressable>
@@ -149,19 +150,6 @@ export function MenuTab({route, navigation}) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: "stretch",
-      justifyContent: "center",
-      backgroundColor: 'white',
-    },
-    headerText: {
-      color: 'black',
-      fontSize: 20,
-      backgroundColor: '#fff',
-      padding: 20,
-      paddingLeft: 16
-    },
     button: {
       width: '100%',
       height: 70,
@@ -171,29 +159,9 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-     buttonText: {
-       fontSize: 16,
-       width: '90%',
-       color: 'black',
-       backgroundColor: '#FBF501',
-       padding: 8,
-       borderRadius: 8,
-       borderColor: 'black',
-       borderWidth: 1
-     },
     topSection: {
        backgroundColor: 'white',
        borderColor: 'black',
        borderBottomWidth: 1,
-     },
-    text: {
-     color: 'black',
-     fontSize: 16,
-     fontWeight: 'bold'
-    },
-    headingText: {
-     color: 'black',
-     fontSize: 20,
-     fontWeight: 'bold'
-    },
+     }
 });

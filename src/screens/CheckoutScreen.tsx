@@ -9,6 +9,8 @@ import {
   TextInput,
 } from 'react-native'
 import CheckBox from '@react-native-community/checkbox';
+import { textStyles } from '../res/styles/text';
+import { containerStyles } from '../res/styles/container';
 
 function Address({address}) {
   return(
@@ -22,7 +24,7 @@ function ContactInfo() {
   return(
     <View style={{flex: 3}}>
      <View style={{marginLeft: 8, flex: 1, justifyContent: 'center'}}>
-       <Text style={[styles.text, {fontSize: 20}]}>Contact Info</Text>
+       <Text style={[textStyles.text, {fontSize: 20}]}>Contact Info</Text>
        <Text style={{color: 'red', fontSize: 12}}>All fields required</Text>
      </View>
      <View style={{flex: 4}}>
@@ -52,7 +54,7 @@ function Notifications() {
   return(
     <View style={{flex: 2, paddingLeft: 10}}>
       <View style={{flex: 1}}>
-        <Text style={[styles.text, {fontSize: 20}]}>Text & Email Notifications</Text>
+        <Text style={[textStyles.text, {fontSize: 20}]}>Text & Email Notifications</Text>
       </View>
       <View style={{flex: 3}}>
         <View style={{flexDirection: 'column', flex: 1}}>
@@ -62,8 +64,9 @@ function Notifications() {
              value={toggleCheckBox1}
              onValueChange={(newValue) => setToggleCheckBox1(newValue)}
              style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4}}
+             tintColors={{ true: '#F15927', false: 'black' }}
             />
-            <Text style={[styles.text, {flex: 12}]}>Yes, I'd like to receive text and email</Text>
+            <Text style={[textStyles.text, {flex: 12}]}>Yes, I'd like to receive text and email</Text>
           </View>
           <View style={{flex: 1,flexDirection: 'row'}}>
              <CheckBox
@@ -71,17 +74,19 @@ function Notifications() {
               value={toggleCheckBox2}
               onValueChange={(newValue) => setToggleCheckBox2(newValue)}
               style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4 }}
+              tintColors={{ true: '#F15927', false: 'black' }}
             />
-            <Text style={styles.text}>Yes, I'd like to receive text</Text>
+            <Text style={textStyles.text}>Yes, I'd like to receive text</Text>
           </View>
           <View style={{flex: 1, flexDirection: 'row'}}>
             <CheckBox
               disabled={false}
               value={toggleCheckBox3}
               onValueChange={(newValue) => setToggleCheckBox3(newValue)}
-             style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4 }}
+              style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4 }}
+              tintColors={{ true: '#F15927', false: 'black' }}
             />
-            <Text style={styles.text}>Yes, I'd like to receive email</Text>
+            <Text style={textStyles.text}>Yes, I'd like to receive email</Text>
           </View>
           <View style={{flex: 1, flexDirection: 'row'}}>
               <CheckBox
@@ -89,8 +94,9 @@ function Notifications() {
                 value={toggleCheckBox4}
                 onValueChange={(newValue) => setToggleCheckBox4(newValue)}
                 style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }], top: -4 }}
+                tintColors={{ true: '#F15927', false: 'black' }}
               />
-            <Text style={styles.text}>No. Just notify me in the app</Text>
+            <Text style={textStyles.text}>No. Just notify me in the app</Text>
           </View>
         </View>
       </View>
@@ -107,20 +113,20 @@ export function CheckoutScreen({route, navigation}) {
   let logo = '../res/images/order_weasel_small.jpg';
 
   return(
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={containerStyles.main}>
         <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', borderColor: 'black', borderBottomWidth: 1, paddingLeft: 10}}>
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
             <Image style={{width: 50, height: 50,}} source={require(logo)}/>
           </View>
-         <Text style={[styles.text, {flex: 3, fontSize: 20}]}>{title}</Text>
+         <Text style={[textStyles.text, {flex: 3, fontSize: 20}]}>{title}</Text>
         </View>
         <View style={{backgroundColor: 'white', flex: 1.5,  borderBottomWidth: 1, paddingLet: 10}}>
           <View style={{flex: 1, marginLeft: 10, justifyContent: 'center'}}>
-            <Text style={[styles.text, {fontSize: 20}]}>Checkout</Text>
+            <Text style={[textStyles.text, {fontSize: 20}]}>Checkout</Text>
           </View>
           <View style={{flex: 2, marginLeft: 10, justifyContent: 'center'}}>
-            <Text style={styles.text}>Carryout Order</Text>
-            <Text style={styles.text}>Pickup at: <Address address={address}/></Text>
+            <Text style={textStyles.text}>Carryout Order</Text>
+            <Text style={textStyles.text}>Pickup at: <Address address={address}/></Text>
           </View>
         </View>
         <View style={{flex: 6, borderColor: 'black', borderBottomWidth: 1}}>
@@ -130,22 +136,22 @@ export function CheckoutScreen({route, navigation}) {
         <View style={{flex: 2, flexDirection: 'row'}}>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <View>
-              <Text style={[styles.text, {fontSize: 20}]}>Subtotal</Text>
-              <Text style={[styles.text, {fontSize: 20}]}>Estimated Tax:</Text>
-              <Text style={[styles.text, {fontSize: 20}]}>Total:</Text>
+              <Text style={[textStyles.text, {fontSize: 20}]}>Subtotal</Text>
+              <Text style={[textStyles.text, {fontSize: 20}]}>Estimated Tax:</Text>
+              <Text style={[textStyles.text, {fontSize: 20}]}>Total:</Text>
             </View>
           </View>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <View>
-              <Text style={[styles.text, {fontSize: 20}]}>$0.00</Text>
-              <Text style={[styles.text, {fontSize: 20}]}>$0.00</Text>
-              <Text style={[styles.text, {fontSize: 20}]}>$0.00</Text>
+              <Text style={[textStyles.text, {fontSize: 20}]}>$0.00</Text>
+              <Text style={[textStyles.text, {fontSize: 20}]}>$0.00</Text>
+              <Text style={[textStyles.text, {fontSize: 20}]}>$0.00</Text>
             </View>
           </View>
         </View>
         <View style={[styles.bottom,  {borderTopWidth: 1, borderColor: 'black'}]}>
           <Pressable style={styles.submitButton} onPress={()=> console.log('Implement checkout success/failure')}>
-            <Text style={styles.cartButtonText}>Submit Order and Pay Later</Text>
+            <Text style={textStyles.cartButtonText}>Submit Order and Pay Later</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -154,12 +160,6 @@ export function CheckoutScreen({route, navigation}) {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center",
-    backgroundColor: 'white',
-  },
   input: {
     height: 30,
     paddingLeft: 8,
@@ -174,16 +174,6 @@ const styles = StyleSheet.create({
      paddingBottom: 10,
      flexDirection: 'row',
      justifyContent: 'space-around',
-   },
-   cartButtonText: {
-     color: 'white',
-     fontSize: 16,
-     textAlign: 'center'
-   },
-   text: {
-     color: 'black',
-     fontSize: 16,
-     fontWeight: 'bold'
    },
     submitButton: {
       fontSize: 16,

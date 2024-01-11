@@ -8,6 +8,8 @@ import {
   Modal,
 } from 'react-native'
 import { CartModal } from './CartModal';
+import { textStyles } from '../res/styles/text';
+import { containerStyles } from '../res/styles/container';
 
 export function MenuItem({item, restaurantId}) {
   let name = item.name;
@@ -25,12 +27,12 @@ export function MenuItem({item, restaurantId}) {
   return(
     <View>
       <CartModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} restaurantId={restaurantId}/>
-      <Pressable style={styles.button} onPress={() => setModalVisible(true)}>
-        <View style={[styles.itemContainer, {flexDirection: 'row', padding: 8}]}>
+      <Pressable onPress={() => setModalVisible(true)}>
+        <View style={[containerStyles.itemContainer, {flexDirection: 'row', padding: 8}]}>
          <View style={{justifyContent: 'center', flex: 1, marginLeft: 32}}>
-           <Text style={styles.text}>{name}</Text>
-           <Text style={[styles.text, {fontSize: 12}]}>{desc}</Text>
-           <Text style={styles.text}>{cost}</Text>
+           <Text style={textStyles.text}>{name}</Text>
+           <Text style={[textStyles.text, {fontSize: 12}]}>{desc}</Text>
+           <Text style={textStyles.text}>{cost}</Text>
          </View>
          <Image style={{marginRight: 32, width: 75, height: 75}} source={require(url)} />
         </View>
@@ -38,15 +40,3 @@ export function MenuItem({item, restaurantId}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-    itemContainer: {
-      borderColor: 'black',
-      borderWidth: 1,
-      margin: 10,
-    },
-    text: {
-      color: 'black',
-      fontSize: 16
-    },
-});

@@ -7,13 +7,15 @@ import {
   View,
   Button,
 } from 'react-native'
+import { textStyles } from '../res/styles/text';
+import { containerStyles } from '../res/styles/container'
 
 export function LoadingScreen({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
+    <SafeAreaView style={containerStyles.mainTabs}>
+      <View style={containerStyles.logoContainer}>
         <Image source={require('../res/images/order_weasel_small.jpg')} />
-        <Text  style={[styles.loadingText, {color: 'blue'}]}>SEARCHING FOR RESTAURANTS...</Text>
+        <Text  style={[textStyles.loadingText, {color: 'blue'}]}>SEARCHING FOR RESTAURANTS...</Text>
       </View>
 
       <View>
@@ -22,23 +24,3 @@ export function LoadingScreen({ navigation }) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center",
-    backgroundColor: '#FBF501',
-  },
-  innerContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loadingText: {
-    width: 275,
-    color: 'black',
-    marginTop: 20,
-    textAlign: "center"
-  },
-});

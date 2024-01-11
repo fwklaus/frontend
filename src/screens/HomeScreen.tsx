@@ -7,12 +7,13 @@ import {
   View,
   Button
 } from 'react-native'
-import { HomeTab, ServicesTab, TermsTab } from '../tab-navigator/HomeTabs'
+import { HomeTab, ServicesTab, TermsTab } from '../tab-navigator/HomeTabs';
+import { containerStyles } from '../res/styles/container'
 const Tab = createBottomTabNavigator();
 
 export function HomeScreen({ navigation }) {
   return (
-    <SafeAreaView style={[styles.container, {backgroundColor: "white"}]}>
+    <SafeAreaView style={containerStyles.main}>
       <Tab.Navigator screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -34,12 +35,3 @@ export function HomeScreen({ navigation }) {
     </ SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center",
-    backgroundColor: '#FBF501',
-  },
-});

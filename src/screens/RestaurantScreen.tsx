@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { MenuTab } from '../tab-navigator/MenuTab';
 import { CartTab } from '../tab-navigator/CartTab';
+import { containerStyles } from '../res/styles/container';
 const Tab = createBottomTabNavigator();
 
 // // fetching menu data for a restaurant example
@@ -23,10 +24,8 @@ export function RestaurantScreen({route, navigation}) {
     // Do we use Context or State hooks?
   let params = route.params
 
-
-
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={containerStyles.main}>
       <Tab.Navigator screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -54,12 +53,3 @@ export function RestaurantScreen({route, navigation}) {
     </ SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center",
-    backgroundColor: 'white',
-  }
-});

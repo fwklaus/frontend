@@ -12,9 +12,11 @@ import {
   Image,
   Text,
 } from 'react-native';
+import { containerStyles } from '../res/styles/container'
 
 // fetching nearby restaurant data example
 import restaurantData from '../data/restaurantData.js';
+import { textStyles } from '../res/styles/text'
 
 function Item ({id, title, category, distance, rating, phone, hours, address}) {
   // require does not work with dynamic values?
@@ -28,10 +30,10 @@ function Item ({id, title, category, distance, rating, phone, hours, address}) {
       <View style={[styles.item, {flexDirection: 'row'}]}>
         <Image source={require(url)} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
         <View style={{marginLeft: 10, flex: 2}}>
-          <Text style={styles.text}>{title}</Text>
-          <Text style={styles.text}>Category: {category}</Text>
-          <Text style={styles.text}>Distance(mi): {distance}</Text>
-          <Text style={styles.text}>Rating: {rating}</Text>
+          <Text style={textStyles.text}>{title}</Text>
+          <Text style={textStyles.text}>Category: {category}</Text>
+          <Text style={textStyles.text}>Distance(mi): {distance}</Text>
+          <Text style={textStyles.text}>Rating: {rating}</Text>
         </View>
       </View>
     </Pressable>
@@ -42,10 +44,10 @@ function MainListHeader({currentAddress}) {
   return (
     <View>
       <View style={[styles.item, {padding: 10}]}>
-        <Text style={styles.headingText}>{currentAddress}</Text>
+        <Text style={textStyles.headingText}>{currentAddress}</Text>
       </View>
       <View style={[styles.item, {padding: 10}]}>
-        <Text style={[styles.headingText, {color: 'blue'}]}>Restaurants Near You (Carryout Only)</Text>
+        <Text style={[textStyles.headingText, {color: 'blue'}]}>Restaurants Near You (Carryout Only)</Text>
       </View>
     </View>
   );
@@ -55,7 +57,7 @@ function ListResults(list) {
   let nResults = list.length;
   return (
     <View style={[styles.item, {padding: 10}]}>
-      <Text  style={[styles.headingText, {color: '#A1000E', fontSize: 16}]}>{nResults} Results</Text>
+      <Text  style={[textStyles.headingText, {color: '#A1000E', fontSize: 16}]}>{nResults} Results</Text>
     </View>
   );
 }
@@ -69,7 +71,7 @@ export function HomeTab({navigation}) {
 // const DATA = reassign based on proximity to current location if the user changes their location
 
   return(
-    <SafeAreaView style={styles.listContainer}>
+    <SafeAreaView style={{flex: 1}}>
         <MainListHeader currentAddress={currentAddress} />
         <FlatList
           data={restaurantData}
@@ -99,27 +101,27 @@ export function ServicesTab() {
   ];
 
   return(
-     <SafeAreaView style={[styles.container, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
+     <SafeAreaView style={[containerStyles.mainTabs, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
         <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Our Services</Text>
-        <Text style={styles.serviceTermsText}>-{text[0]}</Text>
-        <Text style={styles.serviceTermsText}>-{text[1]}</Text>
-        <Text style={styles.serviceTermsText}>-{text[2]}</Text>
-        <Text style={styles.serviceTermsText}>-{text[3]}</Text>
+        <Text style={textStyles.serviceTermsText}>-{text[0]}</Text>
+        <Text style={textStyles.serviceTermsText}>-{text[1]}</Text>
+        <Text style={textStyles.serviceTermsText}>-{text[2]}</Text>
+        <Text style={textStyles.serviceTermsText}>-{text[3]}</Text>
      </SafeAreaView>
   );
 }
 
 export function TermsTab() {
   return(
-    <SafeAreaView style={[styles.container, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
+    <SafeAreaView style={[containerStyles.mainTabs, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
       <View>
         <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Terms of Service</Text>
       </View>
       <View >
-        <Text style={styles.serviceTermsText}>
+        <Text style={textStyles.serviceTermsText}>
           This is a student project...
         </Text>
-       <Text style={styles.serviceTermsText}>
+       <Text style={textStyles.serviceTermsText}>
           We are not liable...
        </Text>
       </View>
@@ -128,35 +130,10 @@ export function TermsTab() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center",
-    backgroundColor: '#FBF501',
-  },
-  listContainer: {
-    flex: 1,
-  },
   item: {
     backgroundColor: 'white',
     padding: 20,
     borderColor: 'black',
     borderBottomWidth: 1,
-  },
-  text: {
-    fontSize: 16,
-    color: 'black',
-    fontWeight: 'bold'
-  },
-  headingText: {
-    color: 'black',
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  serviceTermsText: {
-     fontWeight: 'bold',
-     color: 'black',
-     fontSize: 16,
-     marginBottom: 10
   }
 });

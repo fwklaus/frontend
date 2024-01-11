@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import App from '../../src/tab-navigator/CartTab';
+import { CartHeader, CartFooter, CartTab } from '../../src/tab-navigator/CartTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
@@ -13,6 +13,29 @@ import {it} from '@jest/globals';
 import renderer from 'react-test-renderer';
 
 
-it('renders correctly', () => {
+describe("CartHeader tests", () => {
+  it('renders correctly', () => {
+    let params = {
+      id: 10,
+      title: 'Red Dog'
+    }
 
+    renderer.create(<CartHeader params={params}/>)
+  });
+});
+
+
+describe("CartFooter tests", () => {
+
+  it('renders correctly', () => {
+    renderer.create(<CartFooter />)
+  });
+});
+
+
+describe("CartTab tests", () => {
+
+  it('renders correctly', () => {
+    renderer.create(<CartTab />)
+  });
 });

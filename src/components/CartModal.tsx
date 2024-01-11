@@ -6,17 +6,18 @@ import {
   Pressable,
   Modal,
   TextInput
-} from 'react-native'
+} from 'react-native';
+import { textStyles } from '../res/styles/text';
 
-function QuantityInput() {
+export function QuantityInput() {
   return(
     <View style={{flex: 1}}>
-      <Text style={[styles.text, {flex: 1}]}>Quantity:</Text>
+      <Text style={[textStyles.text, {flex: 1}]}>Quantity:</Text>
       <View style={{flex: 2, flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1}}></View>
         <View style={{flex: 0.75}}>
           <Pressable onPress={() => console.log("decrease quantity")}>
-            <Text style={[styles.inputBox, styles.quantityAugment]}>
+            <Text style={[textStyles.text, styles.quantityAugment, {color: "white"}]}>
               -
             </Text>
           </Pressable>
@@ -24,13 +25,13 @@ function QuantityInput() {
         <View style={{flex: 1}}>
           <TextInput
             value={'1'}
-            style={[styles.inputBox, {height: 42}]}
+            style={[styles.inputBox, textStyles.text]}
             textAlign='center'
           />
         </View>
         <View style={{flex: 0.75}}>
           <Pressable onPress={() => console.log("increase quantity")}>
-            <Text style={[styles.inputBox, styles.quantityAugment]}>
+            <Text style={[textStyles.text, styles.quantityAugment, {color: "white"}]}>
               +
             </Text>
           </Pressable>
@@ -62,17 +63,17 @@ export function CartModal({modalVisible, setModalVisible, item, restaurantId}) {
         <View style={[styles.modalView, {flex: 1, flexDirection: 'column'}]}>
           <View style={{flex: 1.5, width: '100%', flexDirection: 'row', alignItems: 'center', borderColor: 'black', borderBottomWidth: 1}}>
             <View style={{flex: 1, padding: 10}}>
-              <Text style={[styles.modalText, {textAlign: 'left'}]}>{name}</Text>
+              <Text style={[textStyles.modalText, {textAlign: 'left'}]}>{name}</Text>
             </View>
             <View style={{flex: 1, padding: 10}}>
               <Pressable onPress={() => {setModalVisible(!modalVisible)}}>
-                <Text style={[styles.text, {textAlign: 'right', fontSize: 20}]}>X</Text>
+                <Text style={[textStyles.text, {textAlign: 'right', fontSize: 20}]}>X</Text>
               </Pressable>
             </View>
           </View>
           <View style={{flex: 3, width: '100%', padding: 10}}>
             <View style={{flex: 1}}>
-              <Text style={[styles.text, {fontSize: 14}]}>Hello World</Text>
+              <Text style={[textStyles.text, {fontSize: 14}]}>Hello World</Text>
             </View>
             <View style={{flex: 2}}>
               <QuantityInput />
@@ -88,7 +89,7 @@ export function CartModal({modalVisible, setModalVisible, item, restaurantId}) {
                   console.log('Implement AddToCart!')
                 }}
               >
-                <Text style={styles.modalButtonText}>Add to Cart</Text>
+                <Text style={textStyles.modalButtonText}>Add to Cart</Text>
               </Pressable>
             </View>
           </View>
@@ -121,39 +122,25 @@ const styles = StyleSheet.create({
     width: '90%',
     flex: 1
   },
-  modalText: {
-    textAlign: 'left',
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black'
-    },
   addToCartButton: {
     backgroundColor: 'blue',
     borderRadius: 20,
     padding: 8,
     elevation: 2,
   },
-  modalButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  text: {
-    color: 'black',
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
   inputBox: {
     borderColor: 'black',
     borderWidth: 1,
     fontSize: 16,
     fontWeight: 'bold',
+    borderRadius: 10
   },
   quantityAugment: {
-    borderLeftWidth: 0,
+    fontSize: 24,
+    fontWeight: 'bold',
+    borderRadius: 32,
     textAlign: 'center',
-    lineHeight: 40,
-    borderTopRightRadius: 16,
-    borderBottomRightRadius: 16
+    margin: 4,
+    backgroundColor: 'blue',
   }
 });
