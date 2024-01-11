@@ -104,7 +104,7 @@ export function CheckoutScreen({route, navigation}) {
   let id = params.id;
   let address = params.address;
   let title = params.title;
-  let logo = '../images/order_weasel_small.jpg';
+  let logo = './res/images/order_weasel_small.jpg';
 
   return(
       <SafeAreaView style={styles.container}>

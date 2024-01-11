@@ -7,7 +7,6 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  Image
 } from 'react-native'
 import { MenuTab } from './MenuTab';
 import { CartTab } from './CartTab';

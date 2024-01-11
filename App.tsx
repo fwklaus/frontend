@@ -9,16 +9,15 @@ import {
   Text,
   useColorScheme,
   View,
-  Image,
   Button,
   SectionList,
   Pressable
 } from 'react-native';
 
-import { LoadingScreen } from './routes/LoadingScreen';
-import { HomeScreen } from './routes/HomeScreen';
-import { RestaurantScreen } from './routes/RestaurantScreen';
-import { CheckoutScreen } from './routes/CheckoutScreen';
+import { LoadingScreen } from './src/LoadingScreen';
+import { HomeScreen } from './src/HomeScreen';
+import { RestaurantScreen } from './src/RestaurantScreen';
+import { CheckoutScreen } from './src/CheckoutScreen';
 
 const Stack = createNativeStackNavigator();
 

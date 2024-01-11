@@ -29,7 +29,7 @@ function GetDirections({address}) {
 }
 
 function RestaurantHeader({params}) {
-  let url = '../images/order_weasel_small.jpg'
+  let url = './res/images/order_weasel_small.jpg'
   let id = params.id;
   let title = params.title;
 

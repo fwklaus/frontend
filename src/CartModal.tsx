@@ -9,7 +9,6 @@ import {
 } from 'react-native'
 
 function QuantityInput() {
-
   return(
     <View style={{flex: 1}}>
       <Text style={[styles.text, {flex: 1}]}>Quantity:</Text>

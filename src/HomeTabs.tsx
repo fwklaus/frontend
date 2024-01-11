@@ -20,7 +20,7 @@ function Item ({id, title, category, distance, rating, phone, hours, address}) {
   // require does not work with dynamic values?
     // can't pass the image URL to require at runtime
   // find another way to load the image
-  let url = '../images/order_weasel_small.jpg'
+  let url = './res/images/order_weasel_small.jpg'
   const navigation = useNavigation();
 
   return (
