@@ -1,6 +1,6 @@
-/**
- * @format
- */
+ /**
+  * @format
+  */
 
 import 'react-native';
 import React, { useState } from 'react';
@@ -14,14 +14,14 @@ import renderer from 'react-test-renderer';
 
 
 it('renders correctly', () => {
-//   let item = {
-//     id: 1,
-//     name: 'Pizza',
-//     cost: '9.99',
-//     description: 'delicious'
-//   }
-//
-//   let restaurantId = 10;
-//
-//    renderer.create(<CartModal item={item} restaurantId={restaurantId} />)
+  let item = {
+    id: 1,
+    name: 'Pizza',
+    cost: '9.99',
+    description: 'delicious'
+  }
+
+  let restaurantId = 10;
+
+   renderer.create(<CartModal item={item} restaurantId={restaurantId} />)
 });

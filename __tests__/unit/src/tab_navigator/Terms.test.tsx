@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { TermsTab } from '../../../src/tab-navigator/TermsTab';
+import { TermsTab } from '../../../../src/tab-navigator/TermsTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

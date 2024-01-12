@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React, { useState } from 'react';
-import { Notifications } from '../../../../src/components/ui/Notifications';
+import { Notifications } from '../../../../../src/components/ui/Notifications';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
@@ -13,8 +13,6 @@ import {it} from '@jest/globals';
 import renderer from 'react-test-renderer';
 
 
-describe("Notifications tests", () => {
-  it('renders correctly', () => {
+it('renders correctly', () => {
 
-  });
 });

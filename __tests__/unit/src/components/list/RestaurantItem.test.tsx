@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { RestaurantItem } from '../../../../src/components/list/RestaurantItem';
+import { RestaurantItem } from '../../../../../src/components/list/RestaurantItem';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

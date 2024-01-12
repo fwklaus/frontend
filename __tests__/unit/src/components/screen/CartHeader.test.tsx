@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { CartHeader } from '../../../../src/components/screen/CartHeader';
+import { CartHeader } from '../../../../../src/components/screen/CartHeader';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

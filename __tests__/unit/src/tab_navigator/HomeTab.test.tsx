@@ -4,8 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { HomeTab } from '../../../src/tab-navigator/HomeTab';
-
+import { HomeTab } from '../../../../src/tab-navigator/HomeTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

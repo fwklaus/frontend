@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React, { useState } from 'react';
-import { ContactInfo } from '../../../../src/components/ui/ContactInfo';
+import { ContactInfo } from '../../../../../src/components/ui/ContactInfo';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
@@ -13,9 +13,7 @@ import {it} from '@jest/globals';
 import renderer from 'react-test-renderer';
 
 
-describe("ContactInfo tests", () => {
-  it('renders correctly', () => {
+it('renders correctly', () => {
 
-  });
 });
 

@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { MenuScreenFooter } from '../../../../src/components/screen/MenuScreenFooter';
+import { MenuScreenFooter } from '../../../../../src/components/screen/MenuScreenFooter';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

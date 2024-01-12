@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { CartFooter } from '../../../../src/components/screen/CartFooter';
+import { CartFooter } from '../../../../../src/components/screen/CartFooter';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

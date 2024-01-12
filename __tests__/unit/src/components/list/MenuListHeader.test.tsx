@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { MenuListHeader } from '../../../../src/components/list/MenuListHeader';
+import { MenuListHeader } from '../../../../../src/components/list/MenuListHeader';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
