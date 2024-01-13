@@ -28,11 +28,11 @@ export function CheckoutScreen({route, navigation}) {
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
             <Image style={{width: 50, height: 50,}} source={require(logo)}/>
           </View>
-         <Text style={[textStyles.text, {flex: 3, fontSize: 20}]}>{title}</Text>
+         <Text style={[textStyles.text, textStyles.smallHeadings, {flex: 3}]}>{title}</Text>
         </View>
         <View style={{backgroundColor: 'white', flex: 1.5,  borderBottomWidth: 1, paddingLet: 10}}>
           <View style={{flex: 1, marginLeft: 10, justifyContent: 'center'}}>
-            <Text style={[textStyles.text, {fontSize: 20}]}>Checkout</Text>
+            <Text style={[textStyles.text, textStyles.smallHeadings]}>Checkout</Text>
           </View>
           <View style={{flex: 2, marginLeft: 10, justifyContent: 'center'}}>
             <Text style={textStyles.text}>Carryout Order</Text>
@@ -46,16 +46,16 @@ export function CheckoutScreen({route, navigation}) {
         <View style={{flex: 2, flexDirection: 'row'}}>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <View>
-              <Text style={[textStyles.text, {fontSize: 20}]}>Subtotal</Text>
-              <Text style={[textStyles.text, {fontSize: 20}]}>Estimated Tax:</Text>
-              <Text style={[textStyles.text, {fontSize: 20}]}>Total:</Text>
+              <Text style={[textStyles.text, textStyles.smallHeadings]}>Subtotal</Text>
+              <Text style={[textStyles.text, textStyles.smallHeadings]}>Estimated Tax:</Text>
+              <Text style={[textStyles.text, textStyles.smallHeadings]}>Total:</Text>
             </View>
           </View>
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <View>
-              <Text style={[textStyles.text, {fontSize: 20}]}>$0.00</Text>
-              <Text style={[textStyles.text, {fontSize: 20}]}>$0.00</Text>
-              <Text style={[textStyles.text, {fontSize: 20}]}>$0.00</Text>
+              <Text style={[textStyles.text, textStyles.smallHeadings]}>$0.00</Text>
+              <Text style={[textStyles.text, textStyles.smallHeadings]}>$0.00</Text>
+              <Text style={[textStyles.text, textStyles.smallHeadings]}>$0.00</Text>
             </View>
           </View>
         </View>

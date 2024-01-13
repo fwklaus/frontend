@@ -12,7 +12,7 @@ export function ContactInfo() {
   return(
     <View style={{flex: 3}}>
      <View style={{marginLeft: 8, flex: 1, justifyContent: 'center'}}>
-       <Text style={[textStyles.text, {fontSize: 20}]}>Contact Info</Text>
+       <Text style={[textStyles.text, textStyles.smallHeadings]}>Contact Info</Text>
        <Text style={{color: 'red', fontSize: 12}}>All fields required</Text>
      </View>
      <View style={{flex: 4}}>

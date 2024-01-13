@@ -16,7 +16,7 @@ export function Notifications() {
   return(
     <View style={{flex: 2, paddingLeft: 10}}>
       <View style={{flex: 1}}>
-        <Text style={[textStyles.text, {fontSize: 20}]}>Text & Email Notifications</Text>
+        <Text style={[textStyles.text, textStyles.smallHeadings]}>Text & Email Notifications</Text>
       </View>
       <View style={{flex: 3}}>
         <View style={{flexDirection: 'column', flex: 1}}>

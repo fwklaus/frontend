@@ -14,7 +14,7 @@ const textStyles = StyleSheet.create({
   },
   headingText: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold'
   },
   serviceTermsText: {
@@ -35,7 +35,7 @@ const textStyles = StyleSheet.create({
   },
   headerText: {
    color: 'black',
-   fontSize: 20,
+   fontSize: 18,
    backgroundColor: '#fff',
    padding: 20,
    paddingLeft: 16
@@ -56,7 +56,10 @@ const textStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: 'black'
-    },
+  },
+  smallHeadings: {
+    fontSize: 18
+  }
 });
 
 

@@ -6,12 +6,11 @@ import {
   Text,
   View,
   Button
-} from 'react-native'
+} from 'react-native';
 import { HomeTab } from '../tab-navigator/HomeTab';
 import { ServicesTab } from '../tab-navigator/ServicesTab';
 import { TermsTab } from '../tab-navigator/TermsTab';
-
-import { containerStyles } from '../res/styles/container'
+import { containerStyles } from '../res/styles/container';
 
 const Tab = createBottomTabNavigator();
 
