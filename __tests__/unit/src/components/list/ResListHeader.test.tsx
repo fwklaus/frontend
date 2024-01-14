@@ -12,7 +12,10 @@ import {it} from '@jest/globals';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
+describe('Component tests', () => {
+  let currentAddress = '5555 Main St.'
 
-it('renders correctly', () => {
-
+  it('renders correctly', () => {
+    <ResListHeader currentAddress={currentAddress} />
+  });
 });

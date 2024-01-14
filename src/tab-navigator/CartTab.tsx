@@ -13,6 +13,7 @@ import { textStyles } from '../res/styles/text'
 import { containerStyles } from '../res/styles/container'
 
 import CartData from '../data/cartData'
+
 // data required from the context hook in RestaurantScreen
 // example using seedData
 const DATA = CartData;

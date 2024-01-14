@@ -25,15 +25,3 @@ export function MenuScreenFooter({params, navigation}) {
     </Pressable>
   );
 }
-
-// const styles = StyleSheet.create({
-//     button: {
-//       width: '100%',
-//       height: 70,
-//       backgroundColor: 'white',
-//       borderColor: 'black',
-//       borderTopWidth: 1,
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//     }
-// });

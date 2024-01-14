@@ -31,6 +31,10 @@ export function MenuTab({route, navigation}) {
 
     let params = route.params.params;
     let restaurantId = params.id;
+    //   // request menu data using params.id
+    //   //  let Data = getMenuData for the given params.id
+    //   // this will be an asynchronous call to the backend API
+    const DATA = getMenuData(restaurantId);
 
     const handleToggle = (title) => {
        setExpandedSections((expandedSections) => {
@@ -48,10 +52,6 @@ export function MenuTab({route, navigation}) {
       loadMenu();
     }, [])
 
-    //   // request menu data using params.id
-    //   //  let Data = getMenuData for the given params.id
-    //   // this will be an asynchronous call to the backend API
-      const DATA = getMenuData(restaurantId);
 
   const loadMenu = () => {
       setMenuData(DATA);

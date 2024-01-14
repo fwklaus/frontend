@@ -13,7 +13,11 @@ import {it} from '@jest/globals';
 import renderer from 'react-test-renderer';
 
 
-it('renders correctly', () => {
-
+describe('Component tests', () => {
+  it('renders correctly', () => {
+    <ContactInfo />
+  });
 });
+
+
 

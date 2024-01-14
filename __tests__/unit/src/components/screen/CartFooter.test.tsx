@@ -12,7 +12,21 @@ import {it} from '@jest/globals';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
+describe('Component tests', () => {
+  const navigation = {
+    navigate: jest.fn()
+  }
 
-it('renders correctly', () => {
+  let params =  {
+    id: 1,
+    title: 'The Red Pickle',
+    category: 'American',
+    distance: 5.2,
+    rating: 5,
+    address: '5555 Main St, City, State, 80080'
+  };
 
+  it('renders correctly', () => {
+    <CartFooter navigation={navigation} params={params}/>
+  });
 });

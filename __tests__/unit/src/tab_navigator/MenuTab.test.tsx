@@ -13,6 +13,21 @@ import {it} from '@jest/globals';
 import renderer from 'react-test-renderer';
 
 
-it('renders correctly', () => {
+describe("Component Tests", () => {
+  let navigation = {
+    navigate: jest.fn(),
+  };
 
-});
+  let params = {
+    id: 1,
+    title: 'The Red Pickle',
+    category: 'American',
+    distance: 5.2,
+    rating: 5,
+    address: '5555 Main St, City, State, 80080'
+  };
+
+  it("renders correctly", () => {
+    <MenuTab params={params} navigation={navigation}/>
+  })
+})
