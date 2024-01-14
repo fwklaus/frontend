@@ -28,5 +28,7 @@ describe("Component Tests", () => {
 
   it("renders correctly", () => {
     <CartTab navigation={navigation} params={params}/>
-  })
+  });
+
+  it.todo("deletes an item from the cart when we press the trash can icon");
 })

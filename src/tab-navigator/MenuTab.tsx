@@ -89,7 +89,10 @@ export function MenuTab({route, navigation}) {
           }}>
            <View style={{flexDirection: 'row', justifyContent: 'space-between', flex: 1}}>
              <Text style={[textStyles.headerText, { width: '80%' }]}>{title}</Text>
-             <Image style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}} source={require('../res/images/angle-small-down.png')} />
+             <Image
+               style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}}
+               source={require('../res/images/angle-small-down.png')}
+             />
            </View>
           </Pressable>
         )}

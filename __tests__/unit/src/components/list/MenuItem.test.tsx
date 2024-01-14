@@ -25,4 +25,6 @@ describe('Component tests', () => {
 
     <MenuItem item={item} restaurantId={id}/>
   });
+
+  it.todo('opens up CartModal when pressed');
 });

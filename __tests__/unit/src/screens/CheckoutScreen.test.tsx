@@ -31,4 +31,8 @@ describe('Component tests', () => {
 
     <CheckoutScreen navigation={navigation} params={params} />
   });
+
+  it.todo('navigates to OrderSuccess screen when "Submit Order and Pay Later" button is pressed');
+  it.todo('order success message created for successful order');
+  it.todo('CheckoutScreen rerenders for unsuccessful order');
 });

@@ -29,4 +29,7 @@ describe('Component tests', () => {
   it('renders correctly', () => {
     <CartFooter navigation={navigation} params={params}/>
   });
+
+  it.todo('navigates to MenuTab when Close Cart button is pressed');
+  it.todo('navigates to CheckoutScreen when Checkout button is pressed');
 });

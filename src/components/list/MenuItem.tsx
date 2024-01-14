@@ -29,12 +29,14 @@ export function MenuItem({item, restaurantId}) {
       <CartModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} restaurantId={restaurantId}/>
       <Pressable onPress={() => setModalVisible(true)}>
         <View style={[containerStyles.itemContainer, {flexDirection: 'row', padding: 8}]}>
-         <View style={{justifyContent: 'center', flex: 1, marginLeft: 32}}>
-           <Text style={textStyles.text}>{name}</Text>
-           <Text style={[textStyles.text, {fontSize: 12}]}>{desc}</Text>
-           <Text style={textStyles.text}>{cost}</Text>
+         <View style={{flex: 2, marginLeft: 16}}>
+            <Text style={[textStyles.text, {flex: 1}]}>{name}</Text>
+            <Text style={[textStyles.text, {flex: 1, fontSize: 12}]}>{desc}</Text>
+            <Text style={[textStyles.text, {flex: 1, fontSize: 12}]}>{cost}</Text>
          </View>
-         <Image style={{marginRight: 32, width: 75, height: 75}} source={require(url)} />
+         <View style={{flex: 1}}>
+           <Image style={{marginRight: 32, width: 75, height: 75}} source={require(url)} />
+         </View>
         </View>
       </Pressable>
     </View>

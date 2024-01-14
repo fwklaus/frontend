@@ -31,12 +31,3 @@ export function RestaurantItem ({id, title, category, distance, rating, phone, h
     </Pressable>
   );
 }
-
-// const styles = StyleSheet.create({
-//   item: {
-//     backgroundColor: 'white',
-//     padding: 20,
-//     borderColor: 'black',
-//     borderBottomWidth: 1,
-//   }
-// });

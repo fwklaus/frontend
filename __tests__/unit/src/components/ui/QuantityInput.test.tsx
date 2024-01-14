@@ -16,4 +16,7 @@ describe('Component tests', () => {
   it('renders correctly', () => {
     <QuantityInput />
   });
+
+  it.todo("increases the quantity of the menuItem when '+' button is pressed");
+  it.todo("decreases the quantity of the menuItem when '-' button is pressed");
 });

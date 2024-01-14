@@ -30,4 +30,6 @@ describe('Component tests', () => {
   it('renders correctly', () => {
     <MenuScreenFooter navigation={navigation} params={params} />
   });
+
+  it.todo('navigates to CartTab when View Cart button is pressed');
 });

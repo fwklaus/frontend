@@ -17,4 +17,6 @@ describe('Component tests', () => {
   it('renders correctly', () => {
     <GetDirections address={address}/>
   });
+
+  it.todo('opens up map to restaurant using Google API')
 });

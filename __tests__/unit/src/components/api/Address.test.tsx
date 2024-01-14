@@ -18,4 +18,6 @@ describe('Component tests', () => {
   it('renders correctly', () => {
     <Address address={address}/>
   });
+
+  it.todo("Gets current location using Google API when pressing it")
 });

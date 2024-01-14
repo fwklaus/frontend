@@ -23,6 +23,7 @@ const containerStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     margin: 10,
+    flex: 1
   },
   restaurantItem: {
     backgroundColor: 'white',

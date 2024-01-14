@@ -1,6 +1,6 @@
 /**
  * @format
- */
+*/
 
 import 'react-native';
 import React from 'react';
@@ -44,5 +44,5 @@ describe("Component Tests", () => {
 
   it("renders correctly", () => {
     <RestaurantScreen navigation={navigation} params={params}/>
-  })
+  });
 })

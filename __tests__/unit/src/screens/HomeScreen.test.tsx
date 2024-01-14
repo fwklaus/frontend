@@ -20,4 +20,8 @@ describe('Component tests', () => {
   it('renders correctly', () => {
     <HomeScreen navigation={navigation}/>
   });
+
+  it.todo("navigates to HomeTab when services tab is pressed");
+  it.todo("navigates to ServicesTab when services tab is pressed");
+  it.todo("navigates to TermsTab when services tab is pressed");
 });

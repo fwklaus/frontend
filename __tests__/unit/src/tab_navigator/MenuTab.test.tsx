@@ -29,5 +29,7 @@ describe("Component Tests", () => {
 
   it("renders correctly", () => {
     <MenuTab params={params} navigation={navigation}/>
-  })
+  });
+
+  it.todo("Pressing on a list section header opens a sublist of food items");
 })

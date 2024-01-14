@@ -25,4 +25,6 @@ describe('Component tests', () => {
   it('renders correctly', () => {
     <RestaurantItem resItem={resItem}/>
   });
+
+  it.todo('navigates to RestaurantScreen when pressed')
 });

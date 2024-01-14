@@ -27,8 +27,8 @@ describe('Component tests', () => {
 
      renderer.create(<CartModal item={item} restaurantId={restaurantId} />)
   });
-});
 
-describe('Component tests', () => {
+  it.todo("exits to MenuTab when 'X' is pressed");
 
+  it.todo("exits to MenuTab when the Add to Cart button is pressed");
 });
