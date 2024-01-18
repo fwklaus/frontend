@@ -2,6 +2,7 @@ import React from 'react';
 import {
   SafeAreaView,
   Text,
+  View
 } from 'react-native';
 import { containerStyles } from '../res/styles/container'
 import { textStyles } from '../res/styles/text'
@@ -18,12 +19,14 @@ export function ServicesTab() {
   ];
 
   return(
-     <SafeAreaView style={[containerStyles.mainTabs, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
+    <SafeAreaView style={[containerStyles.mainTabs, {backgroundColor: 'white', justifyContent: 'flex-start'}]}>
+      <View style={{margin: 10}}>
         <Text style={{color: 'black', textAlign: 'center', marginBottom: 16, fontSize: 32}}>Our Services</Text>
         <Text style={textStyles.serviceTermsText}>-{text[0]}</Text>
         <Text style={textStyles.serviceTermsText}>-{text[1]}</Text>
         <Text style={textStyles.serviceTermsText}>-{text[2]}</Text>
         <Text style={textStyles.serviceTermsText}>-{text[3]}</Text>
-     </SafeAreaView>
+      </View>
+    </SafeAreaView>
   );
 }

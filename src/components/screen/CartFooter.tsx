@@ -13,7 +13,7 @@ export function CartFooter({params, navigation}) {
   // Send Total values calculated from the Context to CheckoutScreen along with params
 
   return (
-    <View style={{flex: 1, borderTopWidth: 1, borderColor: 'black'}}>
+    <View style={{flex: 0.5, borderTopWidth: 1, borderColor: 'black'}}>
       <View style={{flex: 1}}>
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

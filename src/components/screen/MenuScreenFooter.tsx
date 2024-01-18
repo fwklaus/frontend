@@ -11,7 +11,7 @@ import { containerStyles } from '../../res/styles/container';
 
 export function MenuScreenFooter({params, navigation}) {
   return (
-    <Pressable style={buttonStyles.bottomNav} onPress={()=> navigation.navigate('Cart', params)}>
+    <Pressable style={[buttonStyles.bottomNav, {flex: 0.11}]} onPress={()=> navigation.navigate('Cart', params)}>
       <View style={{flex: 0.5}}></View>
       <View style={[textStyles.buttonText, containerStyles.justifyText]}>
         <View style={{flex: 1}}>

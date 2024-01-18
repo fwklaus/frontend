@@ -31,11 +31,34 @@ const containerStyles = StyleSheet.create({
     borderColor: 'black',
     borderBottomWidth: 1,
   },
+  headerItem: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderColor: 'black',
+    borderBottomWidth: 1,
+    padding: 10
+  },
   justifyText: {
     flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center'
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor: 'black',
+    borderBottomWidth: 1,
+    paddingLeft: 10
+  },
+  headerLogoContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  logoSize: {
+    height: 50,
+    width: 50
   }
 });
 

@@ -24,9 +24,9 @@ export function CheckoutScreen({route, navigation}) {
 
   return(
       <SafeAreaView style={containerStyles.main}>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', borderColor: 'black', borderBottomWidth: 1, paddingLeft: 10}}>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-            <Image style={{width: 50, height: 50,}} source={require(logo)}/>
+        <View style={[ containerStyles.headerContainer, {flex: 1} ]}>
+          <View style={containerStyles.headerLogoContainer}>
+            <Image style={containerStyles.logoSize} source={require(logo)}/>
           </View>
          <Text style={[textStyles.text, textStyles.smallHeadings, {flex: 3}]}>{title}</Text>
         </View>

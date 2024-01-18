@@ -25,6 +25,7 @@ export function CartTab({route, navigation}) {
     <SafeAreaView style={containerStyles.main}>
       <CartHeader params={params}/>
       <FlatList
+        style={{flex: 1}}
         data={DATA}
         renderItem={({item}) => {
           let cost = item.cost;
@@ -33,7 +34,7 @@ export function CartTab({route, navigation}) {
           let trash = '../res/images/trash_small.png'
 
           return(
-            <View style={{flexDirection: 'row', marginBottom: 8, marginTop: 16, height: 40}}>
+            <View style={{flexDirection: 'row', marginBottom: 8, marginTop: 16, height: 40, flex: 1}}>
               <Text style={[textStyles.text, {flex: 2, paddingLeft: 24}]}>{quantity} X {name}</Text>
               <Text style={[textStyles.text, {flex: 1}]}>${(cost * quantity).toFixed(2)}</Text>
               <View style={{flex: .5}}>

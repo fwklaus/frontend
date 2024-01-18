@@ -22,6 +22,12 @@ export function RestaurantScreen({route, navigation}) {
   // need to pass route and navigation to MenuTab
     // can we pass this as a prop to Tab.Screen component?
     // Do we use Context or State hooks?
+
+  // customer header for cart tab to remove native backHandler functionality
+  // use X button to return to menuTab - use "Close Cart" button for reference
+
+  // implement Context to prop drill cart data
+
   let params = route.params
 
   return (

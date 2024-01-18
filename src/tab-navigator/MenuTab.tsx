@@ -53,6 +53,7 @@ export function MenuTab({route, navigation}) {
     }, [])
 
 
+  // load menu data asynchronously on refresh
   const loadMenu = () => {
       setMenuData(DATA);
 
@@ -79,6 +80,7 @@ export function MenuTab({route, navigation}) {
     <SafeAreaView style={containerStyles.main}>
       <MenuScreenHeader params={params}/>
       <SectionList
+        style={{flex: 1}}
         sections={DATA}
         extraData={expandedSections}
         keyExtractor={(item, index) => item + index}
@@ -87,13 +89,13 @@ export function MenuTab({route, navigation}) {
           <Pressable onPress={() => {
            handleToggle(title);
           }}>
-           <View style={{flexDirection: 'row', justifyContent: 'space-between', flex: 1}}>
-             <Text style={[textStyles.headerText, { width: '80%' }]}>{title}</Text>
-             <Image
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', flex: 1}}>
+              <Text style={[textStyles.headerText, { width: '80%' }]}>{title}</Text>
+              <Image
                style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}}
                source={require('../res/images/angle-small-down.png')}
-             />
-           </View>
+              />
+            </View>
           </Pressable>
         )}
         refreshControl={
@@ -108,11 +110,6 @@ export function MenuTab({route, navigation}) {
            <MenuItem item={item} restaurantId={restaurantId}/>
           );
         }}
-        //          ListFooterComponent={() => {
-        //           return (
-        //             <Text style={{height: 70}}></Text>
-        //           );
-        //          }}
         />
         <MenuScreenFooter params={params} navigation={navigation}/>
     </ SafeAreaView>

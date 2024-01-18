@@ -57,6 +57,7 @@ export function HomeTab({navigation}) {
     <SafeAreaView style={{flex: 1}}>
       <ResListHeader currentAddress={currentAddress} />
       <FlatList
+        style={{flex: 1, backgroundColor: 'red'}}
         data={restaurantData}
         renderItem={({item})=> <RestaurantItem
             id={item.id}
