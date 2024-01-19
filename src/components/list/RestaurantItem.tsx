@@ -1,20 +1,20 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import {
-  StyleSheet,
-  Pressable,
-  View,
-  Image,
-  Text,
-} from 'react-native';
-import { textStyles } from '../../res/styles/text'
-import { containerStyles } from '../../res/styles/container'
+// import React from 'react';
+// import { useNavigation } from '@react-navigation/native';
+// import {
+//   StyleSheet,
+//   Pressable,
+// //   View,
+//   Image,
+// //   Text,
+// } from 'react-native';
+// import { textStyles } from '../../res/styles/text'
+// import { containerStyles } from '../../res/styles/container'
 
 export function RestaurantItem ({id, title, category, distance, rating, phone, hours, address}) {
   // require does not work with dynamic values?
     // can't pass the image URL to require at runtime
   // find another way to load the image
-  let url = '../../res/images/order_weasel_small.jpg'
+  let url = '../res/images/order_weasel_small.jpg'
   const navigation = useNavigation();
 
   return (
