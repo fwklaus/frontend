@@ -7,7 +7,8 @@ import {
   RefreshControl,
   StyleSheet,
   Pressable,
-  Image
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { GetDirections } from '../components/api/GetDirections';
@@ -49,15 +50,21 @@ export function RestaurantItem ({id, title, category, distance, rating, phone, h
   const navigation = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.navigate('RestaurantScreen', {id, title, category, distance, rating, phone, hours, address})}>
-      <View style={[containerStyles.restaurantItem, {flexDirection: 'row'}]}>
-        <Image source={require(url)} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
-        <View style={{marginLeft: 10, flex: 2}}>
-          <Text style={textStyles.text}>{title}</Text>
-          <Text style={textStyles.text}>Category: {category}</Text>
-          <Text style={textStyles.text}>Distance(mi): {distance}</Text>
-          <Text style={textStyles.text}>Rating: {rating}</Text>
-        </View>
+    <Pressable
+      unstable_pressDelay={50}
+      onPress={() => navigation.navigate('RestaurantScreen', {id, title, category, distance, rating, phone, hours, address})}
+      style={({pressed}) => [
+         containerStyles.restaurantItem,
+         {flexDirection: 'row'},
+         { backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'},
+      ]}
+    >
+      <Image source={require(url)} style={{width: 100, height: 100, borderColor: 'black', borderWidth: 1}}/>
+      <View style={{marginLeft: 10, flex: 2}}>
+        <Text style={textStyles.text}>{title}</Text>
+        <Text style={textStyles.text}>Category: {category}</Text>
+        <Text style={textStyles.text}>Distance(mi): {distance}</Text>
+        <Text style={textStyles.text}>Rating: {rating}</Text>
       </View>
     </Pressable>
   );

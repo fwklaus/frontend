@@ -34,7 +34,8 @@ export function HomeScreen({ navigation }) {
           fontSize: 12,
           fontFamily: "anything",
           fontWeight: 'bold'
-        }
+        },
+        tabBarInactiveTintColor: 'grey',
       }}>
 
         <Tab.Screen
@@ -45,8 +46,8 @@ export function HomeScreen({ navigation }) {
               return (
                 <FastImage
                   source={require(homeIcon)}
-                  style={{height: 15, width: 15}}
-                  tintColor = { tabInfo.focused ? 'blue' : ''}
+                  style={{height: 20, width: 20}}
+                  tintColor = { tabInfo.focused ? 'blue' : 'grey'}
                 />
               );
             }
@@ -60,8 +61,8 @@ export function HomeScreen({ navigation }) {
               return (
                 <FastImage
                   source={require(servicesIcon)}
-                  style={{height: 15, width: 15}}
-                  tintColor = { tabInfo.focused ? 'blue' : ''}
+                  style={{height: 20, width: 20}}
+                  tintColor = { tabInfo.focused ? 'blue' : 'grey'}
                 />
               );
             }
@@ -75,8 +76,8 @@ export function HomeScreen({ navigation }) {
               return (
                <FastImage
                  source={require(termsIcon)}
-                 style={{height: 15, width: 15}}
-                 tintColor = { tabInfo.focused ? 'blue' : ''}
+                 style={{height: 20, width: 20}}
+                 tintColor = { tabInfo.focused ? 'blue' : 'grey'}
                />
               );
            }

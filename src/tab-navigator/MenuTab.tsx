@@ -25,7 +25,7 @@ function getMenuData(id) {
 }
 
 export function MenuScreenHeader({params}) {
-  let logo = '../../res/images/order_weasel_small.jpg'
+  let logo = '../res/images/order_weasel_small.jpg'
   let id = params.id;
   let title = params.title;
 
