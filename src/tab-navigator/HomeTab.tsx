@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { useNavigation } from '@react-navigation/native';
 import {
   SafeAreaView,
   FlatList,
@@ -11,15 +10,36 @@ import {
   Image
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-// import { RestaurantItem } from '../components/list/RestaurantItem';
-
-import { ResListHeader } from '../components/list/ResListHeader';
-import { ResListResults } from '../components/list/ResListResults';
-
-
+import { GetDirections } from '../components/api/GetDirections';
 import { containerStyles } from '../res/styles/container'
 import { textStyles } from '../res/styles/text'
+
+export function ResListResults(list) {
+  let nResults = list.length;
+  return (
+    <View style={[containerStyles.restaurantItem, {padding: 10}]}>
+      <Text  style={[textStyles.headingText, {color: '#A1000E', fontSize: 16}]}>{nResults} Results</Text>
+    </View>
+  );
+}
+
+export function ResListHeader({currentAddress}) {
+  let locationMarker = '../res/images/marker.png';
+
+  return (
+    <View style={{flex: 0.17}}>
+      <View style={[containerStyles.headerItem, {flex: 1, flexDirection: 'row'}]}>
+        <View style={{flex: 1, alignItems: "center", justifyContent: 'center'}}>
+          <Image style={{width: 20, height: 20}} source={require(locationMarker)}/>
+        </View>
+        <GetDirections address={currentAddress}/>
+      </View>
+      <View style={containerStyles.headerItem}>
+        <Text style={[textStyles.headingText, {color: 'blue'}]}>Restaurants Near You (Carryout Only)</Text>
+      </View>
+    </View>
+  );
+}
 
 export function RestaurantItem ({id, title, category, distance, rating, phone, hours, address}) {
   // require does not work with dynamic values?
