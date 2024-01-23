@@ -8,31 +8,35 @@ import {
 } from 'react-native';
 import { textStyles } from '../../res/styles/text';
 
-export function QuantityInput() {
+export function QuantityInput({id, quantity, setQuantity}) {
   return(
     <View style={{flex: 1}}>
       <Text style={[textStyles.text, {flex: 1}]}>Quantity:</Text>
       <View style={{flex: 2, flexDirection: 'row', alignItems: 'center'}}>
         <View style={{flex: 1}}></View>
         <View style={{flex: 0.75}}>
-          <Pressable onPress={() => console.log("decrease quantity")}>
-            <Text style={[textStyles.text, styles.quantityAugment, {color: "white"}]}>
-              -
-            </Text>
+          <Pressable onPress={() => {
+            if (quantity === '0') {
+              return;
+            } else {
+              setQuantity(String(Number(quantity) - 1));
+            }
+          }}>
+            <Text style={[textStyles.text, styles.quantityAugment, {color: "white"}]}>-</Text>
           </Pressable>
         </View>
         <View style={{flex: 1}}>
           <TextInput
-            value={'1'}
+            value={quantity}
             style={[styles.inputBox, textStyles.text]}
             textAlign='center'
           />
         </View>
         <View style={{flex: 0.75}}>
-          <Pressable onPress={() => console.log("increase quantity")}>
-            <Text style={[textStyles.text, styles.quantityAugment, {color: "white"}]}>
-              +
-            </Text>
+          <Pressable onPress={() => {
+            setQuantity(String(Number(quantity) + 1));
+          }}>
+            <Text style={[textStyles.text, styles.quantityAugment, {color: "white"}]}>+</Text>
           </Pressable>
         </View>
         <View style={{flex: 1}}></View>

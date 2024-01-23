@@ -11,6 +11,9 @@ import {
 import { MenuTab } from '../tab-navigator/MenuTab';
 import { CartTab } from '../tab-navigator/CartTab';
 import { containerStyles } from '../res/styles/container';
+import { CartProvider } from '../context/CartContext';
+
+
 const Tab = createBottomTabNavigator();
 
 // // fetching menu data for a restaurant example
@@ -31,31 +34,33 @@ export function RestaurantScreen({route, navigation}) {
   let params = route.params
 
   return (
-    <SafeAreaView style={containerStyles.main}>
-      <Tab.Navigator screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          display: 'none',
-        },
-        tabBarIconStyle: {
-          display: 'none',
-        },
-        tabBarLabelStyle: {
-          fontSize: 16,
-          marginBottom: 10,
-        }
-      }}>
-        <Tab.Screen
-          name="Menu"
-          component={ MenuTab }
-          initialParams={{params: params}}
-        />
-        <Tab.Screen
-          name="Cart"
-          component={ CartTab }
-          backBehavior="RestaurantScreen"
-        />
-      </ Tab.Navigator>
-    </ SafeAreaView>
+    <CartProvider>
+      <SafeAreaView style={containerStyles.main}>
+        <Tab.Navigator screenOptions={{
+          headerShown: false,
+          tabBarStyle: {
+            display: 'none',
+          },
+          tabBarIconStyle: {
+            display: 'none',
+          },
+          tabBarLabelStyle: {
+            fontSize: 16,
+            marginBottom: 10,
+          }
+        }}>
+          <Tab.Screen
+            name="Menu"
+            component={ MenuTab }
+            initialParams={{params: params}}
+          />
+          <Tab.Screen
+            name="Cart"
+            component={ CartTab }
+            backBehavior="RestaurantScreen"
+          />
+        </ Tab.Navigator>
+      </ SafeAreaView>
+    </CartProvider>
   );
 }

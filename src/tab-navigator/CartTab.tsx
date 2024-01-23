@@ -8,14 +8,15 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
-import { textStyles } from '../res/styles/text'
-import { containerStyles } from '../res/styles/container'
+import { textStyles } from '../res/styles/text';
+import { containerStyles } from '../res/styles/container';
 
-import CartData from '../data/cartData'
-
+import useCart from '../hooks/useCart';
 // data required from the context hook in RestaurantScreen
+
+// import CartData from '../data/cartData'
 // example using seedData
-const DATA = CartData;
+// const DATA = CartData;
 
 export function CartHeader({params}) {
   let logo = '../res/images/order_weasel_small.jpg'
@@ -69,33 +70,35 @@ export function CartFooter({params, navigation}) {
   );
 }
 
+function Item({id, name, cost, quantity, deleteItem}) {
+let trash = '../res/images/trash_small.png'
+
+  return(
+    <View style={styles.cartItem}>
+      <Text style={[textStyles.text, {flex: 2, paddingLeft: 24}]}>{quantity} X {name}</Text>
+      <Text style={[textStyles.text, {flex: 1}]}>${(cost * quantity).toFixed(2)}</Text>
+      <View style={{flex: .5}}>
+        <Pressable onPress={() => {
+          deleteItem(id);
+        }}>
+          <Image style={{height: 25, width: 25}} source={require(trash)}/>
+        </Pressable>
+      </View>
+    </View>
+  );
+}
+
 export function CartTab({route, navigation}) {
   let params = route.params
+  const { cart, deleteItem, editItem } = useCart();
 
   return(
     <SafeAreaView style={containerStyles.main}>
       <CartHeader params={params}/>
       <FlatList
         style={{flex: 1}}
-        data={DATA}
-        renderItem={({item}) => {
-          let cost = item.cost;
-          let name = item.name;
-          let quantity = item.quantity;
-          let trash = '../res/images/trash_small.png'
-
-          return(
-            <View style={{flexDirection: 'row', marginBottom: 8, marginTop: 16, height: 40, flex: 1}}>
-              <Text style={[textStyles.text, {flex: 2, paddingLeft: 24}]}>{quantity} X {name}</Text>
-              <Text style={[textStyles.text, {flex: 1}]}>${(cost * quantity).toFixed(2)}</Text>
-              <View style={{flex: .5}}>
-                <Pressable onPress={() => {console.log('implement cart item deletion')}}>
-                  <Image style={{height: 25, width: 25}} source={require(trash)}/>
-                </Pressable>
-              </View>
-            </View>
-          );
-        }}
+        data={cart}
+        renderItem={({item}) => <Item name={item.name} id={item.id} cost={item.cost} quantity={item.quantity} deleteItem={deleteItem}/>}
         ListHeaderComponent={() => {
           return (
             <View style={{borderBottomWidth: 1, borderColor: 'black'}}>
@@ -137,4 +140,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
+  cartItem: {
+    flexDirection: 'row',
+    marginBottom: 8,
+    marginTop: 16,
+    height: 40,
+    flex: 1
+  }
 });

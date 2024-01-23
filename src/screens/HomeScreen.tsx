@@ -37,7 +37,6 @@ export function HomeScreen({ navigation }) {
         },
         tabBarInactiveTintColor: 'grey',
       }}>
-
         <Tab.Screen
           name="Home"
           component={ HomeTab }
