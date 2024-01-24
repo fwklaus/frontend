@@ -4,7 +4,11 @@
 
 import 'react-native';
 import React from 'react';
-import { CheckoutScreen } from '../../../../src/screens/CheckoutScreen';
+import {
+  CheckoutScreen, CheckoutFooter, CheckoutTotals,
+  NotificationsSection, ContactInfoSection, CheckoutBottomHeader,
+  CheckoutTopHeader
+} from '../../../../src/screens/CheckoutScreen';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
@@ -13,7 +17,7 @@ import {it} from '@jest/globals';
 import renderer from 'react-test-renderer';
 
 
-describe('Component tests', () => {
+describe('CheckoutScreen tests', () => {
 
   it('renders correctly', () => {
     let navigation = {
@@ -35,4 +39,29 @@ describe('Component tests', () => {
   it.todo('navigates to OrderSuccess screen when "Submit Order and Pay Later" button is pressed');
   it.todo('order success message created for successful order');
   it.todo('CheckoutScreen rerenders for unsuccessful order');
+});
+
+
+describe("CheckoutFooter tests", () => {
+  it.todo("renders correctly");
+});
+
+describe("CheckoutTotals tests", () => {
+  it.todo("renders correctly");
+});
+
+describe("NotificationsSection tests", () => {
+  it.todo("renders correctly");
+});
+
+describe("ContactInfoSection tests", () => {
+  it.todo("renders correctly");
+});
+
+describe("CheckoutBottomHeader tests", () => {
+  it.todo("renders correctly");
+});
+
+describe("CheckoutTopHeader tests", () => {
+  it.todo("renders correctly");
 });

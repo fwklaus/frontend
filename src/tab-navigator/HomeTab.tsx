@@ -19,8 +19,8 @@ import { loadRestaurants } from '../hooks/useRes';
 // fetching nearby restaurant data example
 import restaurantData from '../data/restaurantData.js';
 
-export function ResListResults(list) {
-  let nResults = list.length;
+function ResListResults({resList}) {
+  let nResults = resList.length;
   return (
     <View style={[containerStyles.restaurantItem, {padding: 10}]}>
       <Text  style={[textStyles.headingText, {color: '#A1000E', fontSize: 16}]}>{nResults} Results</Text>
@@ -28,7 +28,7 @@ export function ResListResults(list) {
   );
 }
 
-export function ResListHeader({currentAddress}) {
+function ResListHeader({currentAddress}) {
   let locationMarker = '../res/images/marker.png';
 
   return (
@@ -46,7 +46,7 @@ export function ResListHeader({currentAddress}) {
   );
 }
 
-export function RestaurantItem ({id, title, category, distance, rating, phone, hours, address}) {
+function RestaurantItem ({id, title, category, distance, rating, phone, hours, address}) {
   // require does not work with dynamic values?
     // can't pass the image URL to require at runtime
   // find another way to load the image
@@ -75,7 +75,7 @@ export function RestaurantItem ({id, title, category, distance, rating, phone, h
 }
 
 
-export function HomeTab({navigation}) {
+function HomeTab({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
   const [resData, setResData] = useState([]);
   // must be set programmatically, or manually as a last resort
@@ -130,8 +130,13 @@ const loadRestaurants = (address) => {
           <RefreshControl refreshing={refreshing} onRefresh={loadRestaurants}/>
         }
         keyExtractor={item => item.id}
-        ListHeaderComponent={ResListResults(resData)}
+        ListHeaderComponent={
+         <ResListResults resList={resData}/>
+        }
       />
     </SafeAreaView>
   );
 }
+
+
+export {ResListResults, ResListHeader, RestaurantItem, HomeTab};

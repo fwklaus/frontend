@@ -36,7 +36,6 @@ const textStyles = StyleSheet.create({
   headerText: {
    color: 'black',
    fontSize: 18,
-   backgroundColor: '#fff',
    padding: 20,
    paddingLeft: 16
   },

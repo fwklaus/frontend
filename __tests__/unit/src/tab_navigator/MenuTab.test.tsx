@@ -9,7 +9,8 @@ import {
   MenuItem,
   MenuScreenHeader,
   MenuScreenFooter,
-  MenuListHeader
+  MenuListHeader,
+  SectionHeader
 } from '../../../../src/tab-navigator/MenuTab';
 
 // Note: import explicitly to use the types shipped with jest.
@@ -106,4 +107,8 @@ describe("MenuTab Tests", () => {
   });
 
   it.todo("Pressing on a list section header opens a sublist of food items");
+});
+
+describe("SectionHeader Tests", () => {
+  it.todo("renders correctly")
 });

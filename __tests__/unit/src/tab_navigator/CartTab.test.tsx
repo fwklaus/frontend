@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { CartTab, CartFooter, CartHeader } from '../../../../src/tab-navigator/CartTab';
+import { CartTab, CartFooter, CartHeader, Item} from '../../../../src/tab-navigator/CartTab';
 
 
 // Note: import explicitly to use the types shipped with jest.
@@ -72,4 +72,8 @@ describe("CartTab Tests", () => {
   });
 
   it.todo("deletes an item from the cart when we press the trash can icon");
-})
+});
+
+describe("Item Tests", () => {
+  it.todo("renders correctly");
+});

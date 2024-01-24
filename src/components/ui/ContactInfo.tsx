@@ -10,12 +10,12 @@ import { containerStyles } from '../../res/styles/container';
 
 export function ContactInfo() {
   return(
-    <View style={{flex: 3}}>
-     <View style={{marginLeft: 8, flex: 1, justifyContent: 'center'}}>
-       <Text style={[textStyles.text, textStyles.smallHeadings]}>Contact Info</Text>
-       <Text style={{color: 'red', fontSize: 12}}>All fields required</Text>
-     </View>
-     <View style={{flex: 4}}>
+    <>
+      <View style={{flex: 1.75, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+        <Text style={[textStyles.text, textStyles.smallHeadings, {flex: 1, marginLeft: 10}]}>Contact Info</Text>
+        <Text style={{color: 'red', fontSize: 12, flex: 1}}>*All fields required</Text>
+      </View>
+      <View style={{flex: 10}}>
        <TextInput style={styles.input}
          placeholder="First Name"
        />
@@ -28,8 +28,8 @@ export function ContactInfo() {
        <TextInput style={styles.input}
          placeholder="Phone"
        />
-     </View>
-    </View>
+      </View>
+    </>
   );
 }
 

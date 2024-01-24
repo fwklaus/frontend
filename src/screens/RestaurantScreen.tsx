@@ -13,7 +13,6 @@ import { CartTab } from '../tab-navigator/CartTab';
 import { containerStyles } from '../res/styles/container';
 import { CartProvider } from '../context/CartContext';
 
-
 const Tab = createBottomTabNavigator();
 
 // // fetching menu data for a restaurant example

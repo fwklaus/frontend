@@ -18,6 +18,7 @@ import { LoadingScreen } from './src/screens/LoadingScreen';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { RestaurantScreen } from './src/screens/RestaurantScreen';
 import { CheckoutScreen } from './src/screens/CheckoutScreen';
+// import { CartProvider } from './src/context/CartContext';
 
 const Stack = createNativeStackNavigator();
 

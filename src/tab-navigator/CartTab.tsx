@@ -18,10 +18,10 @@ import useCart from '../hooks/useCart';
 // example using seedData
 // const DATA = CartData;
 
-export function CartHeader({params}) {
+function CartHeader({resInfo}) {
   let logo = '../res/images/order_weasel_small.jpg'
-  let id = params.id;
-  let title = params.title;
+  let id = resInfo.id;
+  let title = resInfo.title;
 
   return (
     <View style={[ containerStyles.headerContainer, { flex: 0.16} ]}>
@@ -33,10 +33,29 @@ export function CartHeader({params}) {
   );
 }
 
-export function CartFooter({params, navigation}) {
+function CartFooter({navigation, resInfo, cart}) {
   const [modalVisible, setModalVisible] = useState(false);
 
-  // Send Total values calculated from the Context to CheckoutScreen along with params
+  const SEATTLE_SALES_TAX_RATE = 10.25 / 100;
+
+  let getSubTotal = (cart) => {
+    let total = 0;
+
+    cart.forEach(item => {
+      let quantity = Number(item.quantity);
+      let cost = Number(item.cost);
+
+      total += quantity * cost;
+    });
+
+    return total;
+  }
+
+  let subtotal = getSubTotal(cart);
+  let tax = subtotal * SEATTLE_SALES_TAX_RATE;
+  let total = subtotal + tax;
+
+  const totals = {subtotal, tax, total};
 
   return (
     <View style={{flex: 0.5, borderTopWidth: 1, borderColor: 'black'}}>
@@ -51,9 +70,9 @@ export function CartFooter({params, navigation}) {
            </View>
             <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                <View>
-                 <Text style={textStyles.text}>$0.00</Text>
-                 <Text style={textStyles.text}>$0.00</Text>
-                 <Text style={textStyles.text}>$0.00</Text>
+                 <Text style={textStyles.text}>${subtotal.toFixed(2)}</Text>
+                 <Text style={textStyles.text}>${tax.toFixed(2)}</Text>
+                 <Text style={textStyles.text}>${total.toFixed(2)}</Text>
                </View>
             </View>
         </View>
@@ -62,7 +81,7 @@ export function CartFooter({params, navigation}) {
         <Pressable style={styles.closeCart}onPress={()=> navigation.navigate('Menu')}>
           <Text style={textStyles.cartButtonText}>Close Cart</Text>
         </Pressable>
-        <Pressable style={styles.checkout} onPress={()=> navigation.navigate('CheckoutScreen', params)}>
+        <Pressable style={styles.checkout} onPress={()=> navigation.navigate('CheckoutScreen', {resInfo, totals})}>
           <Text style={textStyles.cartButtonText}>Checkout</Text>
         </Pressable>
       </View>
@@ -88,13 +107,13 @@ let trash = '../res/images/trash_small.png'
   );
 }
 
-export function CartTab({route, navigation}) {
+function CartTab({route, navigation}) {
   let params = route.params
   const { cart, deleteItem, editItem } = useCart();
 
   return(
     <SafeAreaView style={containerStyles.main}>
-      <CartHeader params={params}/>
+      <CartHeader resInfo={params}/>
       <FlatList
         style={{flex: 1}}
         data={cart}
@@ -108,7 +127,7 @@ export function CartTab({route, navigation}) {
         }}
         keyExtractor={ item => item.id}
       />
-      <CartFooter navigation={navigation} params={params}/>
+      <CartFooter navigation={navigation} resInfo={params} cart={cart}/>
     </SafeAreaView>
   );
 }
@@ -148,3 +167,6 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+
+export { CartHeader, CartFooter, Item, CartTab}

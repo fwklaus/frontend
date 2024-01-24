@@ -9,7 +9,7 @@ export function GetDirections({address}) {
 
   return (
     <Text
-      style={{color: 'blue', textDecorationLine: 'underline', fontSize: 18, flex: 4}}
+      style={{color: 'blue', textDecorationLine: 'underline', fontSize: 16, flex: 12}}
       onPress={() => {
         console.log('Connect to Google API');
       }}

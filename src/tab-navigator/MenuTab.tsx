@@ -27,7 +27,7 @@ function getMenuData(id) {
   return menuData[id];
 }
 
-export function MenuScreenHeader({params}) {
+function MenuScreenHeader({params}) {
   let logo = '../res/images/order_weasel_small.jpg'
   let id = params.id;
   let title = params.title;
@@ -42,7 +42,16 @@ export function MenuScreenHeader({params}) {
   );
 }
 
-export function MenuListHeader({id, title, category, distance, rating, phone, hours, address}) {
+function MenuListHeader({params}) {
+   let id = params.id;
+   let title = params.title;
+   let category = params.category;
+   let distance = params.distance;
+   let rating = params.rating;
+   let phone = params.phone;
+   let hours = params.hours;
+   let address = params.address;
+
   // example
   hours = '8:00-8:00';
   phone = '(456)567-7895'
@@ -54,39 +63,42 @@ export function MenuListHeader({id, title, category, distance, rating, phone, ho
     <View style={{flex: 1}}>
       <View style={[styles.topSection, {flex: 1}]}>
         <View style={{flex: 1, flexDirection: 'column', margin: 10}}>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-              <View style={{flex: 3}}>{/*Spacer*/}</View>
-              <View style={{flex: 2}}>
-                <Text style={[textStyles.headingText, {fontSize: 18, textAlign: 'center'}]}>{rating}</Text>
+
+          <View style={[styles.headerContainer]}>
+            <View style={styles.rowLeftContainer}>
+              <View style={styles.largeSpacer}>{/*Spacer*/}</View>
+              <View style={styles.iconContainer}>
+                <Text style={[textStyles.headingText, {fontSize: 18, textAlign: 'left'}]}>{rating}</Text>
               </View>
-              <View style={{flex: 1}}>{/*Spacer*/}</View>
+              <View style={styles.smallSpacer}>{/*Spacer*/}</View>
             </View>
             {/*Need stars Image based on rating*/}
-            <View style={{flex: 5, flexDirection: 'row', justifyContent: 'flex-start'}}>
+            <View style={{flex: 5, flexDirection: 'row', justifyContent: 'left'}}>
               <GetStars rating={rating}/>
-              <Text style={[textStyles.headingText, {fontSize: 18}]}>{category} | {distance}(mi)</Text>
+              <Text style={[textStyles.headingText, styles.textSpacing]}>{category} | {distance}(mi)</Text>
             </View>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-              <View style={{flex: 3}}>{/*Spacer*/}</View>
-              <View style={{flex: 2}}>
-                <Image style={{width: 20, height: 20}} source={require(clock)}/>
+
+          <View style={styles.headerContainer}>
+            <View style={styles.rowLeftContainer}>
+              <View style={styles.largeSpacer}>{/*Spacer*/}</View>
+              <View style={styles.iconContainer}>
+                <Image style={styles.iconSize} source={require(clock)}/>
               </View>
-              <View style={{flex: 1}}>{/*Spacer*/}</View>
+              <View style={styles.smallSpacer}>{/*Spacer*/}</View>
             </View>
-            <Text style={[textStyles.headingText, {flex: 5, fontSize: 18}]}>{hours}</Text>
+            <Text style={[textStyles.headingText, styles.textSpacing]}>{hours}</Text>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-              <View style={{flex: 3}}>{/*Spacer*/}</View>
-              <View style={{flex: 2}}>
-                <Image style={{width: 20, height: 20}} source={require(phonePic)}/>
+
+          <View style={styles.headerContainer}>
+            <View style={styles.rowLeftContainer}>
+              <View style={styles.largeSpacer}>{/*Spacer*/}</View>
+              <View style={styles.iconContainer}>
+                <Image style={styles.iconSize} source={require(phonePic)}/>
               </View>
-              <View style={{flex: 1}}>{/*Spacer*/}</View>
+              <View style={styles.smallSpacer}>{/*Spacer*/}</View>
             </View>
-            <Text style={[textStyles.headingText, {flex: 5, fontSize: 18}]}>{phone}</Text>
+            <Text style={[textStyles.headingText, styles.textSpacing]}>{phone}</Text>
           </View>
         </View>
       </View>
@@ -98,7 +110,7 @@ export function MenuListHeader({id, title, category, distance, rating, phone, ho
   );
 }
 
-export function MenuItem({item, cart, restaurantId, addItem, editItem, deleteItem, findIndex}) {
+function MenuItem({item, cart, restaurantId, addItem, editItem, deleteItem, findIndex}) {
   let name = item.name;
   let cost = item.cost;
   let desc = item.description;
@@ -114,9 +126,15 @@ export function MenuItem({item, cart, restaurantId, addItem, editItem, deleteIte
   return(
     <View>
       <CartModal modalVisible={modalVisible} setModalVisible={setModalVisible} cart={cart} item={item} restaurantId={restaurantId} addItem={addItem} editItem={editItem} deleteItem={deleteItem} findIndex={findIndex}/>
-      <Pressable onPress={() => setModalVisible(true)}>
-        <View style={[containerStyles.itemContainer, {flexDirection: 'row', padding: 8}]}>
-         <View style={{flex: 2, marginLeft: 16}}>
+      <Pressable
+        unstable_pressDelay={50}
+        onPress={() => setModalVisible(true)}
+        style={({pressed}) => [
+          containerStyles.itemContainer,
+          {flexDirection: 'row', padding: 10},
+          { backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'},
+      ]}>
+         <View style={{flex: 2}}>
             <Text style={[textStyles.text, {flex: 1}]}>{name}</Text>
             <Text style={[textStyles.text, {flex: 1, fontSize: 12}]}>{desc}</Text>
             <Text style={[textStyles.text, {flex: 1, fontSize: 12}]}>${cost}</Text>
@@ -124,30 +142,53 @@ export function MenuItem({item, cart, restaurantId, addItem, editItem, deleteIte
          <View style={{flex: 1}}>
            <Image style={{marginRight: 32, width: 75, height: 75}} source={require(url)} />
          </View>
-        </View>
       </Pressable>
     </View>
   );
 }
 
-export function MenuScreenFooter({params, navigation, cart, cartTotal}) {
+function MenuScreenFooter({params, navigation, cart, cartTotal}) {
   return (
-    <Pressable style={[buttonStyles.bottomNav, {flex: 0.11}]} onPress={()=> navigation.navigate('Cart', params)}>
-      <View style={{flex: 0.5}}></View>
-      <View style={[textStyles.buttonText, containerStyles.justifyText]}>
-        <View style={{flex: 1}}>
-          <Text style={[textStyles.headingText, {textAlign: 'center'}]}>View Cart</Text>
+    <Pressable style={[containerStyles.bottomNav, {flex: 0.11}]} onPress={()=>{
+
+
+
+      debugger;
+      navigation.navigate('Cart', params)
+    }}>
+      <View style={styles.footerSpacer}>{/*spacer*/}</View>
+      <View style={[textStyles.buttonText, styles.justifyText]}>
+        <View style={{flex: 1, marginLeft: 10}}>
+          <Text style={[textStyles.headingText]}>View Cart</Text>
         </View>
-        <View style={{flex: 1}}>
-          <Text style={[textStyles.headingText,  {textAlign: 'center'}]}>${cartTotal()}</Text>
+        <View style={{flex: 1, marginRight: 10}}>
+          <Text style={[textStyles.headingText,  {textAlign: 'right'}]}>${cartTotal()}</Text>
         </View>
       </View>
-      <View style={{flex: 0.5}}></View>
+      <View style={styles.footerSpacer}>{/*spacer*/}</View>
     </Pressable>
   );
 }
 
-export function MenuTab({route, navigation}) {
+function SectionHeader({handleToggle, title}) {
+  return (
+  <Pressable
+      unstable_pressDelay={50}
+      onPress={() => handleToggle(title)}
+      style={({pressed}) => [
+        {flexDirection: 'row', justifyContent: 'space-between', flex: 1},
+        { backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'},
+    ]}>
+      <Text style={textStyles.headerText}>{title}</Text>
+      <Image
+       style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}}
+       source={require('../res/images/angle-small-down.png')}
+      />
+  </Pressable>
+  );
+}
+
+function MenuTab({route, navigation}) {
   let params = route.params.params;
   let restaurantId = params.id;
   const [expandedSections, setExpandedSections] = useState(new Set());
@@ -156,13 +197,13 @@ export function MenuTab({route, navigation}) {
   useEffect(() => {loadMenu(restaurantId)}, [])
   const { cart, addItem, editItem, deleteItem, findIndex, cartTotal } = useCart(menu);
 
-  const loadMenu = (id) => {
+  const loadMenu = () => {
       // // fetching menu data for a restaurant example
       function getMenuData(id) {
         return menuData[id];
       }
 
-      setMenu(() => getMenuData(id));
+      setMenu(() => getMenuData(restaurantId));
   //     console.log("...logging from useRes.tsx");
 
       // use the following when there's actually a server to fetch from
@@ -205,19 +246,11 @@ export function MenuTab({route, navigation}) {
         sections={menu}
         extraData={expandedSections}
         keyExtractor={(item, index) => item + index}
-        ListHeaderComponent={MenuListHeader(params)}
+        ListHeaderComponent={
+          <MenuListHeader params={params} />
+        }
         renderSectionHeader={({section: {title}}) => (
-          <Pressable onPress={() => {
-           handleToggle(title);
-          }}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', flex: 1}}>
-              <Text style={[textStyles.headerText, { width: '80%' }]}>{title}</Text>
-              <Image
-               style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}}
-               source={require('../res/images/angle-small-down.png')}
-              />
-            </View>
-          </Pressable>
+          <SectionHeader handleToggle={handleToggle} title={title} />
         )}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={loadMenu}/>
@@ -226,11 +259,11 @@ export function MenuTab({route, navigation}) {
           const isExpanded = expandedSections.has(title);
           if (!isExpanded) return null;
           return (
-           <MenuItem item={item} cart={cart} restaurantId={restaurantId} addItem={addItem} editItem={editItem} deleteItem={deleteItem} findIndex={findIndex}/>
+           <MenuItem item={item} cart={cart} restaurantId={restaurantId} addItem={addItem} editItem={editItem} deleteItem={deleteItem} findIndex={findIndex} />
           );
         }}
         />
-        <MenuScreenFooter params={params} navigation={navigation} cart={cart} cartTotal={cartTotal}/>
+        <MenuScreenFooter params={params} navigation={navigation} cart={cart} cartTotal={cartTotal} />
     </ SafeAreaView>
   );
 }
@@ -240,5 +273,41 @@ const styles = StyleSheet.create({
      backgroundColor: 'white',
      borderColor: 'black',
      borderBottomWidth: 1,
-   }
+  },
+  headerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  rowLeftContainer: {
+   flex: 0.5,
+   flexDirection: 'column',
+   alignItems: 'center',
+  },
+  largeSpacer: {
+   flex: 3
+  },
+  smallSpacer: {
+    flex: 1
+  },
+  iconContainer: {
+    flex: 2,
+  },
+  iconSize: {
+    width: 18,
+    height: 18
+  },
+  textSpacing: {
+    flex: 5,
+    fontSize: 18
+  },
+  footerSpacer: {
+    flex: 0.5
+  },
+  justifyText: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  }
 });
+
+export {MenuScreenHeader, MenuListHeader, MenuItem, MenuScreenFooter, SectionHeader, MenuTab}

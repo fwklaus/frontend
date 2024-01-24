@@ -61,7 +61,7 @@ const useCart = (menu) => {
   function cartTotal() {
     let total = 0;
 
-    console.log(cart);
+//     console.log(cart);
     cart.forEach(item => {
       let cost = Number(item.cost);
       let quantity = Number(item.quantity);
@@ -69,7 +69,7 @@ const useCart = (menu) => {
       total += cost * quantity;
     });
 
-    return total;
+    return total.toFixed(2);
   }
 
   return {
