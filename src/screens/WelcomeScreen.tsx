@@ -6,7 +6,6 @@ import {
   Pressable,
   StyleSheet,
   Dimensions,
-  Alert
 } from 'react-native';
 import { containerStyles } from '../res/styles/container';
 import { textStyles } from '../res/styles/text';
@@ -15,28 +14,28 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 function MerchantPathway({navigation}) {
-  const [screen, setScreen] = useState(() => {
-    return windowWidth < 400  && windowHeight < 780
+  const [smallScreen, setSmallScreen] = useState(() => {
+    return windowWidth < 400
   });
 
   return (
     <View style={{flex: 1, flexDirection: "column"}}>
       <View style={{flex: 1}}>{/*spacer*/}</View>
-      { screen ?
+      { smallScreen ?
          <Text style={styles.warningText}>
-          Merchants, for best user experience, please use a tablet sized device
+          Merchants: for best user experience, please use a tablet sized device
          </Text> :
          <></>
       }
 
       <Pressable style={() => [
           styles.button,
-          {backgroundColor: screen ? 'grey' : 'blue'},
+          {backgroundColor: smallScreen ? 'grey' : 'blue'},
           {flex: 1, justifyContent: 'center'}
         ]}
         onPress={() => {
-          if (windowWidth < 400 && windowHeight < 780) {
-            Alert.alert("Please use an adequate device")
+          if (smallScreen) {
+            alert("Please use an adequate device")
             return;
           }
 
@@ -51,12 +50,33 @@ function MerchantPathway({navigation}) {
 }
 
 function CustomerPathway({navigation}) {
+    const [largeScreen, setLargeScreen] = useState(() => {
+      return windowWidth > 400
+    });
+
   return (
     <View style={{flex: 1, flexDirection: "column"}}>
       <View style={{flex: 1}}>{/*spacer*/}</View>
-      <Pressable style={[styles.button, {flex: 1, justifyContent: 'center'}]} onPress={() => {
-        navigation.navigate("HomeScreen")
-      }}>
+     { largeScreen ?
+         <Text style={styles.warningText}>
+          Customers: for best user experience, please use your mobile device
+         </Text> :
+         <></>
+      }
+          <Pressable style={() => [
+              styles.button,
+              {backgroundColor: largeScreen ? 'grey' : 'blue'},
+              {flex: 1, justifyContent: 'center'}
+            ]}
+            onPress={() => {
+              if (largeScreen) {
+                alert("Please use an adequate device")
+                return;
+              }
+
+              navigation.navigate("HomeScreen")
+            }}
+          >
         <Text style={styles.buttonText}>I want to buy food</Text>
       </Pressable>
       <View style={{flex: 1}}>{/*spacer*/}</View>
