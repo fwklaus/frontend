@@ -150,10 +150,6 @@ function MenuItem({item, cart, restaurantId, addItem, editItem, deleteItem, find
 function MenuScreenFooter({params, navigation, cart, cartTotal}) {
   return (
     <Pressable style={[containerStyles.bottomNav, {flex: 0.11}]} onPress={()=>{
-
-
-
-      debugger;
       navigation.navigate('Cart', params)
     }}>
       <View style={styles.footerSpacer}>{/*spacer*/}</View>

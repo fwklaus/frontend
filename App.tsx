@@ -15,9 +15,12 @@ import {
 } from 'react-native';
 
 import { LoadingScreen } from './src/screens/LoadingScreen';
+import { WelcomeScreen} from './src/screens/WelcomeScreen'
+import { MerchantScreen } from './src/screens/MerchantScreen'
 import { HomeScreen } from './src/screens/HomeScreen';
 import { RestaurantScreen } from './src/screens/RestaurantScreen';
 import { CheckoutScreen } from './src/screens/CheckoutScreen';
+
 // import { CartProvider } from './src/context/CartContext';
 
 const Stack = createNativeStackNavigator();
@@ -48,11 +51,26 @@ function App(): React.JSX.Element {
           }}
         />
         <Stack.Screen
+          name="WelcomeScreen"
+          component={WelcomeScreen}
+          options={{
+            title: 'WELCOME',
+            headerBackVisible: false
+          }}
+        />
+        <Stack.Screen
+          name="MerchantScreen"
+          component={MerchantScreen}
+          options={{
+            title: "MERCHANT SIGN-UP"
+          }}
+        />
+        <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
           options={{
             title: "ORDERWEASEL",
-            headerBackVisible: false,
+//             headerBackVisible: false
           }}
         />
         <Stack.Screen

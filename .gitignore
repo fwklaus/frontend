@@ -42,6 +42,7 @@ yarn-error.log
 
 src/components/logic/
 src/context/RestaurantContext.tsx
+src/hooks/useRes.tsx
 
 
 # fastlane

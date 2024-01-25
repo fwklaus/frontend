@@ -20,7 +20,7 @@ export function LoadingScreen({ navigation }) {
       </View>
 
       <View>
-        <Button title="Temporary: go to home page" onPress={()=> navigation.navigate('HomeScreen')}/>
+        <Button title="Temporary: go to Welcome Screen" onPress={()=> navigation.navigate('WelcomeScreen')}/>
       </View>
     </SafeAreaView>
   );
