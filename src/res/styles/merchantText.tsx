@@ -7,6 +7,9 @@ const merchantTextStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold'
   },
+  header: {
+    fontSize: 34,
+  },
   list: {
     marginBottom: 10
   },

@@ -11,7 +11,6 @@ import { merchTextCSS } from '../res/styles/merchantText'
 
 const BULLET_POINT = '\u25CF'
 
-
 function ScreenOne() {
   return (
     <>
@@ -21,7 +20,7 @@ function ScreenOne() {
       </Text>
       <Text style={[merchTextCSS.text, merchTextCSS.list]}>
         {BULLET_POINT} OrderWeasel only integrates with
-        <Text style={{color: 'red'}}> Square POS </Text> at this time.
+        <Text style={{color: '#A1000E'}}> Square POS </Text> at this time.
       </Text>
     </>
   );
@@ -89,7 +88,7 @@ function SignUpButton({navigation}) {
   );
 }
 
-export function MerchantHomeTab({navigation}) {
+function MerchantHomeTab({navigation}) {
   return (
     <SafeAreaView style={[merchContCSS.main, {flexDirection: 'row'}]}>
       <View style={merchContCSS.mainSpacer}>{/*spacer*/}</View>
@@ -104,3 +103,5 @@ export function MerchantHomeTab({navigation}) {
     </SafeAreaView>
   );
 }
+
+export { MerchantHomeTab, SignUpButton, ScreenOne, ScreenTwo, ScreenThree, ScreenFour };
