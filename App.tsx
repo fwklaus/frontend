@@ -16,13 +16,17 @@ import {
 } from 'react-native';
 import {HeaderButtonsProvider} from 'react-navigation-header-buttons'
 
-// screens
+// splash page
 import { LoadingScreen } from './src/screens/LoadingScreen';
-import { WelcomeScreen} from './src/screens/WelcomeScreen';
-import { MerchantScreen } from './src/screens/MerchantScreen';
-import { HomeScreen } from './src/screens/HomeScreen';
-import { RestaurantScreen } from './src/screens/RestaurantScreen';
-import { CheckoutScreen } from './src/screens/CheckoutScreen';
+
+// merchant screens
+import { WelcomeScreen} from './src/screens/merchant/WelcomeScreen';
+import { MerchantScreen } from './src/screens/merchant/MerchantScreen';
+
+// customer screens
+import { RestaurantScreen } from './src/screens/customer/RestaurantScreen';
+import { HomeScreen } from './src/screens/customer/HomeScreen';
+import { CheckoutScreen } from './src/screens/customer/CheckoutScreen';
 
 const stackType = 'native';
 
@@ -67,6 +71,7 @@ function App(): React.JSX.Element {
             component={MerchantScreen}
             options={{
               title: "MERCHANT SIGN-UP",
+              headerBackVisible: false,
             }}
           />
           <Stack.Screen
