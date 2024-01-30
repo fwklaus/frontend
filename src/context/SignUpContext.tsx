@@ -12,7 +12,9 @@ const SignUpProvider = (props) => {
     'zip': '',
     'email': '',
     'password': '',
-    'validator': ''
+    'validator': '',
+    'sq_access_token': '',
+    'sq_refresh_token': ''
   });
 
   return (

@@ -1,3 +1,3 @@
 export default [
-  {username: 'test', password: 'secret'}
+  {email: 'test', password: 'secret'}
 ];

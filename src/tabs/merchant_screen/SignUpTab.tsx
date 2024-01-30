@@ -1,11 +1,12 @@
-import React, {useState, useContext } from 'react';
+import React, {useState, useContext, useEffect, useRef} from 'react';
 import {
   SafeAreaView,
   View,
   Text,
   TextInput,
   Pressable,
-  StyleSheet
+  StyleSheet,
+  Animated
 } from 'react-native';
 import  { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
@@ -36,7 +37,7 @@ function NextButton({navigation, nextTab}) {
   );
 }
 
-function StoreInfo({navigation}) {
+function StoreInfo({ navigation }) {
   const { newMerchant, updateNewMerchant } = useSignUp();
   const restaurantName = 'restaurant_name';
   const phone = 'phone';
@@ -73,7 +74,7 @@ function StoreInfo({navigation}) {
   );
 }
 
-function BusinessAddress({navigation}) {
+function BusinessAddress({ navigation }) {
   const { newMerchant, updateNewMerchant } = useSignUp();
   const street = 'street';
   const city = 'city';
@@ -128,7 +129,7 @@ function BusinessAddress({navigation}) {
   );
 }
 
-function ContactInformation({navigation}) {
+function ContactInformation({ navigation }) {
   const { newMerchant, updateNewMerchant, validatePassword } = useSignUp();
   const email = 'email';
   const password = 'password';
@@ -175,7 +176,7 @@ function ContactInformation({navigation}) {
   );
 }
 
-function OAuthButton({newMerchant}) {
+function OAuthButton({ newMerchant }) {
   console.log('----');
   console.log(newMerchant, 'OAUTH button');
   console.log('----');
@@ -186,8 +187,9 @@ function OAuthButton({newMerchant}) {
       onPress={() => {
         // needs to handle press asynchronously
           // use Square integration to authorize access
+          // returns API key
           // after authorization, save the api key to newMerchant
-          // newMerchant query
+          // create newMerchant query
 
         console.log("Integrate with Square", newMerchant);
       }}
@@ -221,17 +223,39 @@ function OAuth() {
   );
 }
 
-function ProgressBar() {
+function ProgressBar({count}) {
   let percent = 50;
+//   const countInterval = useRef(null);
+//   const [count, setCount] = useState(0);
+//
+//   const loaderValue = useRef(new Animated.Value(0)).current;
+//   const load = (count) => {
+//     Animated.timing(loaderValue, {
+//       toValue: count,
+//       duration: 500,
+//       useNativeDriver: true
+//     }).start();
+//   };
+//
+//   useEffect(() => {
+//     load(count);
+//     if (count >= 100) {
+//       setCount(100);
+//       clearInterval(countInterval);
+//     }
+//   }, [count]);
+
 
   return (
     <View style={styles.progressBar}>
+      <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: '#8BED4F', width: "50%"}]}/>
       <Text style={[merchTextCSS.text, {textAlign: 'center'}]}>{percent}%</Text>
     </View>
   );
 }
 
-function ProgressBox() {
+function ProgressBox({percent, index}) {
+
   return (
     <View style={styles.progressBarSmall}></View>
   );
@@ -242,15 +266,15 @@ function SignUpProgress() {
     <SafeAreaView style={[merchContCSS.main, {alignItems: 'left', padding: 20, backgroundColor: '#d3d3d3'}]}>
       <View style={{marginBottom: 10, flex: 1, justifyContent: 'flex-end'}}>
         <Text style={[merchTextCSS.text, merchTextCSS.list]}>Sign Up Progress</Text>
-        <ProgressBar />
+        <ProgressBar/>
       </View>
       <View style={[merchContCSS.container, {flexDirection: 'row', flex: 2}]}>
         <View style={[merchContCSS.container, {flex: 1,  justifyContent: 'flex-start', alignItems: 'center'}]}>
-          <ProgressBox />
-          <ProgressBox />
-          <ProgressBox />
-          <ProgressBox />
-          <ProgressBox />
+          {
+            ["20%", "40%", "60%", "80%", "100%"].map((percent, index) => {
+              return <ProgressBox percent={percent} key={index} />
+            })
+          }
         </View>
         <View style={[merchContCSS.container, {flex: 4, justifyContent: 'flex-start'}]}>
           <Text style={[merchTextCSS.text, styles.progressList]}>Store Info</Text>
@@ -259,7 +283,6 @@ function SignUpProgress() {
           <Text style={[merchTextCSS.text, styles.progressList]}>Contact Info</Text>
           <Text style={[merchTextCSS.text, styles.progressList]}>Authorization</Text>
         </View>
-
       </View>
     </SafeAreaView>
   );

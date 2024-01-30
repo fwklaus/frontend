@@ -7,8 +7,8 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
-import { containerStyles } from '../../res/styles/container';
-import { textStyles } from '../../res/styles/text';
+import { containerStyles } from '../res/styles/container';
+import { textStyles } from '../res/styles/text';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
