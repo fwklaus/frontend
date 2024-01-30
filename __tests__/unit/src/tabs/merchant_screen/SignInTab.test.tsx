@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { SignInTab } from '../../../../../src/tabs/merchant_screen/SignInTab';
+import { SignInTab, SignInButton } from '../../../../../src/tabs/merchant_screen/SignInTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
@@ -15,5 +15,11 @@ import renderer from 'react-test-renderer';
 describe("SignInTab Tests", () => {
   it("renders correctly", () => {
     <SignInTab />
+  });
+});
+
+describe("SignInButton Tests", () => {
+  it("renders correctly", () => {
+    <SignInButton />
   })
 })

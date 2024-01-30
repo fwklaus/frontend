@@ -12,19 +12,17 @@ import { merchContCSS } from '../../res/styles/merchantContainer';
 import { merchTextCSS } from '../../res/styles/merchantText';
 
 function SignInButton({navigation}) {
-  const {
-    credentials, checkCredentials, validCredentials,
-    resetFields, signedIn, setSignedIn
-  } = useSignIn();
+  const { validCredentials, resetFields, currentUser, updateCurrentUser, signIn } = useSignIn();
 
   return (
     <Pressable
       style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
       onPress={() => {
         if (validCredentials()) {
+          signIn();
+          alert("Successfully signed in, user: " + currentUser.email);
           navigation.navigate("Orders");
-          alert(`Success. Welcome back ${credentials.email}`);
-          setSignedIn(!signedIn);
+          resetFields();
         } else {
           alert("try again ass clown");
           resetFields();
@@ -36,7 +34,7 @@ function SignInButton({navigation}) {
   );
 }
 
-export function SignInTab({navigation}) {
+function SignInTab({navigation}) {
   const {credentials, updateCredentials} = useSignIn();
   const email = "email";
   const password = "password";
@@ -80,3 +78,5 @@ export function SignInTab({navigation}) {
       </SafeAreaView>
   );
 }
+
+export { SignInTab, SignInButton };

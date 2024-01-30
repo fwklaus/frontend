@@ -24,22 +24,24 @@ import { ProfileTab} from '../../tabs/merchant_screen/ProfileTab';
 const Tab = createBottomTabNavigator();
 
 function SignedInHeader({navigation}) {
-  const { signedIn, setSignedIn } = useSignIn();
+  const {signOut} = useSignIn();
 
   return (
     <HeaderButtons>
       <Item
         title="Take Orders"
         onPress={({pressed}) => {
-          console.log('change style on press')
+          console.log('change style on press');
+
+
         }}
-        style={styles.button}
+        style={[styles.button, {backgroundColor: '#1BC100'}]}
         buttonStyle={styles.buttonText}
       />
       <Item
         title="Orders"
         onPress={() => {
-          navigation.navigate('OrdersTab');
+          navigation.navigate('Orders');
         }}
         style={styles.button}
         buttonStyle={styles.buttonText}
@@ -47,7 +49,7 @@ function SignedInHeader({navigation}) {
       <Item
         title="Profile"
         onPress={() => {
-          navigation.navigate('ProfileTab');
+          navigation.navigate('Profile');
         }}
         style={styles.button}
         buttonStyle={styles.buttonText}
@@ -55,9 +57,9 @@ function SignedInHeader({navigation}) {
       <Item
         title="SignOut"
         onPress={() => {
-          console.log("sign out first before navigating back to merchant home")
-          setSignedIn(!signedIn);
-          navigation.navigate("MerchantHomeTab");
+          signOut();
+          alert("Signed Out")
+          navigation.navigate("MerchantHome");
         }}
         style={styles.button}
         buttonStyle={styles.buttonText}
@@ -111,7 +113,6 @@ function SignedOutHeader({navigation}) {
 
 function MerchantScreen({navigation}) {
   const { signedIn } = useSignIn();
-  console.log(signedIn, " from MerchantScreen");
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -123,30 +124,28 @@ function MerchantScreen({navigation}) {
   }, [navigation, signedIn]);
 
   return (
-// <SignInProvider>
-      <SafeAreaView style={containerStyles.main}>
-        <Tab.Navigator
-          screenOptions={{
-            headerShown: false,
-            tabBarStyle: {
-              display: 'none',
-            },
-            tabBarLabelStyle: {
-              fontSize: 12,
-              fontFamily: "anything",
-              fontWeight: 'bold'
-            },
-            tabBarInactiveTintColor: 'grey',
-          }}
-        >
-          <Tab.Screen name="MerchantHome" component={MerchantHomeTab}/>
-          <Tab.Screen name="SignIn" component={SignInTab}/>
-          <Tab.Screen name="SignUp" component={SignUpTab}/>
-          <Tab.Screen name="Orders" component={OrdersTab}/>
-          <Tab.Screen name="Profile" component={ProfileTab}/>
-        </Tab.Navigator>
-      </SafeAreaView>
-//     </SignInProvider>
+    <SafeAreaView style={containerStyles.main}>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: {
+            display: 'none',
+          },
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontFamily: "anything",
+            fontWeight: 'bold'
+          },
+          tabBarInactiveTintColor: 'grey',
+        }}
+      >
+        <Tab.Screen name="MerchantHome" component={MerchantHomeTab}/>
+        <Tab.Screen name="SignIn" component={SignInTab}/>
+        <Tab.Screen name="SignUp" component={SignUpTab}/>
+        <Tab.Screen name="Orders" component={OrdersTab}/>
+        <Tab.Screen name="Profile" component={ProfileTab}/>
+      </Tab.Navigator>
+    </SafeAreaView>
   )
 }
 

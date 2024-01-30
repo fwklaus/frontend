@@ -339,12 +339,6 @@ function SignUpTab() {
   );
 }
 
-export {
-  SignUpTab, StoreInfo, BusinessAddress,
-  NextButton, ContactInformation, SignUpProgress,
-  ProgressBar, ProgressBox, OAuth, OAuthButton
-};
-
 const styles = StyleSheet.create({
   progressBar: {
     height: 30,
@@ -367,3 +361,9 @@ const styles = StyleSheet.create({
     marginBottom: 10
   }
 });
+
+export {
+  SignUpTab, StoreInfo, BusinessAddress,
+  NextButton, ContactInformation, SignUpProgress,
+  ProgressBar, ProgressBox, OAuth, OAuthButton
+};
