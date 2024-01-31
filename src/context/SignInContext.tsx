@@ -11,8 +11,8 @@ const SignInProvider = (props) => {
 
   // should use the id we use to get and set account information
   // set the current user before resetting the fields (which resets credentials)
-  // we use the currentUser to get and update the information from the merchant profile page
-  const [currentUser, setCurrentUser] = useState({
+  // we use the currentMerchant to get and update the information from the merchant profile page
+  const [currentMerchant, setCurrentMerchant] = useState({
     'id': '',
     'email': ''
   });
@@ -21,7 +21,7 @@ const SignInProvider = (props) => {
     <SignInContext.Provider value={{
       credentials, setCredentials, signedIn,
       setSignedIn, signedIn, setSignedIn,
-      currentUser, setCurrentUser
+      currentMerchant, setCurrentMerchant
     }}>
       {props.children}
     </SignInContext.Provider>

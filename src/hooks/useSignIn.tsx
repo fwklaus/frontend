@@ -6,7 +6,7 @@ import loginData from '../data/loginData';
 const useSignIn = () => {
   const {
     credentials, setCredentials, signedIn,
-    setSignedIn, currentUser, setCurrentUser
+    setSignedIn, currentMerchant, setCurrentMerchant
     } = useContext(SignInContext);
 
   useEffect(() => {
@@ -14,8 +14,8 @@ const useSignIn = () => {
   }, [signedIn]);
 
   useEffect(() => {
-    console.log(currentUser)
-  }, [currentUser]);
+    console.log(currentMerchant)
+  }, [currentMerchant]);
 
   useEffect(() => {
     console.log(credentials);
@@ -39,27 +39,11 @@ const useSignIn = () => {
 
   function signIn() {
     let user = getUser()[0];
-    let id = '10';
 
-    user = {
-      id: id,
-      email: user.email
-    }
     setSignedIn(!signedIn);
-    setCurrentUser(user);
+    setCurrentMerchant(user);
   }
 
-//   function updateCurrentUser() {
-//     let user = getUser()[0];
-//     let id = '10';
-//
-// //     should use the real merchant.id here
-//     user = {
-//       id: id,
-//       email: user.email
-//     }
-//     setCurrentUser(user);
-//   }
 
   function updateCredentials(field, text) {
     let copy = getCopy();
@@ -86,7 +70,8 @@ const useSignIn = () => {
     resetFields,
 //     setSignedIn,
     signedIn,
-    currentUser,
+//     currentUser,
+    currentMerchant,
     signOut,
     signIn
   };

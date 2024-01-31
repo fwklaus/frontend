@@ -12,7 +12,7 @@ import { merchContCSS } from '../../res/styles/merchantContainer';
 import { merchTextCSS } from '../../res/styles/merchantText';
 
 function SignInButton({navigation}) {
-  const { validCredentials, resetFields, currentUser, updateCurrentUser, signIn } = useSignIn();
+  const { validCredentials, resetFields, currentMerchant, signIn } = useSignIn();
 
   return (
     <Pressable
@@ -20,7 +20,7 @@ function SignInButton({navigation}) {
       onPress={() => {
         if (validCredentials()) {
           signIn();
-          alert("Successfully signed in, user: " + currentUser.email);
+          alert("Successfully signed in, user: " + currentMerchant.email);
           navigation.navigate("Orders");
           resetFields();
         } else {
