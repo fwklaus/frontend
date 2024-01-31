@@ -2,10 +2,13 @@ import React, { useState, useContext } from 'react';
 import {
   Text,
   Pressable
-} from 'react-native'
+} from 'react-native';
+import useLocation from '../../hooks/useLocation';
 
-export function GetDirections({address}) {
-  // clicking on the address should request Google API for directions to restaurant
+// export function GetDirections({address}) {
+export function GetDirections() {
+  //   clicking on the address should request Google API for directions to restaurant
+  const { currentAddress } = useLocation();
 
   return (
     <Text
@@ -13,6 +16,6 @@ export function GetDirections({address}) {
       onPress={() => {
         console.log('Connect to Google API');
       }}
-    >{address}</Text>
+    >{currentAddress}</Text>
   );
 }

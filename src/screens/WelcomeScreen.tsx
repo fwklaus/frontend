@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -7,6 +7,9 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native';
+
+import useLocation from '../hooks/useLocation';
+
 import { containerStyles } from '../res/styles/container';
 import { textStyles } from '../res/styles/text';
 
@@ -50,9 +53,10 @@ function MerchantPathway({navigation}) {
 }
 
 function CustomerPathway({navigation}) {
-    const [largeScreen, setLargeScreen] = useState(() => {
-      return windowWidth > 400
-    });
+  const { requestLocationPermission } = useLocation();
+  const [largeScreen, setLargeScreen] = useState(() => {
+    return windowWidth > 400
+  });
 
   return (
     <View style={{flex: 1, flexDirection: "column"}}>
@@ -68,12 +72,12 @@ function CustomerPathway({navigation}) {
               {backgroundColor: largeScreen ? 'grey' : 'blue'},
               {flex: 1, justifyContent: 'center'}
             ]}
-            onPress={() => {
+            onPress={ async () => {
               if (largeScreen) {
                 alert("Please use an adequate device")
                 return;
               }
-
+              await requestLocationPermission();
               navigation.navigate("HomeScreen")
             }}
           >
@@ -98,9 +102,6 @@ function WelcomeScreen({navigation}) {
   )
 }
 
-export { WelcomeScreen };
-
-
 const styles = StyleSheet.create({
   button: {
     backgroundColor: 'blue',
@@ -120,4 +121,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { WelcomeScreen } ;
+export { WelcomeScreen, CustomerPathway, MerchantPathway };

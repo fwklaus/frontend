@@ -11,16 +11,17 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import useLocation from '../../hooks/useLocation';
+
 import { GetDirections } from '../../components/api/GetDirections';
+
+// styles
 import { containerStyles } from '../../res/styles/container';
 import { textStyles } from '../../res/styles/text';
-import { loadRestaurants } from '../../hooks/useRes';
 
-// fetching nearby restaurant data example
-import restaurantData from '../../data/restaurantData.js';
-
-function ResListResults({resList}) {
-  let nResults = resList.length;
+function ResListResults() {
+  const { restaurantData } = useLocation();
+  let nResults = restaurantData.length;
   return (
     <View style={[containerStyles.restaurantItem, {padding: 10}]}>
       <Text  style={[textStyles.headingText, {color: '#A1000E', fontSize: 16}]}>{nResults} Results</Text>
@@ -28,7 +29,7 @@ function ResListResults({resList}) {
   );
 }
 
-function ResListHeader({currentAddress}) {
+function ResListHeader() {
   let locationMarker = '../../res/images/marker.png';
 
   return (
@@ -37,7 +38,7 @@ function ResListHeader({currentAddress}) {
         <View style={{flex: 1, alignItems: "center", justifyContent: 'center'}}>
           <Image style={{width: 20, height: 20}} source={require(locationMarker)}/>
         </View>
-        <GetDirections address={currentAddress}/>
+        <GetDirections />
       </View>
       <View style={containerStyles.headerItem}>
         <Text style={[textStyles.headingText, {color: 'blue'}]}>Restaurants Near You (Carryout Only)</Text>
@@ -74,48 +75,16 @@ function RestaurantItem ({id, title, category, distance, rating, phone, hours, a
   );
 }
 
-
 function HomeTab({navigation}) {
-  const [refreshing, setRefreshing] = useState(false);
-  const [resData, setResData] = useState([]);
-  // must be set programmatically, or manually as a last resort
-  let currentAddress = '5555 Oak Street';
-  useEffect(() => {loadRestaurants(currentAddress)}, [])
-
-const loadRestaurants = (address) => {
-
-  // load restaurants based on proximity
-  // will fetch the restaurantData based on proximity
-
-    setResData(restaurantData);
-
-//   console.log("...logging from useRes.tsx");
-
-  // use the following when we can actually fetch from the server
-
-  //       fetch('load/restaurants')
-  //         .then((response) => response.json())
-  //         .then((responseJson) => {
-  //           setRefreshing(false);
-  //           var newdata = userData.concat(responseJson.results);
-  //           setResData(newdata);
-  //         })
-  //         .catch((error) => {
-  //           console.error(error);
-  //         });
-
-  setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-}
+  const { loadRestaurants, restaurantData, refreshing } = useLocation();
+  useEffect(() => {loadRestaurants()}, [])
 
   return(
     <SafeAreaView style={{flex: 1}}>
-      <ResListHeader currentAddress={currentAddress} />
+      <ResListHeader />
       <FlatList
         style={{flex: 1, backgroundColor: 'red'}}
-        data={resData}
+        data={restaurantData}
         renderItem={({item})=> <RestaurantItem
             id={item.id}
             title={item.title}
@@ -131,12 +100,11 @@ const loadRestaurants = (address) => {
         }
         keyExtractor={item => item.id}
         ListHeaderComponent={
-         <ResListResults resList={resData}/>
+          <ResListResults />
         }
       />
     </SafeAreaView>
   );
 }
 
-
-export {ResListResults, ResListHeader, RestaurantItem, HomeTab};
+export { ResListResults, ResListHeader, RestaurantItem, HomeTab };

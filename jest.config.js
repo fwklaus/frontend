@@ -1,7 +1,7 @@
 module.exports = {
   preset:'react-native',
   setupFiles: [
-    "<rootDir>/jestSetup.js"
+    "<rootDir>/jest.setup.js"
   ],
   transformIgnorePatterns: [
       "node_modules/(?!(jest-)"
