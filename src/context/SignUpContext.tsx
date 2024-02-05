@@ -4,7 +4,7 @@ const SignUpContext = createContext(null);
 
 const SignUpProvider = (props) => {
   const [newMerchant, setNewMerchant] = useState({
-    'restaurant_name': '',
+    'restaurantName': '',
     'phone': '',
     'street': '',
     'city': '',

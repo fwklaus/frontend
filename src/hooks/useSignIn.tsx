@@ -10,15 +10,15 @@ const useSignIn = () => {
     } = useContext(SignInContext);
 
   useEffect(() => {
-    console.log(signedIn);
+//     console.log(signedIn);
   }, [signedIn]);
 
   useEffect(() => {
-    console.log(currentMerchant)
+//     console.log(currentMerchant)
   }, [currentMerchant]);
 
   useEffect(() => {
-    console.log(credentials);
+//     console.log(credentials);
   }, [ credentials]);
 
 

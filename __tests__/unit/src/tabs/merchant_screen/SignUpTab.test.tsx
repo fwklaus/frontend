@@ -7,7 +7,7 @@ import React from 'react';
 import {
   SignUpTab, StoreInfo, BusinessAddress,
   NextButton, ContactInformation, SignUpProgress,
-  ProgressBar, ProgressBox, OAuth, OAuthButton
+  ProgressBar, ProgressBox, OAuth, CreateAccount
 }  from '../../../../../src/tabs/merchant_screen/SignUpTab';
 
 // Note: import explicitly to use the types shipped with jest.
@@ -52,12 +52,6 @@ describe("SignUpProgress Tests", () => {
   });
 });
 
-describe("OAuthButton Tests", () => {
-  it("renders correctly", () => {
-    <OAuthButton />
-  });
-});
-
 describe("OAuth Tests", () => {
   it("renders correctly", () => {
     <OAuth />
@@ -73,5 +67,11 @@ describe("ProgressBar Tests", () => {
 describe("ProgressBox Tests", () => {
   it("renders correctly", () => {
     <ProgressBox />
+  });
+});
+
+describe("CreateAccount Tests", () => {
+  it("renders correctly", () => {
+    <CreateAccount />
   });
 });

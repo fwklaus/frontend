@@ -61,7 +61,6 @@ const useCart = (menu) => {
   function cartTotal() {
     let total = 0;
 
-//     console.log(cart);
     cart.forEach(item => {
       let cost = Number(item.cost);
       let quantity = Number(item.quantity);

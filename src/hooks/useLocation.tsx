@@ -130,7 +130,6 @@ const useLocation = () => {
     restaurantData,
     refreshing,
     currentAddress,
-    getLocation,
     requestLocationPermission
   }
 };

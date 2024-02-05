@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 import  { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
+
 import {SignUpProvider, SignUpContext} from '../../context/SignUpContext';
+import useMerchant from '../../hooks/useMerchant';
 import useSignUp from '../../hooks/useSignUp';
 
 import { merchContCSS } from '../../res/styles/merchantContainer';
@@ -39,7 +41,7 @@ function NextButton({navigation, nextTab}) {
 
 function StoreInfo({ navigation }) {
   const { newMerchant, updateNewMerchant } = useSignUp();
-  const restaurantName = 'restaurant_name';
+  const restaurantName = 'restaurantName';
   const phone = 'phone';
 
   return (
@@ -130,7 +132,9 @@ function BusinessAddress({ navigation }) {
 }
 
 function ContactInformation({ navigation }) {
-  const { newMerchant, updateNewMerchant, validatePassword } = useSignUp();
+//   const { newMerchant, updateNewMerchant, validPassword } = useSignUp();
+  const { newMerchant, updateNewMerchant} = useSignUp();
+//   const { merchants } = useMerchant();
   const email = 'email';
   const password = 'password';
   const validator = 'validator';
@@ -165,8 +169,7 @@ function ContactInformation({ navigation }) {
             style={merchContCSS.input}
             value={newMerchant[validator]}
             onChangeText={(text) => {
-              updateNewMerchant(validator, text)
-              validatePassword();
+              updateNewMerchant(validator, text);
             }}
           />
         </View>
@@ -176,31 +179,37 @@ function ContactInformation({ navigation }) {
   );
 }
 
-function OAuthButton({ newMerchant }) {
-  console.log('----');
-  console.log(newMerchant, 'OAUTH button');
-  console.log('----');
+// function OAuthButton({navigation}) {
+//   const { newMerchant, updateNewMerchant } = useSignUp();
+//
+//   return (
+//     <Pressable
+//       style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
+//       onPress={ async () => {
+//         try {
+//           // asynchronous callback
+//           // Merchant authorizes access to Square
+//              // returns API key if authorized
+//           // store API key in newMerchant
+//
+//           // Add API key to newMerchant
+//
+//         setTimeout(() => {
+//           console.log("Replace with redirection to OAuth");
+//           navigation.navigate("CreateAccount");
+//         }, 3000)
+//         } catch (e) {
+//           console.error(e);
+//         }
+//       }}
+//     >
+//       <Text style={merchTextCSS.buttonText}>Grant Access to OrderWeasel</Text>
+//     </Pressable>
+//   );
+// }
 
-  return (
-    <Pressable
-      style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
-      onPress={() => {
-        // needs to handle press asynchronously
-          // use Square integration to authorize access
-          // returns API key
-          // after authorization, save the api key to newMerchant
-          // create newMerchant query
-
-        console.log("Integrate with Square", newMerchant);
-      }}
-    >
-      <Text style={merchTextCSS.buttonText}>Grant Access to OrderWeasel</Text>
-    </Pressable>
-  );
-}
-
-function OAuth() {
-  const { newMerchant } = useSignUp();
+function OAuth({navigation}) {
+  const { newMerchant, updateNewMerchant } = useSignUp();
 
   return (
     <SafeAreaView style={[merchContCSS.main, {alignItems: 'left', padding: 20}]}>
@@ -216,10 +225,66 @@ function OAuth() {
             </Text>
         </View>
         <View style={{flex: 1, alignItems: 'center'}}>
-          <OAuthButton newMerchant={newMerchant}/>
+          <Pressable
+            style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
+            onPress={ async () => {
+              try {
+                // asynchronous callback
+                // Merchant authorizes access to Square
+                   // returns API key if authorized
+                // store API key in newMerchant
+
+                // Add API key to newMerchant
+
+              setTimeout(() => {
+                console.log("Replace with redirection to OAuth");
+                navigation.navigate("CreateAccount");
+              }, 3000)
+              } catch (e) {
+                console.error(e);
+              }
+            }}
+          >
+            <Text style={merchTextCSS.buttonText}>Grant Access to OrderWeasel</Text>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>
+  );
+}
+
+function CreateAccount({navigation}) {
+  const { newMerchant, updateNewMerchant } = useSignUp();
+  const { createMerchant, merchants } = useMerchant();
+
+  return (
+        <SafeAreaView style={[merchContCSS.main, {alignItems: 'left', padding: 20}]}>
+          <View style={merchContCSS.header}>
+            <Text style={[merchTextCSS.text, merchTextCSS.header]}>Create Account</Text>
+          </View>
+          <View style={[merchContCSS.tabMain, {flexDirection: 'column', alignItems: 'left'}]}>
+            <View style={{flex: 1}}>
+              <Text style={[merchTextCSS.text, {margin: 20, color: '#A1000E'}]}>Finish...</Text>
+            </View>
+            <View style={{flex: 1, alignItems: 'center'}}>
+              <Pressable
+                style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
+                onPress={ async () => {
+                  try {
+                    await createMerchant(newMerchant);
+
+                    // provide a message following redirect, pass in the params object
+                    navigation.navigate("SignIn");
+                  } catch (e) {
+                    console.error(e, "CreateAccount");
+                  }
+                }}
+              >
+                <Text style={merchTextCSS.buttonText}>Finish Account Setup</Text>
+              </Pressable>
+            </View>
+          </View>
+        </SafeAreaView>
   );
 }
 
@@ -289,6 +354,9 @@ function SignUpProgress() {
 }
 
 function SignUpTab() {
+  const { getMerchants } = useMerchant();
+  useEffect(() => { getMerchants() }, []);
+
   return(
     <SignUpProvider>
       <SafeAreaView style={[merchContCSS.main, {flexDirection: 'row', padding: 0}]}>
@@ -332,6 +400,13 @@ function SignUpTab() {
                 title: "OAuth Authorization"
               }}
             />
+            <Tab.Screen
+              name="CreateAccount"
+              component={CreateAccount}
+              options={{
+                title: "Create Account"
+              }}
+            />
           </Tab.Navigator>
         </View>
       </SafeAreaView>
@@ -365,5 +440,5 @@ const styles = StyleSheet.create({
 export {
   SignUpTab, StoreInfo, BusinessAddress,
   NextButton, ContactInformation, SignUpProgress,
-  ProgressBar, ProgressBox, OAuth, OAuthButton
+  ProgressBar, ProgressBox, OAuth, CreateAccount
 };

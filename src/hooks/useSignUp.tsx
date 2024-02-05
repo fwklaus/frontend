@@ -1,10 +1,14 @@
 import { useContext, useEffect } from 'react';
 import { SignUpContext } from '../context/SignUpContext';
+// import useMerchant from './useMerchant';
 
+// used to handle form information for createMerchant (POST 'localhost:3000/api/merchants/')
 const useSignUp = () => {
   const [newMerchant, setNewMerchant] = useContext(SignUpContext);
 
-  useEffect(() => {}, [newMerchant]);
+  useEffect(() => {
+    console.log(newMerchant);
+  }, [newMerchant]);
 
   function getCopy() {
     return JSON.parse(JSON.stringify(newMerchant));
@@ -16,15 +20,39 @@ const useSignUp = () => {
     setNewMerchant(copy);
   }
 
-  function validatePassword() {
+  // check if email password combination already exists
+  function validPassword(merchants) {
+    if (merchants.length < 1) return true;
+    let matching = matchingPasswords();
+    let unique = isUnique(merchants);
 
-    console.log('implement validation');
+    if (matching && unique) {
+      return true;
+    }
+
+    return false;
+  }
+
+  function isUnique(merchants) {
+    let match = merchants.find((merchant) => {
+      let email = newMerchant.email;
+      let password = newMerchant.password;
+
+      return merchant.email === email
+             && merchant.password === password;
+    });
+
+    return !!(match);
+  }
+
+  function matchingPasswords() {
+    return newMerchant.password === newMerchant.validator;
   }
 
   return {
     newMerchant,
     updateNewMerchant,
-    validatePassword
+    validPassword,
   }
 };
 
