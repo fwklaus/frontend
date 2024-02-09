@@ -9,7 +9,7 @@ import {
   RestaurantItem,
   ResListHeader,
   ResListResults
-} from '../../../../../src/tabs/home_screen/HomeTab';
+} from '../../../../../../../src/screens/customer/home/tabs/HomeTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

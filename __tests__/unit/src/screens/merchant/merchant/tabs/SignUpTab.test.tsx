@@ -8,7 +8,7 @@ import {
   SignUpTab, StoreInfo, BusinessAddress,
   NextButton, ContactInformation, SignUpProgress,
   ProgressBar, ProgressBox, OAuth, CreateAccount
-}  from '../../../../../src/tabs/merchant_screen/SignUpTab';
+}  from '../../../../../../../src/screens/merchant/merchant/tabs/SignUpTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

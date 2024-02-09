@@ -8,7 +8,7 @@ import {
   CheckoutScreen, CheckoutFooter, CheckoutTotals,
   NotificationsSection, ContactInfoSection, CheckoutBottomHeader,
   CheckoutTopHeader
-} from '../../../../../src/screens/customer/CheckoutScreen';
+} from '../../../../../../src/screens/customer/checkout/CheckoutScreen';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

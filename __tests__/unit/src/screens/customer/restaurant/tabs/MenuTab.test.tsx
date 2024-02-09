@@ -11,7 +11,7 @@ import {
   MenuScreenFooter,
   MenuListHeader,
   SectionHeader
-} from '../../../../../src/tabs/restaurant_screen/MenuTab';
+} from '../../../../../../../src/screens/customer/restaurant/tabs/MenuTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

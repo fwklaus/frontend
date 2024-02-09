@@ -7,7 +7,7 @@ import React from 'react';
 import {
   ProfileTab, StoreInformation,
   LoginInformation, DeleteAccount
-  } from '../../../../../src/tabs/merchant_screen/ProfileTab';
+  } from '../../../../../../../src/screens/merchant/merchant/tabs/ProfileTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

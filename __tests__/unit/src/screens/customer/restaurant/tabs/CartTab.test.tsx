@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { CartTab, CartFooter, CartHeader, Item} from '../../../../../src/tabs/restaurant_screen/CartTab';
+import { CartTab, CartFooter, CartHeader, Item} from  '../../../../../../../src/screens/customer/restaurant/tabs/CartTab';
 
 
 // Note: import explicitly to use the types shipped with jest.

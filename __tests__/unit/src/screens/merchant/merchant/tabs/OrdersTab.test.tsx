@@ -7,7 +7,7 @@ import React from 'react';
 import {
   OrdersTab, PickupPendingPanel, ClosedOrdersPanel,
   OpenOrdersPanel, Unavailable, TakingOrders
-  } from '../../../../../src/tabs/merchant_screen/OrdersTab';
+  } from '../../../../../../../src/screens/merchant/merchant/tabs/OrdersTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

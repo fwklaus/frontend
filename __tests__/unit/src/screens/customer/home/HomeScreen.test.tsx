@@ -4,7 +4,11 @@
 
 import 'react-native';
 import React from 'react';
-import { HomeScreen } from '../../../../../src/screens/customer/HomeScreen';
+import {
+  HomeScreen,
+  ServicesTab,
+  TermsTab
+  } from '../../../../../../src/screens/customer/home/HomeScreen';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
@@ -12,7 +16,7 @@ import {it} from '@jest/globals';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
-describe('Component tests', () => {
+describe('HomeScreen tests', () => {
   let navigation = {
     navigate: jest.fn(),
   };
@@ -24,4 +28,16 @@ describe('Component tests', () => {
   it.todo("navigates to HomeTab when services tab is pressed");
   it.todo("navigates to ServicesTab when services tab is pressed");
   it.todo("navigates to TermsTab when services tab is pressed");
+});
+
+describe("ServicesTab Tests", () => {
+  it("renders correctly", () => {
+    <ServicesTab />
+  })
+});
+
+describe("TermsTab Tests", () => {
+  it("renders correctly", () => {
+    <TermsTab />
+  })
 });
