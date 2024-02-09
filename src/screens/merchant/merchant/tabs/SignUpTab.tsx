@@ -11,13 +11,13 @@ import {
 import  { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
-import {SignUpProvider, SignUpContext} from '../../context/SignUpContext';
-import useMerchant from '../../hooks/useMerchant';
-import useSignUp from '../../hooks/useSignUp';
-import useSignIn from '../../hooks/useSignIn';
+import {SignUpProvider, SignUpContext} from '../../../../context/SignUpContext';
+import useMerchant from '../../../../hooks/useMerchant';
+import useSignUp from '../../../../hooks/useSignUp';
+import useSignIn from '../../../../hooks/useSignIn';
 
-import { merchContCSS } from '../../res/styles/merchantContainer';
-import { merchTextCSS } from '../../res/styles/merchantText';
+import { merchContCSS } from '../../../../res/styles/merchantContainer';
+import { merchTextCSS } from '../../../../res/styles/merchantText';
 
 const Tab = createMaterialTopTabNavigator();
 const BULLET_POINT = '\u25CF';

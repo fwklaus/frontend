@@ -1,6 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { PermissionsAndroid } from 'react-native';
 import { LocationContext } from '../context/LocationContext';
+// import { GOOGLE_API_KEY } from 'react-native-dotenv';
+import { GOOGLE_API_KEY } from '@env';
+const baseURL = "172.25.103.21:3000";
 
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
@@ -12,11 +15,12 @@ import DATA from '../data/restaurantData.js';
   // should store key in environmental variable? module?
 // use OrderWeasel.gmail account
 // this is currently my personal account
-Geocoder.init('AIzaSyBEH9uEYLCkCyKMrO6HN9ey5U1QfjkZLwc');
+
+Geocoder.init(GOOGLE_API_KEY);
+// Geocoder.init('AIzaSyBEH9uEYLCkCyKMrO6HN9ey5U1QfjkZLwc');
 
 //  getDirections - based on location
 //  getRestaurants? - based on location
-
 
 const useLocation = () => {
   const {
@@ -25,50 +29,85 @@ const useLocation = () => {
     currentAddress, setCurrentAddress
    } = useContext(LocationContext);
 
+//   useEffect(()=> {
+//     (async () => {
+//       try {
+//         let response = await fetch(`${baseURL}/api/merchants/gKey`);
+//         let json = await response.json();
+//         console.log(json);
+//       } catch (e) {
+//         console.log(e);
+//       }
+// //         .then(response => response.json())
+// //         .then(json => console.log(json))
+// //         .catch(e => console.log(e, "from useEffect in useLocation"));
+//     })();
+//   }, [])
+
   useEffect(() => {}, [location]);
   useEffect(()=> {}, [restaurantData]);
 
-  function formatAddress(components) {
-    let comps = {};
-    components.forEach(comp => {
-      let type = comp.types[0];
-      let name = comp.short_name;
-      comps[type] = name;
-    })
+//   function formatAddress(components) {
+//     let comps = {};
+//     components.forEach(comp => {
+//       let type = comp.types[0];
+//       let name = comp.short_name;
+//       comps[type] = name;
+//     })
+//
+//     return comps;
+//   }
 
-    return comps;
-  }
+//   function getAddress(location) {
+//     if (location && location.coords && location.coords.latitude) {
+//       return Geocoder.from(location.coords.latitude, location.coords.longitude)
+//         .then(json => {
+//           return json.results[0].address_components;
+//         }).then((addressComponents) => {
+//           return addressComponents;
+//         }).catch(error => {
+//           throw new Error(error)
+//       });
+//     } else {
+//       throw new Error("Invalid location coordinates in getAddress");
+//     }
+//   }
 
-  function getAddress() {
-    if (location && location.coords && location.coords.latitude) {
-      return Geocoder.from(location.coords.latitude, location.coords.longitude)
-        .then(json => {
-          return json.results[0].address_components;
-        }).then((addressComponents) => {
-          return addressComponents;
-        }).catch(error => {
-          throw new Error("Redundant as fuck")
-      });
-    } else {
-      throw new Error('Fuck you');
+  async function getAddress({latitude, longitude}) {
+    let googleURL = 'https://maps.googleapis.com/maps/api/geocode/json?';
+    let queryParams = `latlng=${latitude},${longitude}&key=${GOOGLE_API_KEY}`
+
+    try {
+      let response = await fetch(googleURL + queryParams);
+      let json = await response.json();
+      if (json.results.length > 0) {
+        const address = json.results[0].formatted_address;
+        return address;
+      } else {
+        throw new Error("No results found for getAddress");
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
 
-  async function getCoordinates(hasPermission) {
-    let success = (position) => setLocation(position);
-    let failure = (error) => {
-      console.log(`${error.code}: ${error.message}`);
-    };
-    let options = {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000};
-
+  // working
+  function getCoordinates(hasPermission, {location, setLocation}) {
     if (hasPermission) {
-      Geolocation.getCurrentPosition(success, failure, options);
+      Geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({latitude, longitude});
+        },
+        (error) =>  console.log(`${error.code}: ${error.message}`),
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      );
     } else {
       throw new Error('Permission required to access geolocation')
     }
   }
 
-//   working
+  // working
   async function requestLocationPermission() {
      try {
       const granted = await PermissionsAndroid.request(
@@ -98,19 +137,16 @@ const useLocation = () => {
   }
 
   // working
-  async function getLocation() {
+  async function getLocation(location, setLocation) {
     let address;
 
     try {
       const hasPermission = await requestLocationPermission();
-      await getCoordinates(hasPermission);
-      let components = await getAddress();
-      address = formatAddress(components);
-
-      console.log(address);
-
+      await getCoordinates(hasPermission, {location, setLocation});
+//       let address = await getAddress(location);
+//       return address;
     } catch (error) {
-       throw new Error(error);
+       console.log(error, " in GetLocation");
     }
   }
 
@@ -125,11 +161,15 @@ const useLocation = () => {
   }
 
   return {
+    location,
     getLocation,
+    setLocation,
     loadRestaurants,
     restaurantData,
     refreshing,
+    getAddress,
     currentAddress,
+    setCurrentAddress,
     requestLocationPermission
   }
 };

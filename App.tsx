@@ -27,12 +27,12 @@ import { LoadingScreen } from './src/screens/LoadingScreen';
 import { WelcomeScreen } from './src/screens/WelcomeScreen';
 
 // merchant screens
-import { MerchantScreen } from './src/screens/merchant/MerchantScreen';
+import { MerchantScreen } from './src/screens/merchant/merchant/MerchantScreen';
 
 // customer screens
-import { HomeScreen } from './src/screens/customer/HomeScreen';
-import { RestaurantScreen } from './src/screens/customer/RestaurantScreen';
-import { CheckoutScreen } from './src/screens/customer/CheckoutScreen';
+import { HomeScreen } from './src/screens/customer/home/HomeScreen';
+import { RestaurantScreen } from './src/screens/customer/restaurant/RestaurantScreen';
+import { CheckoutScreen } from './src/screens/customer/checkout/CheckoutScreen';
 
 const stackType = 'native';
 

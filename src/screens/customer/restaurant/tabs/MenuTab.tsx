@@ -10,17 +10,18 @@ import {
   Modal,
   RefreshControl
 } from 'react-native'
-import { CartModal } from '../../components/ui/CartModal';
-import { GetStars } from '../../components/api/GetStars';
-import { GetDirections } from '../../components/api/GetDirections';
+import useCart from '../../../../hooks/useCart';
 
-import { textStyles } from '../../res/styles/text';
-import { containerStyles } from '../../res/styles/container';
-import { buttonStyles } from '../../res/styles/button';
-import menuData from '../../data/menuData.js'
+import { CartModal } from '../../../../components/ui/CartModal';
+import { GetStars } from '../../../../components/api/GetStars';
+import { GetDirections } from '../../../../components/api/GetDirections';
 
-import { loadMenu, useToggle } from '../../hooks/useRes';
-import useCart from '../../hooks/useCart';
+import { textStyles } from '../../../../res/styles/text';
+import { containerStyles } from '../../../../res/styles/container';
+import { buttonStyles } from '../../../../res/styles/button';
+
+// for example
+import menuData from '../../../../data/menuData.js'
 
 // // fetching menu data for a restaurant example
 function getMenuData(id) {
@@ -28,7 +29,7 @@ function getMenuData(id) {
 }
 
 function MenuScreenHeader({params}) {
-  let logo = '../../res/images/order_weasel_small.jpg'
+  let logo = '../../../../res/images/order_weasel_small.jpg'
   let id = params.id;
   let title = params.title;
 
@@ -56,8 +57,8 @@ function MenuListHeader({params}) {
   hours = '8:00-8:00';
   phone = '(456)567-7895'
 
-  let clock = '../../res/images/clock.png';
-  let phonePic = '../../res/images/phone.png';
+  let clock = '../../../../res/images/clock.png';
+  let phonePic = '../../../../res/images/phone.png';
 
   return (
     <View style={{flex: 1}}>
@@ -118,7 +119,7 @@ function MenuItem({item, cart, restaurantId, addItem, editItem, deleteItem, find
 
   // how are we going to get the picture for the item since we can't call require dynamically?
   // for demonstration purposes
-  let url = '../../res/images/order_weasel_small.jpg';
+  let url = '../../../../res/images/order_weasel_small.jpg';
 
   // modal state
   const [modalVisible, setModalVisible] = useState(false);
@@ -178,7 +179,7 @@ function SectionHeader({handleToggle, title}) {
       <Text style={textStyles.headerText}>{title}</Text>
       <Image
        style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}}
-       source={require('../../res/images/angle-small-down.png')}
+       source={require('../../../../res/images/angle-small-down.png')}
       />
   </Pressable>
   );

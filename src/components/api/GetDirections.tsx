@@ -6,16 +6,18 @@ import {
 import useLocation from '../../hooks/useLocation';
 
 // export function GetDirections({address}) {
-export function GetDirections() {
+export function GetDirections({address}) {
   //   clicking on the address should request Google API for directions to restaurant
-  const { currentAddress } = useLocation();
+//   const { currentAddress} = useLocation();
 
   return (
-    <Text
-      style={{color: 'blue', textDecorationLine: 'underline', fontSize: 16, flex: 12}}
-      onPress={() => {
-        console.log('Connect to Google API');
-      }}
-    >{currentAddress}</Text>
+    <Pressable>
+      <Text
+        style={{color: 'blue', textDecorationLine: 'underline', fontSize: 16, flex: 12}}
+        onPress={() => {
+          console.log("Get Directions")
+        }}
+      >{address}</Text>
+    </Pressable>
   );
 }

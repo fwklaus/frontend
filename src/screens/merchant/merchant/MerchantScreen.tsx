@@ -8,17 +8,17 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native';
-import { containerStyles } from '../../res/styles/container';
-import { textStyles } from '../../res/styles/text';
+import { containerStyles } from '../../../res/styles/container';
+import { textStyles } from '../../../res/styles/text';
 
-import useSignIn from '../../hooks/useSignIn';
+import useSignIn from '../../../hooks/useSignIn';
 import { HeaderButtons, Item} from 'react-navigation-header-buttons';
 
-import { SignInTab } from '../../tabs/merchant_screen/SignInTab';
-import { SignUpTab } from '../../tabs/merchant_screen/SignUpTab';
-import { MerchantHomeTab } from '../../tabs/merchant_screen/MerchantHomeTab';
-import { OrdersTab } from '../../tabs/merchant_screen/OrdersTab';
-import { ProfileTab} from '../../tabs/merchant_screen/ProfileTab';
+import { SignInTab } from './tabs/SignInTab';
+import { SignUpTab } from './tabs/SignUpTab';
+import { MerchantHomeTab } from './tabs/MerchantHomeTab';
+import { OrdersTab } from './tabs/OrdersTab';
+import { ProfileTab} from './tabs/ProfileTab';
 // import { MaterialHeaderButton } from '../components/MaterialHeaderButton'
 
 const Tab = createBottomTabNavigator();

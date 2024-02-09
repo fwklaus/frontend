@@ -53,7 +53,7 @@ function MerchantPathway({navigation}) {
 }
 
 function CustomerPathway({navigation}) {
-  const { requestLocationPermission } = useLocation();
+//   const { requestLocationPermission, getLocation, location, setLocation } = useLocation();
   const [largeScreen, setLargeScreen] = useState(() => {
     return windowWidth > 400
   });
@@ -72,12 +72,13 @@ function CustomerPathway({navigation}) {
               {backgroundColor: largeScreen ? 'grey' : 'blue'},
               {flex: 1, justifyContent: 'center'}
             ]}
-            onPress={ async () => {
+            onPress={() => {
               if (largeScreen) {
                 alert("Please use an adequate device")
                 return;
               }
-              await requestLocationPermission();
+//               await requestLocationPermission();
+//               await getLocation(location, setLocation);
               navigation.navigate("HomeScreen")
             }}
           >
@@ -89,6 +90,14 @@ function CustomerPathway({navigation}) {
 
 
 function WelcomeScreen({navigation}) {
+  const { getLocation, location, setLocation } = useLocation();
+
+  useEffect(()=> {
+    (async function(){
+      getLocation(location, setLocation);
+    })();
+  }, []);
+
   return (
     <SafeAreaView style={[containerStyles.main, {padding: 10}]}>
       <CustomerPathway navigation={navigation}/>

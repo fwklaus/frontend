@@ -10,11 +10,11 @@ import {
   ScrollView,
   Dimensions
 } from 'react-native';
-import useSignIn from '../../hooks/useSignIn';
-import useMerchant from '../../hooks/useMerchant';
+import useSignIn from '../../../../hooks/useSignIn';
+import useMerchant from '../../../../hooks/useMerchant';
 
-import { merchContCSS } from '../../res/styles/merchantContainer';
-import { merchTextCSS } from '../../res/styles/merchantText';
+import { merchContCSS } from '../../../../res/styles/merchantContainer';
+import { merchTextCSS } from '../../../../res/styles/merchantText';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;

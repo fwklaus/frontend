@@ -8,15 +8,14 @@ import {
   Image,
   TextInput,
 } from 'react-native'
-import { textStyles } from '../../res/styles/text';
-import { containerStyles } from '../../res/styles/container';
-import { Address } from '../../components/api/Address';
-import { ContactInfo } from '../../components/ui/ContactInfo';
-import { Notifications } from '../../components/ui/Notifications';
-
+import { textStyles } from '../../../res/styles/text';
+import { containerStyles } from '../../../res/styles/container';
+import { Address } from '../../../components/api/Address';
+import { ContactInfo } from '../../../components/ui/ContactInfo';
+import { Notifications } from '../../../components/ui/Notifications';
 
 function CheckoutTopHeader({title}) {
-  let logo = '../../res/images/order_weasel_small.jpg';
+  let logo = '../../../res/images/order_weasel_small.jpg';
   return (
     <View style={[ containerStyles.headerContainer, {flex: 1.2} ]}>
       <View style={containerStyles.headerLogoContainer}>

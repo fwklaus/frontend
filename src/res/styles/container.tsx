@@ -33,10 +33,10 @@ const containerStyles = StyleSheet.create({
   },
   headerItem: {
     backgroundColor: 'white',
-    padding: 20,
     borderColor: 'black',
     borderBottomWidth: 1,
-    padding: 10
+    flex: 1,
+    justifyContent: 'center',
   },
   headerContainer: {
     flexDirection: 'row',

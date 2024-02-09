@@ -8,11 +8,12 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native'
-import { MenuTab } from '../../tabs/restaurant_screen/MenuTab';
-import { CartTab } from '../../tabs/restaurant_screen/CartTab';
-import { CartProvider } from '../../context/CartContext';
+import { MenuTab } from './tabs/MenuTab';
+import { CartTab } from './tabs/CartTab';
 
-import { containerStyles } from '../../res/styles/container';
+import { CartProvider } from '../../../context/CartContext';
+
+import { containerStyles } from '../../../res/styles/container';
 
 const Tab = createBottomTabNavigator();
 

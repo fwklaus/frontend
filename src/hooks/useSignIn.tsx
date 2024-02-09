@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { SignInContext } from '../context/SignInContext';
 
-import loginData from '../data/loginData';
+// import loginData from '../data/loginData';
 
 const useSignIn = () => {
   const {
@@ -14,20 +14,19 @@ const useSignIn = () => {
   }, [signedIn]);
 
   useEffect(() => {
-//     console.log(currentMerchant)
+//     console.log(currentMerchant, " from use signIn")
   }, [currentMerchant]);
 
   useEffect(() => {
 //     console.log(credentials);
   }, [ credentials]);
 
-
   function getCopy() {
     return JSON.parse(JSON.stringify(credentials));
   }
 
-  function getUser() {
-    return loginData.filter(merchant => {
+  function getUser(merchants) {
+    return merchants.filter(merchant => {
       return merchant.password === credentials.password
              && merchant.email === credentials.email;
     });
@@ -37,9 +36,8 @@ const useSignIn = () => {
     setSignedIn(!signedIn);
   }
 
-  function signIn() {
-    let user = getUser()[0];
-
+  function signIn(merchants) {
+    let user = getUser(merchants)[0];
     setSignedIn(!signedIn);
     setCurrentMerchant(user);
   }
@@ -58,8 +56,10 @@ const useSignIn = () => {
     });
   }
 
-  function validCredentials() {
-    let match = getUser();
+  function validCredentials(merchants) {
+    let match = getUser(merchants);
+
+
     return match.length === 1;
   }
 
@@ -72,6 +72,7 @@ const useSignIn = () => {
     signedIn,
 //     currentUser,
     currentMerchant,
+    setCurrentMerchant,
     signOut,
     signIn
   };

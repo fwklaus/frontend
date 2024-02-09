@@ -8,18 +8,19 @@ import {
   Image,
   StyleSheet
 } from 'react-native';
-import { textStyles } from '../../res/styles/text';
-import { containerStyles } from '../../res/styles/container';
-
-import useCart from '../../hooks/useCart';
 // data required from the context hook in RestaurantScreen
+import useCart from '../../../../hooks/useCart';
+
+import { textStyles } from '../../../../res/styles/text';
+import { containerStyles } from '../../../../res/styles/container';
+
 
 // import CartData from '../data/cartData'
 // example using seedData
 // const DATA = CartData;
 
 function CartHeader({resInfo}) {
-  let logo = '../../res/images/order_weasel_small.jpg'
+  let logo = '../../../../res/images/order_weasel_small.jpg'
   let id = resInfo.id;
   let title = resInfo.title;
 
@@ -90,7 +91,7 @@ function CartFooter({navigation, resInfo, cart}) {
 }
 
 function Item({id, name, cost, quantity, deleteItem}) {
-let trash = '../../res/images/trash_small.png'
+let trash = '../../../../res/images/trash_small.png'
 
   return(
     <View style={styles.cartItem}>

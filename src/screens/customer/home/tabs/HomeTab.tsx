@@ -11,13 +11,13 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import useLocation from '../../hooks/useLocation';
+import useLocation from '../../../../hooks/useLocation';
 
-import { GetDirections } from '../../components/api/GetDirections';
+import { GetDirections } from '../../../../components/api/GetDirections';
 
 // styles
-import { containerStyles } from '../../res/styles/container';
-import { textStyles } from '../../res/styles/text';
+import { containerStyles } from '../../../../res/styles/container';
+import { textStyles } from '../../../../res/styles/text';
 
 function ResListResults() {
   const { restaurantData } = useLocation();
@@ -30,17 +30,30 @@ function ResListResults() {
 }
 
 function ResListHeader() {
-  let locationMarker = '../../res/images/marker.png';
+  const { currentAddress, location, setCurrentAddress, getAddress} = useLocation();
+  let locationMarker = '../../../../res/images/marker.png';
 
   return (
     <View style={{flex: 0.17}}>
-      <View style={[containerStyles.headerItem, {flex: 1, flexDirection: 'row'}]}>
+      <View style={[containerStyles.headerItem, {flexDirection: 'row'}]}>
         <View style={{flex: 1, alignItems: "center", justifyContent: 'center'}}>
           <Image style={{width: 20, height: 20}} source={require(locationMarker)}/>
         </View>
-        <GetDirections />
+        <View style={{flex: 10, alignSelf: "left", justifyContent: 'center'}}>
+          <Text
+            style={{color: 'blue', textDecorationLine: 'underline', fontSize: 16}}
+            onPress={async () => {
+               try {
+                let address = await getAddress(location);
+                setCurrentAddress(address);
+               } catch(e) {
+                console.log(e);
+               }
+            }}
+          >{currentAddress ? currentAddress : 'Get Current Address'}</Text>
+        </View>
       </View>
-      <View style={containerStyles.headerItem}>
+      <View style={[containerStyles.headerItem, {paddingLeft: 10}]}>
         <Text style={[textStyles.headingText, {color: 'blue'}]}>Restaurants Near You (Carryout Only)</Text>
       </View>
     </View>
@@ -51,7 +64,7 @@ function RestaurantItem ({id, title, category, distance, rating, phone, hours, a
   // require does not work with dynamic values?
     // can't pass the image URL to require at runtime
   // find another way to load the image
-  let url = '../../res/images/order_weasel_small.jpg'
+  let url = '../../../../res/images/order_weasel_small.jpg'
   const navigation = useNavigation();
 
   return (
@@ -76,8 +89,22 @@ function RestaurantItem ({id, title, category, distance, rating, phone, hours, a
 }
 
 function HomeTab({navigation}) {
-  const { loadRestaurants, restaurantData, refreshing } = useLocation();
-  useEffect(() => {loadRestaurants()}, [])
+  const {
+    loadRestaurants, restaurantData, refreshing,
+    location, setCurrentAddress, getAddress
+    } = useLocation();
+
+  useEffect(() => {loadRestaurants()}, []);
+  useEffect(() => {
+    (async function(){
+      try {
+       let address = await getAddress(location);
+       setCurrentAddress(address);
+      } catch(e) {
+       console.log(e);
+      }
+    })();
+  }, []);
 
   return(
     <SafeAreaView style={{flex: 1}}>
