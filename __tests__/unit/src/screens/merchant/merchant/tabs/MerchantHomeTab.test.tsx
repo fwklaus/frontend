@@ -7,7 +7,7 @@ import React from 'react';
 import {
   MerchantHomeTab, SignUpButton, ScreenOne,
   ScreenTwo, ScreenThree, ScreenFour
-} from '../../../../../src/tabs/merchant_screen/MerchantHomeTab';
+} from '../../../../../../../src/screens/merchant/merchant/tabs/MerchantHomeTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';

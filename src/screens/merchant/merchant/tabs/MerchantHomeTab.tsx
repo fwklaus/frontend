@@ -6,8 +6,8 @@ import {
   StyleSheet,
   Pressable
 } from 'react-native';
-import { merchContCSS } from '../../res/styles/merchantContainer'
-import { merchTextCSS } from '../../res/styles/merchantText'
+import { merchContCSS } from '../../res/styles/merchantContainer';
+import { merchTextCSS } from '../../res/styles/merchantText';
 
 const BULLET_POINT = '\u25CF'
 

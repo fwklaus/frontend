@@ -7,8 +7,8 @@ import {
   Pressable,
   StyleSheet
 } from 'react-native';
-import { merchContCSS } from '../../res/styles/merchantContainer';
-import { merchTextCSS } from '../../res/styles/merchantText';
+import { merchContCSS } from '../../../../res/styles/merchantContainer';
+import { merchTextCSS } from '../../../../res/styles/merchantText';
 
 function OpenOrdersPanel() {
   return (

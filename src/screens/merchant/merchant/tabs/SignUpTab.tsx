@@ -14,12 +14,78 @@ import  { createMaterialTopTabNavigator } from '@react-navigation/material-top-t
 import {SignUpProvider, SignUpContext} from '../../context/SignUpContext';
 import useMerchant from '../../hooks/useMerchant';
 import useSignUp from '../../hooks/useSignUp';
+import useSignIn from '../../hooks/useSignIn';
 
 import { merchContCSS } from '../../res/styles/merchantContainer';
 import { merchTextCSS } from '../../res/styles/merchantText';
 
 const Tab = createMaterialTopTabNavigator();
 const BULLET_POINT = '\u25CF';
+
+function ProgressBar({count}) {
+  let percent = 50;
+//   const countInterval = useRef(null);
+//   const [count, setCount] = useState(0);
+//
+//   const loaderValue = useRef(new Animated.Value(0)).current;
+//   const load = (count) => {
+//     Animated.timing(loaderValue, {
+//       toValue: count,
+//       duration: 500,
+//       useNativeDriver: true
+//     }).start();
+//   };
+//
+//   useEffect(() => {
+//     load(count);
+//     if (count >= 100) {
+//       setCount(100);
+//       clearInterval(countInterval);
+//     }
+//   }, [count]);
+
+
+  return (
+    <View style={styles.progressBar}>
+      <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: '#8BED4F', width: "50%"}]}/>
+      <Text style={[merchTextCSS.text, {textAlign: 'center'}]}>{percent}%</Text>
+    </View>
+  );
+}
+
+function ProgressBox({percent, index}) {
+
+  return (
+    <View style={styles.progressBarSmall}></View>
+  );
+}
+
+function SignUpProgress() {
+  return (
+    <SafeAreaView style={[merchContCSS.main, {alignItems: 'left', padding: 20, backgroundColor: '#d3d3d3'}]}>
+      <View style={{marginBottom: 10, flex: 1, justifyContent: 'flex-end'}}>
+        <Text style={[merchTextCSS.text, merchTextCSS.list]}>Sign Up Progress</Text>
+        <ProgressBar/>
+      </View>
+      <View style={[merchContCSS.container, {flexDirection: 'row', flex: 2}]}>
+        <View style={[merchContCSS.container, {flex: 1,  justifyContent: 'flex-start', alignItems: 'center'}]}>
+          {
+            ["20%", "40%", "60%", "80%", "100%"].map((percent, index) => {
+              return <ProgressBox percent={percent} key={index} />
+            })
+          }
+        </View>
+        <View style={[merchContCSS.container, {flex: 4, justifyContent: 'flex-start'}]}>
+          <Text style={[merchTextCSS.text, styles.progressList]}>Store Info</Text>
+          <Text style={[merchTextCSS.text, styles.progressList]}>Address</Text>
+          <Text style={[merchTextCSS.text, styles.progressList]}>Hours</Text>
+          <Text style={[merchTextCSS.text, styles.progressList]}>Contact Info</Text>
+          <Text style={[merchTextCSS.text, styles.progressList]}>Authorization</Text>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
 
 function NextButton({navigation, nextTab}) {
   return (
@@ -256,6 +322,7 @@ function OAuth({navigation}) {
 function CreateAccount({navigation}) {
   const { newMerchant, updateNewMerchant } = useSignUp();
   const { createMerchant, merchants } = useMerchant();
+  const { resetFields } = useSignIn();
 
   return (
         <SafeAreaView style={[merchContCSS.main, {alignItems: 'left', padding: 20}]}>
@@ -272,7 +339,7 @@ function CreateAccount({navigation}) {
                 onPress={ async () => {
                   try {
                     await createMerchant(newMerchant);
-
+                    resetFields();
                     // provide a message following redirect, pass in the params object
                     navigation.navigate("SignIn");
                   } catch (e) {
@@ -285,71 +352,6 @@ function CreateAccount({navigation}) {
             </View>
           </View>
         </SafeAreaView>
-  );
-}
-
-function ProgressBar({count}) {
-  let percent = 50;
-//   const countInterval = useRef(null);
-//   const [count, setCount] = useState(0);
-//
-//   const loaderValue = useRef(new Animated.Value(0)).current;
-//   const load = (count) => {
-//     Animated.timing(loaderValue, {
-//       toValue: count,
-//       duration: 500,
-//       useNativeDriver: true
-//     }).start();
-//   };
-//
-//   useEffect(() => {
-//     load(count);
-//     if (count >= 100) {
-//       setCount(100);
-//       clearInterval(countInterval);
-//     }
-//   }, [count]);
-
-
-  return (
-    <View style={styles.progressBar}>
-      <Animated.View style={[StyleSheet.absoluteFill, {backgroundColor: '#8BED4F', width: "50%"}]}/>
-      <Text style={[merchTextCSS.text, {textAlign: 'center'}]}>{percent}%</Text>
-    </View>
-  );
-}
-
-function ProgressBox({percent, index}) {
-
-  return (
-    <View style={styles.progressBarSmall}></View>
-  );
-}
-
-function SignUpProgress() {
-  return (
-    <SafeAreaView style={[merchContCSS.main, {alignItems: 'left', padding: 20, backgroundColor: '#d3d3d3'}]}>
-      <View style={{marginBottom: 10, flex: 1, justifyContent: 'flex-end'}}>
-        <Text style={[merchTextCSS.text, merchTextCSS.list]}>Sign Up Progress</Text>
-        <ProgressBar/>
-      </View>
-      <View style={[merchContCSS.container, {flexDirection: 'row', flex: 2}]}>
-        <View style={[merchContCSS.container, {flex: 1,  justifyContent: 'flex-start', alignItems: 'center'}]}>
-          {
-            ["20%", "40%", "60%", "80%", "100%"].map((percent, index) => {
-              return <ProgressBox percent={percent} key={index} />
-            })
-          }
-        </View>
-        <View style={[merchContCSS.container, {flex: 4, justifyContent: 'flex-start'}]}>
-          <Text style={[merchTextCSS.text, styles.progressList]}>Store Info</Text>
-          <Text style={[merchTextCSS.text, styles.progressList]}>Address</Text>
-          <Text style={[merchTextCSS.text, styles.progressList]}>Hours</Text>
-          <Text style={[merchTextCSS.text, styles.progressList]}>Contact Info</Text>
-          <Text style={[merchTextCSS.text, styles.progressList]}>Authorization</Text>
-        </View>
-      </View>
-    </SafeAreaView>
   );
 }
 

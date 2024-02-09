@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   SafeAreaView,
   View,
@@ -7,24 +8,28 @@ import {
   Pressable
 } from 'react-native';
 import useSignIn from '../../hooks/useSignIn';
+import useMerchant from '../../hooks/useMerchant';
 
 import { merchContCSS } from '../../res/styles/merchantContainer';
 import { merchTextCSS } from '../../res/styles/merchantText';
 
 function SignInButton({navigation}) {
   const { validCredentials, resetFields, currentMerchant, signIn } = useSignIn();
+  const { merchants } = useMerchant();
+
+  console.log(merchants, " from SignInTab");
 
   return (
     <Pressable
       style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
       onPress={() => {
-        if (validCredentials()) {
-          signIn();
-          alert("Successfully signed in, user: " + currentMerchant.email);
+        if (validCredentials(merchants)) {
+          signIn(merchants);
+          alert("Welcome back " + currentMerchant.email);
           navigation.navigate("Orders");
           resetFields();
         } else {
-          alert("try again ass clown");
+          alert("Invalid credentials. Please try again");
           resetFields();
         }
       }}
@@ -36,6 +41,15 @@ function SignInButton({navigation}) {
 
 function SignInTab({navigation}) {
   const {credentials, updateCredentials} = useSignIn();
+  const {getMerchants, merchants} = useMerchant();
+//   useEffect(() => {getMerchants()}, []);
+
+  useFocusEffect(
+      React.useCallback(() => {
+        getMerchants();
+      }, [merchants])
+  );
+
   const email = "email";
   const password = "password";
 
