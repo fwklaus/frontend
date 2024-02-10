@@ -19,6 +19,7 @@ import { HeaderButtonsProvider } from 'react-navigation-header-buttons';
 import { SignInProvider } from './src/context/SignInContext';
 import { LocationProvider } from './src/context/LocationContext';
 import { MerchantProvider } from './src/context/MerchantContext';
+import { CartsProvider } from './src/context/CartsContext';
 
 // splash page
 import { LoadingScreen } from './src/screens/LoadingScreen';
@@ -44,68 +45,70 @@ function App(): React.JSX.Element {
       <MerchantProvider>
         <LocationProvider>
           <SignInProvider>
-            <HeaderButtonsProvider stackType={stackType}>
-              <Stack.Navigator
-                screenOptions={{
-                  headerTintColor: "blue",
-                  headerStyle: {
-                    backgroundColor: "#FBF501",
-                  },
-                  headerTitleStyle: {
-                    fontWeight: 'bold',
-                    fontSize: 24,
-                    fontFamily: "sans-serif-condensed"
-                  },
-                  headerTitleAlign: "center",
-                  statusBarStyle: 'auto',
-                }}
-              >
-                <Stack.Screen
-                  name="Loading"
-                  component={LoadingScreen}
-                  options={{
-                    headerShown: false,
+            <CartsProvider>
+              <HeaderButtonsProvider stackType={stackType}>
+                <Stack.Navigator
+                  screenOptions={{
+                    headerTintColor: "blue",
+                    headerStyle: {
+                      backgroundColor: "#FBF501",
+                    },
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                      fontSize: 24,
+                      fontFamily: "sans-serif-condensed"
+                    },
+                    headerTitleAlign: "center",
+                    statusBarStyle: 'auto',
                   }}
-                />
-                <Stack.Screen
-                  name="WelcomeScreen"
-                  component={WelcomeScreen}
-                  options={{
-                    title: 'WELCOME',
-                    headerBackVisible: false
-                  }}
-                />
-                <Stack.Screen
-                  name="MerchantScreen"
-                  component={MerchantScreen}
-                  options={{
-                    title: "MERCHANT SIGN-UP",
-                    headerBackVisible: false,
-                  }}
-                />
-                <Stack.Screen
-                  name="HomeScreen"
-                  component={HomeScreen}
-                  options={{
-                    title: "ORDERWEASEL",
-                  }}
-                />
-                <Stack.Screen
-                  name="RestaurantScreen"
-                  component={RestaurantScreen}
-                  options= {{
-                    title: "ORDER"
-                  }}
-                />
-                 <Stack.Screen
-                    name="CheckoutScreen"
-                    component={CheckoutScreen}
-                    options= {{
-                      title: "CHECKOUT",
+                >
+                  <Stack.Screen
+                    name="Loading"
+                    component={LoadingScreen}
+                    options={{
+                      headerShown: false,
                     }}
                   />
-              </Stack.Navigator>
-            </HeaderButtonsProvider>
+                  <Stack.Screen
+                    name="WelcomeScreen"
+                    component={WelcomeScreen}
+                    options={{
+                      title: 'WELCOME',
+                      headerBackVisible: false
+                    }}
+                  />
+                  <Stack.Screen
+                    name="MerchantScreen"
+                    component={MerchantScreen}
+                    options={{
+                      title: "MERCHANT SIGN-UP",
+                      headerBackVisible: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="HomeScreen"
+                    component={HomeScreen}
+                    options={{
+                      title: "ORDERWEASEL",
+                    }}
+                  />
+                  <Stack.Screen
+                    name="RestaurantScreen"
+                    component={RestaurantScreen}
+                    options= {{
+                      title: "ORDER"
+                    }}
+                  />
+                   <Stack.Screen
+                      name="CheckoutScreen"
+                      component={CheckoutScreen}
+                      options= {{
+                        title: "CHECKOUT",
+                      }}
+                    />
+                </Stack.Navigator>
+              </HeaderButtonsProvider>
+            </CartsProvider>
           </SignInProvider>
         </LocationProvider>
       </MerchantProvider>

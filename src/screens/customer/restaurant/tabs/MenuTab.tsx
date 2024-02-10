@@ -11,6 +11,7 @@ import {
   RefreshControl
 } from 'react-native'
 import useCart from '../../../../hooks/useCart';
+import useCarts from '../../../../hooks/useCarts';
 
 import { CartModal } from '../../../../components/ui/CartModal';
 import { GetStars } from '../../../../components/api/GetStars';
@@ -225,7 +226,7 @@ function MenuTab({route, navigation}) {
        setRefreshing(true);
           setTimeout(() => {
             setRefreshing(false);
-          }, 2000);
+          }, 1000);
   }
 
 
