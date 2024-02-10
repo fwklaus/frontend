@@ -14,7 +14,6 @@ import useCart from '../../../../hooks/useCart';
 
 import { CartModal } from '../../../../components/ui/CartModal';
 import { GetStars } from '../../../../components/api/GetStars';
-import { GetDirections } from '../../../../components/api/GetDirections';
 
 import { textStyles } from '../../../../res/styles/text';
 import { containerStyles } from '../../../../res/styles/container';
@@ -105,7 +104,14 @@ function MenuListHeader({params}) {
       </View>
       <View style={[styles.topSection, {padding: 10, flex: 1}]}>
         <Text style={textStyles.text}>This is a pickup order. You'll need to go to {title} to pick up this order at:</Text>
-        <GetDirections address={address} />
+        <Pressable>
+          <Text
+            style={{color: 'blue', textDecorationLine: 'underline', fontSize: 16, flex: 12}}
+            onPress={() => {
+              console.log("Get Directions")
+            }}
+          >{address}</Text>
+        </Pressable>
       </View>
     </View>
   );

@@ -10,7 +10,6 @@ import {
 } from 'react-native'
 import { textStyles } from '../../../res/styles/text';
 import { containerStyles } from '../../../res/styles/container';
-import { Address } from '../../../components/api/Address';
 import { ContactInfo } from '../../../components/ui/ContactInfo';
 import { Notifications } from '../../../components/ui/Notifications';
 
@@ -23,6 +22,14 @@ function CheckoutTopHeader({title}) {
       </View>
      <Text style={[textStyles.text, textStyles.smallHeadings, {flex: 3}]}>{title}</Text>
     </View>
+  );
+}
+
+function Address({address}) {
+  return(
+    <Pressable onPress={() => console.log('Google API to get directions')}>
+      <Text style={{color: 'blue', textDecorationLine: 'underline', fontWeight: 'bold', fontSize: 16}}>{address}</Text>
+    </Pressable>
   );
 }
 
@@ -136,4 +143,8 @@ const styles = StyleSheet.create({
 });
 
 
-export {CheckoutScreen, CheckoutFooter, CheckoutTotals, NotificationsSection, ContactInfoSection, CheckoutBottomHeader, CheckoutTopHeader };
+export {
+  CheckoutScreen, CheckoutFooter, CheckoutTotals,
+  NotificationsSection, ContactInfoSection, CheckoutBottomHeader,
+  CheckoutTopHeader, Address
+};

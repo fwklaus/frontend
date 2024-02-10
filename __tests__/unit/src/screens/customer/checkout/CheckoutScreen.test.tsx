@@ -7,7 +7,7 @@ import React from 'react';
 import {
   CheckoutScreen, CheckoutFooter, CheckoutTotals,
   NotificationsSection, ContactInfoSection, CheckoutBottomHeader,
-  CheckoutTopHeader
+  CheckoutTopHeader, Address
 } from '../../../../../../src/screens/customer/checkout/CheckoutScreen';
 
 // Note: import explicitly to use the types shipped with jest.
@@ -65,3 +65,14 @@ describe("CheckoutBottomHeader tests", () => {
 describe("CheckoutTopHeader tests", () => {
   it.todo("renders correctly");
 });
+
+describe('Address tests', () => {
+  let address = '5555 Main street';
+
+  it('renders correctly', () => {
+    <Address address={address}/>
+  });
+
+  it.todo("Gets current location using Google API when pressing it")
+});
+
