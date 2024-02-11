@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ResDataContext } from '../context/ResDataContext';
 
 // importing seed restaurant data
@@ -12,6 +12,7 @@ const useResData = () => {
     refreshing, setRefreshing, restaurantData,
     setRestaurantData, menu, setMenu
   } = useContext(ResDataContext);
+  const [expandedSections, setExpandedSections] = useState(new Set());
 
   useEffect(()=>{},[restaurantData]);
 
@@ -40,12 +41,27 @@ const useResData = () => {
       }, 1000);
   }
 
+  function handleToggle(title) {
+    setExpandedSections((expandedSections) => {
+      const next = new Set(expandedSections);
+      if (next.has(title)) {
+        next.delete(title);
+      } else {
+         next.add(title);
+      }
+         return next;
+   });
+  }
+
   return {
     menu,
     loadMenu,
     loadRestaurants,
     restaurantData,
     refreshing,
+    expandedSections,
+    setExpandedSections,
+    handleToggle
   }
 };
 

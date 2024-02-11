@@ -187,28 +187,13 @@ function SectionHeader({handleToggle, title}) {
 
 function MenuTab({route, navigation}) {
   const { cart, addItem, editItem, deleteItem, findIndex, cartTotal } = useCart(menu);
-  const { refreshing, loadMenu, menu } = useResData();
+  const { refreshing, loadMenu, menu, expandedSections, setExpandedSections, handleToggle
+    } = useResData();
 
   let params = route.params.params;
   let restaurantId = params.id;
 
-// extract to useResData an ResDataContext-----------
-  const [expandedSections, setExpandedSections] = useState(new Set());
-
   useEffect(() => {loadMenu(restaurantId)}, []);
-
-  const handleToggle = (title) => {
-    setExpandedSections((expandedSections) => {
-      const next = new Set(expandedSections);
-      if (next.has(title)) {
-        next.delete(title);
-      } else {
-         next.add(title);
-      }
-         return next;
-   });
- }
-//---------
 
   return (
     <SafeAreaView style={containerStyles.main}>
