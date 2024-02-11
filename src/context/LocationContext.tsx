@@ -5,8 +5,8 @@ const LocationContext = createContext(null);
 const LocationProvider = (props) => {
   const [location, setLocation] = useState(false);
   const [currentAddress, setCurrentAddress] = useState(false);
-  const [refreshing, setRefreshing] = useState(false);
-  const [restaurantData, setRestaurantData] = useState([]);
+//   const [refreshing, setRefreshing] = useState(false);
+//   const [restaurantData, setRestaurantData] = useState([]);
   useEffect(() => {
 //     console.log(location)
   }, [location]);
@@ -16,11 +16,7 @@ const LocationProvider = (props) => {
 
   return (
     <LocationContext.Provider
-      value={{
-        location, setLocation, refreshing,
-        setRefreshing, restaurantData, setRestaurantData,
-        currentAddress, setCurrentAddress
-      }}
+      value={{ location, setLocation, currentAddress, setCurrentAddress}}
     >
       {props.children}
     </LocationContext.Provider>

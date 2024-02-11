@@ -25,7 +25,7 @@ export function GetStars({rating}) {
       stars = '*****';
       break;
     default:
-      console.log('Implement half star cases')
+//       console.log('Implement half star cases')
       stars =  '.5';
     break;
   }

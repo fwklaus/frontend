@@ -8,16 +8,12 @@ import {
   Button,
   Image
 } from 'react-native';
-
 import FastImage from 'react-native-fast-image';
 
 import { HomeTab } from './tabs/HomeTab';
 
 import { containerStyles } from '../../../res/styles/container';
 import { textStyles } from '../../../res/styles/text'
-
-// fetching nearby restaurant data example
-import restaurantData from '../../../data/restaurantData.js';
 
 let homeIcon = '../../../res/images/restaurant.png';
 let servicesIcon = '../../../res/images/room_service.png';
@@ -66,7 +62,7 @@ export function ServicesTab() {
   );
 }
 
-export function HomeScreen({ navigation }) {
+function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={containerStyles.main}>
       <Tab.Navigator screenOptions={{
@@ -130,6 +126,5 @@ export function HomeScreen({ navigation }) {
     </ SafeAreaView>
   );
 }
-
 
 export { HomeScreen, ServicesTab, TermsTab };

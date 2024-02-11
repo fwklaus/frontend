@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import useLocation from '../../../../hooks/useLocation';
+import useResData from '../../../../hooks/useResData';
 
 import { GetDirections } from '../../../../components/api/GetDirections';
 
@@ -20,7 +21,7 @@ import { containerStyles } from '../../../../res/styles/container';
 import { textStyles } from '../../../../res/styles/text';
 
 function ResListResults() {
-  const { restaurantData } = useLocation();
+  const { restaurantData } = useResData();
   let nResults = restaurantData.length;
   return (
     <View style={[containerStyles.restaurantItem, {padding: 10}]}>
@@ -89,10 +90,8 @@ function RestaurantItem ({id, title, category, distance, rating, phone, hours, a
 }
 
 function HomeTab({navigation}) {
-  const {
-    loadRestaurants, restaurantData, refreshing,
-    location, setCurrentAddress, getAddress
-    } = useLocation();
+  const { location, setCurrentAddress, getAddress } = useLocation();
+  const { loadRestaurants, restaurantData, refreshing } = useResData();
 
   useEffect(() => {loadRestaurants()}, []);
   useEffect(() => {

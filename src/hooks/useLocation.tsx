@@ -8,8 +8,8 @@ const baseURL = "172.25.103.21:3000";
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
 
-// fetching nearby restaurant data example
-import DATA from '../data/restaurantData.js';
+// // fetching nearby restaurant data example
+// import DATA from '../data/restaurantData.js';
 
 // initialize module using valid API key required for purposes of quota management
   // should store key in environmental variable? module?
@@ -23,11 +23,13 @@ Geocoder.init(GOOGLE_API_KEY);
 //  getRestaurants? - based on location
 
 const useLocation = () => {
-  const {
-    location, setLocation, refreshing,
-    setRefreshing, restaurantData, setRestaurantData,
-    currentAddress, setCurrentAddress
-   } = useContext(LocationContext);
+//   const {
+//     location, setLocation, refreshing,
+//     setRefreshing, restaurantData, setRestaurantData,
+//     currentAddress, setCurrentAddress
+//    } = useContext(LocationContext);
+
+   const { location, setLocation, currentAddress, setCurrentAddress } = useContext(LocationContext);
 
 //   useEffect(()=> {
 //     (async () => {
@@ -45,33 +47,7 @@ const useLocation = () => {
 //   }, [])
 
   useEffect(() => {}, [location]);
-  useEffect(()=> {}, [restaurantData]);
-
-//   function formatAddress(components) {
-//     let comps = {};
-//     components.forEach(comp => {
-//       let type = comp.types[0];
-//       let name = comp.short_name;
-//       comps[type] = name;
-//     })
-//
-//     return comps;
-//   }
-
-//   function getAddress(location) {
-//     if (location && location.coords && location.coords.latitude) {
-//       return Geocoder.from(location.coords.latitude, location.coords.longitude)
-//         .then(json => {
-//           return json.results[0].address_components;
-//         }).then((addressComponents) => {
-//           return addressComponents;
-//         }).catch(error => {
-//           throw new Error(error)
-//       });
-//     } else {
-//       throw new Error("Invalid location coordinates in getAddress");
-//     }
-//   }
+//   useEffect(()=> {}, [restaurantData]);
 
   async function getAddress({latitude, longitude}) {
     let googleURL = 'https://maps.googleapis.com/maps/api/geocode/json?';
@@ -150,23 +126,23 @@ const useLocation = () => {
     }
   }
 
-  // working
-  function loadRestaurants() {
-    setRestaurantData(DATA);
-
-    setRefreshing(true);
-      setTimeout(() => {
-        setRefreshing(false);
-      }, 1000);
-  }
+//   // working
+//   function loadRestaurants() {
+//     setRestaurantData(DATA);
+//
+//     setRefreshing(true);
+//       setTimeout(() => {
+//         setRefreshing(false);
+//       }, 1000);
+//   }
 
   return {
     location,
     getLocation,
     setLocation,
-    loadRestaurants,
-    restaurantData,
-    refreshing,
+//     loadRestaurants,
+//     restaurantData,
+//     refreshing,
     getAddress,
     currentAddress,
     setCurrentAddress,
