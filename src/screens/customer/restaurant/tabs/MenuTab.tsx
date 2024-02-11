@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 import useCart from '../../../../hooks/useCart';
 import useCarts from '../../../../hooks/useCarts';
+import useResData from '../../../../hooks/useResData';
 
 import { CartModal } from '../../../../components/ui/CartModal';
 import { GetStars } from '../../../../components/api/GetStars';
@@ -19,14 +20,6 @@ import { GetStars } from '../../../../components/api/GetStars';
 import { textStyles } from '../../../../res/styles/text';
 import { containerStyles } from '../../../../res/styles/container';
 import { buttonStyles } from '../../../../res/styles/button';
-
-// for example
-import menuData from '../../../../data/menuData.js'
-
-// // fetching menu data for a restaurant example
-function getMenuData(id) {
-  return menuData[id];
-}
 
 function MenuScreenHeader({params}) {
   let logo = '../../../../res/images/order_weasel_small.jpg'
@@ -193,42 +186,16 @@ function SectionHeader({handleToggle, title}) {
 }
 
 function MenuTab({route, navigation}) {
+  const { cart, addItem, editItem, deleteItem, findIndex, cartTotal } = useCart(menu);
+  const { refreshing, loadMenu, menu } = useResData();
+
   let params = route.params.params;
   let restaurantId = params.id;
+
+// extract to useResData an ResDataContext-----------
   const [expandedSections, setExpandedSections] = useState(new Set());
-  const [refreshing, setRefreshing] = useState(false);
-  const [menu, setMenu] = useState([]);
-  useEffect(() => {loadMenu(restaurantId)}, [])
-  const { cart, addItem, editItem, deleteItem, findIndex, cartTotal } = useCart(menu);
 
-  const loadMenu = () => {
-      // // fetching menu data for a restaurant example
-      function getMenuData(id) {
-        return menuData[id];
-      }
-
-      setMenu(() => getMenuData(restaurantId));
-  //     console.log("...logging from useRes.tsx");
-
-      // use the following when there's actually a server to fetch from
-
-      // fetch('load/menu/for/id')
-      //  .then((response) => response.json())
-      //  .then((responseJson) => {
-      //    setRefreshing(false);
-      //    var menuData = menuData.concat(responseJson.results);
-      //    setMenuData(menuData);
-      //  })
-      //  .catch((error) => {
-      //    console.error(error);
-      //  });
-
-       setRefreshing(true);
-          setTimeout(() => {
-            setRefreshing(false);
-          }, 1000);
-  }
-
+  useEffect(() => {loadMenu(restaurantId)}, []);
 
   const handleToggle = (title) => {
     setExpandedSections((expandedSections) => {
@@ -241,6 +208,7 @@ function MenuTab({route, navigation}) {
          return next;
    });
  }
+//---------
 
   return (
     <SafeAreaView style={containerStyles.main}>

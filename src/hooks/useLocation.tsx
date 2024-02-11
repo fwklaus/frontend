@@ -1,15 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { PermissionsAndroid } from 'react-native';
 import { LocationContext } from '../context/LocationContext';
-// import { GOOGLE_API_KEY } from 'react-native-dotenv';
 import { GOOGLE_API_KEY } from '@env';
 const baseURL = "172.25.103.21:3000";
 
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
-
-// // fetching nearby restaurant data example
-// import DATA from '../data/restaurantData.js';
 
 // initialize module using valid API key required for purposes of quota management
   // should store key in environmental variable? module?
@@ -17,37 +13,10 @@ import Geocoder from 'react-native-geocoding';
 // this is currently my personal account
 
 Geocoder.init(GOOGLE_API_KEY);
-// Geocoder.init('AIzaSyBEH9uEYLCkCyKMrO6HN9ey5U1QfjkZLwc');
-
-//  getDirections - based on location
-//  getRestaurants? - based on location
 
 const useLocation = () => {
-//   const {
-//     location, setLocation, refreshing,
-//     setRefreshing, restaurantData, setRestaurantData,
-//     currentAddress, setCurrentAddress
-//    } = useContext(LocationContext);
-
-   const { location, setLocation, currentAddress, setCurrentAddress } = useContext(LocationContext);
-
-//   useEffect(()=> {
-//     (async () => {
-//       try {
-//         let response = await fetch(`${baseURL}/api/merchants/gKey`);
-//         let json = await response.json();
-//         console.log(json);
-//       } catch (e) {
-//         console.log(e);
-//       }
-// //         .then(response => response.json())
-// //         .then(json => console.log(json))
-// //         .catch(e => console.log(e, "from useEffect in useLocation"));
-//     })();
-//   }, [])
-
+  const { location, setLocation, currentAddress, setCurrentAddress } = useContext(LocationContext);
   useEffect(() => {}, [location]);
-//   useEffect(()=> {}, [restaurantData]);
 
   async function getAddress({latitude, longitude}) {
     let googleURL = 'https://maps.googleapis.com/maps/api/geocode/json?';
@@ -119,30 +88,15 @@ const useLocation = () => {
     try {
       const hasPermission = await requestLocationPermission();
       await getCoordinates(hasPermission, {location, setLocation});
-//       let address = await getAddress(location);
-//       return address;
     } catch (error) {
        console.log(error, " in GetLocation");
     }
   }
 
-//   // working
-//   function loadRestaurants() {
-//     setRestaurantData(DATA);
-//
-//     setRefreshing(true);
-//       setTimeout(() => {
-//         setRefreshing(false);
-//       }, 1000);
-//   }
-
   return {
     location,
     getLocation,
     setLocation,
-//     loadRestaurants,
-//     restaurantData,
-//     refreshing,
     getAddress,
     currentAddress,
     setCurrentAddress,
@@ -151,35 +105,3 @@ const useLocation = () => {
 };
 
 export default useLocation;
-
-
-
-
-
-//   const loadRestaurants = (address) => {
-//
-//   // load restaurants based on proximity
-//   // will fetch the restaurantData based on proximity
-//
-//     setResData(restaurantData);
-//
-// //   console.log("...logging from useRes.tsx");
-//
-//   // use the following when we can actually fetch from the server
-//
-//   //       fetch('load/restaurants')
-//   //         .then((response) => response.json())
-//   //         .then((responseJson) => {
-//   //           setRefreshing(false);
-//   //           var newdata = userData.concat(responseJson.results);
-//   //           setResData(newdata);
-//   //         })
-//   //         .catch((error) => {
-//   //           console.error(error);
-//   //         });
-//
-//   setRefreshing(true);
-//     setTimeout(() => {
-//       setRefreshing(false);
-//     }, 2000);
-// }
