@@ -54,11 +54,14 @@ const useCart = () => {
       return;
     }
 
-    let cartClone = getCopy(cart);
+    let cartCopy = getCopy(cart);
     let index = findIndex(cart, id);
-    let item = cartClone[index];
+    let item = cartCopy[index];
     item.quantity = String(quantity);
-    setCart(cartClone);
+
+    updateCart(resId, cartCopy)
+
+    setCart(cartCopy);
   }
 
   function getCopy(collection) {
@@ -80,6 +83,7 @@ const useCart = () => {
 
   return {
     cart,
+    setCart,
     deleteItem,
     editItem,
     addItem,

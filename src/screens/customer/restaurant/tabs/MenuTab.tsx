@@ -186,19 +186,30 @@ function SectionHeader({handleToggle, title}) {
 }
 
 function MenuTab({route, navigation}) {
-  const { cart, addItem, editItem, deleteItem, findIndex, cartTotal } = useCart();
+  const { cart, setCart, addItem, editItem, deleteItem, findIndex, cartTotal } = useCart();
   const {
     refreshing, loadMenu, menu,
     expandedSections, setExpandedSections,
     handleToggle, resId, setResId
     } = useResData();
+  const { loadCart } = useCarts();
 
   let params = route.params.params;
   let restaurantId = params.id;
 
   useEffect(() => {
-    setResId(restaurantId);
-    loadMenu(restaurantId);
+    (async function(){
+      try {
+        setResId(restaurantId);
+        loadMenu(restaurantId);
+        let cart = await loadCart(restaurantId);
+        if (cart !== null) {
+          setCart(cart);
+        }
+      } catch(e) {
+        console.log(e);
+      }
+    })();
   }, []);
 
   return (

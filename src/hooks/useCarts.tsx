@@ -88,17 +88,30 @@ const useCarts = () => {
 //   setCart(cartCopy);
 //  }
 
-function loadCart() {}
+async function loadCart(resId) {
+  try {
+    const jsonCart = await AsyncStorage.getItem(String(resId));
+    return (jsonCart !== null) ? JSON.parse(jsonCart) : null;
+  } catch(e) {
+    console.log(e);
+  }
+}
 
 
-function updateCart(resId, cartCopy) {
-  console.log(`Update ${resId}:  ${JSON.stringify(cartCopy)}`);
+async function updateCart(resId, cartCopy) {
+  try {
+    const jsonValue = JSON.stringify(cartCopy);
+    let returnValue = await AsyncStorage.setItem(String(resId), jsonValue);
+    console.log("carts updated");
+  } catch(e) {
+    console.log(e);
+  }
 }
 
   return {
-    carts,
+//     carts,
     loadCart,
-    setCarts,
+//     setCarts,
 //     updateCarts
     updateCart
   }
