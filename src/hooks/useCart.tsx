@@ -1,9 +1,13 @@
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import useCarts from '../hooks/useCarts';
+import useResData from '../hooks/useResData';
 
 // menu either comes from context or as an argument at invocation
 const useCart = () => {
   const [cart, setCart] = useContext(CartContext);
+  const { updateCart } = useCarts();
+  const { resId, menu } = useResData();
 
   function findIndex(arr, id) {
     return arr.findIndex(item => item.id === id);
@@ -15,19 +19,22 @@ const useCart = () => {
   }
 
 //   function addItem(id) {
-  function addItem(id, quantity, menu) {
+  function addItem(id, quantity) {
     if (quantity === '0') {
       return;
     }
 
-    let cartClone = getCopy(cart);
+    let cartCopy = getCopy(cart);
     let menuCopy = getCopy(menu);
     menuCopy = flattenMenu(menuCopy);
     let index = findIndex(menuCopy, id);
     let item = menuCopy[index];
     item.quantity = String(quantity);
-    cartClone.push(item);
-    setCart(cartClone);
+    cartCopy.push(item);
+
+    updateCart(resId, cartCopy);
+
+    setCart(cartCopy);
   }
 
   function deleteItem (id) {
@@ -54,8 +61,8 @@ const useCart = () => {
     setCart(cartClone);
   }
 
-  function getCopy(arr) {
-    return JSON.parse(JSON.stringify(arr));
+  function getCopy(collection) {
+    return JSON.parse(JSON.stringify(collection));
   }
 
   function cartTotal() {

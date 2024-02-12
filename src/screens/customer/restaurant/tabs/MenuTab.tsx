@@ -187,13 +187,17 @@ function SectionHeader({handleToggle, title}) {
 
 function MenuTab({route, navigation}) {
   const { cart, addItem, editItem, deleteItem, findIndex, cartTotal } = useCart();
-  const { refreshing, loadMenu, menu, expandedSections, setExpandedSections, handleToggle
+  const {
+    refreshing, loadMenu, menu,
+    expandedSections, setExpandedSections,
+    handleToggle, resId, setResId
     } = useResData();
 
   let params = route.params.params;
   let restaurantId = params.id;
 
   useEffect(() => {
+    setResId(restaurantId);
     loadMenu(restaurantId);
   }, []);
 

@@ -95,7 +95,7 @@ function CartModal({modalVisible, setModalVisible, item, cart, restaurantId, add
                 style={buttonStyles.addToCartButton}
                 onPress={() => {
                   if (findIndex(cart, itemId) === -1) {
-                    addItem(itemId, quantity, menu);
+                    addItem(itemId, quantity);
                   } else {
                     editItem(itemId, quantity);
                   }

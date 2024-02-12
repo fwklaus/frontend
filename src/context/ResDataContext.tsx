@@ -5,6 +5,11 @@ const ResDataProvider = (props) => {
   const [refreshing, setRefreshing] = useState(false);
   const [restaurantData, setRestaurantData] = useState([]);
   const [menu, setMenu] = useState([]);
+  const [resId, setResId] = useState(null);
+
+  useEffect(() => {
+    console.log("RestaurantId: " + resId);
+  }, [resId]);
 
   useEffect(() => {
 //     console.log("Menu in ResDataContext: " + JSON.stringify(menu));
@@ -14,7 +19,8 @@ const ResDataProvider = (props) => {
     <ResDataContext.Provider
       value={{
         refreshing, setRefreshing, restaurantData,
-        setRestaurantData, menu, setMenu
+        setRestaurantData, menu, setMenu,
+        resId, setResId
       }}
     >
       {props.children}

@@ -10,7 +10,8 @@ import menuData from '../data/menuData.js'
 const useResData = () => {
   const {
     refreshing, setRefreshing, restaurantData,
-    setRestaurantData, menu, setMenu
+    setRestaurantData, menu, setMenu,
+    resId, setResId
   } = useContext(ResDataContext);
   const [expandedSections, setExpandedSections] = useState(new Set());
 
@@ -54,6 +55,8 @@ const useResData = () => {
   }
 
   return {
+    resId,
+    setResId,
     menu,
     loadMenu,
     loadRestaurants,

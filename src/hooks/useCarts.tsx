@@ -1,9 +1,10 @@
 import { useContext, useState, useEffect } from 'react';
 import { CartsContext } from '../context/CartsContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // menu either comes from context or as an argument at invocation
 const useCarts = () => {
-  const [carts, setCarts, resId, setResId] = useContext(CartsContext);
+  const [carts, setCarts] = useContext(CartsContext);
 
 //   function getCopy(collection) {
 //     return JSON.parse(JSON.stringify(collection));
@@ -89,12 +90,13 @@ const useCarts = () => {
 
 function loadCart() {}
 
-function updateCart() {}
+
+function updateCart(resId, cartCopy) {
+  console.log(`Update ${resId}:  ${JSON.stringify(cartCopy)}`);
+}
 
   return {
     carts,
-    resId,
-    setResId,
     loadCart,
     setCarts,
 //     updateCarts
