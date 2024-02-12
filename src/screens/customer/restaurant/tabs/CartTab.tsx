@@ -11,13 +11,10 @@ import {
 // data required from the context hook in RestaurantScreen
 import useCart from '../../../../hooks/useCart';
 
+import { CartModal } from '../../../../components/ui/CartModal';
+
 import { textStyles } from '../../../../res/styles/text';
 import { containerStyles } from '../../../../res/styles/container';
-
-
-// import CartData from '../data/cartData'
-// example using seedData
-// const DATA = CartData;
 
 function CartHeader({resInfo}) {
   let logo = '../../../../res/images/order_weasel_small.jpg'
@@ -90,20 +87,40 @@ function CartFooter({navigation, resInfo, cart}) {
   );
 }
 
-function Item({id, name, cost, quantity, deleteItem}) {
-let trash = '../../../../res/images/trash_small.png'
+function Item({item}) {
+  const { deleteItem, cart } = useCart();
+
+  let id = item.id;
+  let name = item.name;
+  let cost = item.cost;
+  let quantity = item.quantity;
+
+  let trash = '../../../../res/images/trash_small.png';
+
+  // modal state
+  const [modalVisible, setModalVisible] = useState(false);
 
   return(
-    <View style={styles.cartItem}>
-      <Text style={[textStyles.text, {flex: 2, paddingLeft: 24}]}>{quantity} X {name}</Text>
-      <Text style={[textStyles.text, {flex: 1}]}>${(cost * quantity).toFixed(2)}</Text>
-      <View style={{flex: .5}}>
-        <Pressable onPress={() => {
-          deleteItem(id);
-        }}>
-          <Image style={{height: 25, width: 25}} source={require(trash)}/>
-        </Pressable>
-      </View>
+    <View>
+      <CartModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} cart={cart} />
+      <Pressable
+        style={styles.cartItem}
+         style={({pressed}) => [
+            styles.cartItem,
+            { backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'},
+        ]}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={[textStyles.text, {flex: 2, paddingLeft: 24}]}>{quantity} X {name}</Text>
+        <Text style={[textStyles.text, {flex: 1}]}>${(cost * quantity).toFixed(2)}</Text>
+        <View style={{flex: .5}}>
+          <Pressable onPress={() => {
+            deleteItem(id);
+          }}>
+            <Image style={{height: 25, width: 25}} source={require(trash)}/>
+          </Pressable>
+        </View>
+      </Pressable>
     </View>
   );
 }
@@ -118,7 +135,7 @@ function CartTab({route, navigation}) {
       <FlatList
         style={{flex: 1}}
         data={cart}
-        renderItem={({item}) => <Item name={item.name} id={item.id} cost={item.cost} quantity={item.quantity} deleteItem={deleteItem}/>}
+        renderItem={({item}) => <Item item={item} />}
         ListHeaderComponent={() => {
           return (
             <View style={{borderBottomWidth: 1, borderColor: 'black'}}>
@@ -162,8 +179,9 @@ const styles = StyleSheet.create({
   },
   cartItem: {
     flexDirection: 'row',
-    marginBottom: 8,
-    marginTop: 16,
+    alignItems: 'center',
+    paddingBottom: 8,
+    paddingTop: 8,
     height: 40,
     flex: 1
   }

@@ -111,11 +111,12 @@ function MenuListHeader({params}) {
   );
 }
 
-function MenuItem({item, cart, restaurantId, addItem, editItem, deleteItem, findIndex}) {
+function MenuItem({item}) {
+  const { cart } = useCart();
+
   let name = item.name;
   let cost = item.cost;
   let desc = item.description;
-//   let url = item.picture;
 
   // how are we going to get the picture for the item since we can't call require dynamically?
   // for demonstration purposes
@@ -126,7 +127,7 @@ function MenuItem({item, cart, restaurantId, addItem, editItem, deleteItem, find
 
   return(
     <View>
-      <CartModal modalVisible={modalVisible} setModalVisible={setModalVisible} cart={cart} item={item} restaurantId={restaurantId} addItem={addItem} editItem={editItem} deleteItem={deleteItem} findIndex={findIndex}/>
+      <CartModal modalVisible={modalVisible} setModalVisible={setModalVisible} cart={cart} item={item}/>
       <Pressable
         unstable_pressDelay={50}
         onPress={() => setModalVisible(true)}
@@ -186,7 +187,8 @@ function SectionHeader({handleToggle, title}) {
 }
 
 function MenuTab({route, navigation}) {
-  const { cart, setCart, addItem, editItem, deleteItem, findIndex, cartTotal } = useCart();
+  const { cart, setCart, cartTotal } = useCart();
+
   const {
     refreshing, loadMenu, menu,
     expandedSections, setExpandedSections,
@@ -233,7 +235,7 @@ function MenuTab({route, navigation}) {
           const isExpanded = expandedSections.has(title);
           if (!isExpanded) return null;
           return (
-           <MenuItem item={item} cart={cart} restaurantId={restaurantId} addItem={addItem} editItem={editItem} deleteItem={deleteItem} findIndex={findIndex} />
+             <MenuItem item={item} />
           );
         }}
         />

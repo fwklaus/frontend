@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRoute } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -11,6 +12,7 @@ import { textStyles } from '../../res/styles/text';
 import { buttonStyles } from '../../res/styles/button';
 
 import useResData from '../../hooks/useResData';
+import useCart from '../../hooks/useCart';
 
 function QuantityInput({id, quantity, setQuantity}) {
   return(
@@ -49,9 +51,12 @@ function QuantityInput({id, quantity, setQuantity}) {
   );
 }
 
-function CartModal({modalVisible, setModalVisible, item, cart, restaurantId, addItem, editItem, deleteItem, findIndex}) {
-  const [quantity, setQuantity] = useState('0');
+function CartModal({modalVisible, setModalVisible, item, cart}) {
+  const { setCart, addItem, editItem, deleteItem, findIndex } = useCart();
   const { menu } = useResData();
+  const route = useRoute();
+  let itemQuantity = route.name === 'Menu' ? '0' : item.quantity;
+  const [quantity, setQuantity] = useState(itemQuantity);
 
   let itemId = item.id;
   let name = item.name;
@@ -63,7 +68,6 @@ function CartModal({modalVisible, setModalVisible, item, cart, restaurantId, add
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        Alert.alert('Modal has been closed');
         setModalVisible(!modalVisible)
       }}>
       <View style={[styles.centeredView, {flexDirection: 'column'}]}>
@@ -89,7 +93,21 @@ function CartModal({modalVisible, setModalVisible, item, cart, restaurantId, add
             </View>
           </View>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', borderColor: 'black', borderTopWidth: 1, padding: 10}}>
-            <View style={{flex: 1}}></View>
+            <View style={{flex: 1}}>
+              <Pressable
+                 style={({pressed}) => [
+                    buttonStyles.addToCartButton,
+                    {backgroundColor: 'red'},
+                    {display: (route.name === 'Cart' && quantity === '0') ? 'flex': 'none'}
+                 ]}
+                 onPress={() => {
+                     deleteItem(itemId);
+                 }}
+              >
+                <Text style={[textStyles.modalButtonText]}>Delete Item</Text>
+              </Pressable>
+            </View>
+            <View style={{flex: 0.25}}>{/*spacer*/}</View>
             <View style={{flex: 1}}>
               <Pressable
                 style={buttonStyles.addToCartButton}
@@ -103,7 +121,9 @@ function CartModal({modalVisible, setModalVisible, item, cart, restaurantId, add
                   setModalVisible(!modalVisible)
                 }}
               >
-                <Text style={textStyles.modalButtonText}>Add to Cart</Text>
+                <Text style={textStyles.modalButtonText}>
+                  {route.name === 'Menu' ? 'Add to Cart' : 'Update Cart'}
+                </Text>
               </Pressable>
             </View>
           </View>
