@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 
 // menu either comes from context or as an argument at invocation
-const useCart = (menu) => {
+const useCart = () => {
   const [cart, setCart] = useContext(CartContext);
 
   function findIndex(arr, id) {
@@ -15,7 +15,7 @@ const useCart = (menu) => {
   }
 
 //   function addItem(id) {
-  function addItem(id, quantity) {
+  function addItem(id, quantity, menu) {
     if (quantity === '0') {
       return;
     }
@@ -72,7 +72,6 @@ const useCart = (menu) => {
   }
 
   return {
-    menu,
     cart,
     deleteItem,
     editItem,

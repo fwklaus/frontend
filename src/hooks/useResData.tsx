@@ -33,7 +33,7 @@ const useResData = () => {
       return menuData[id];
     };
 
-    setMenu(() => getMenuData(restaurantId));
+    setMenu(getMenuData(restaurantId));
 
     setRefreshing(true);
       setTimeout(() => {

@@ -7,7 +7,7 @@ const CartsProvider = (props) => {
 
   useEffect(() => {}, [resId]);
   useEffect(() => {
-    console.log(`carts in CartsContext : ${JSON.stringify(carts)}`);
+//     console.log(`carts in CartsContext : ${JSON.stringify(carts)}`);
   }, [carts]);
 
   return (

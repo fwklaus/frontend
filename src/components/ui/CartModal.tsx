@@ -10,6 +10,8 @@ import {
 import { textStyles } from '../../res/styles/text';
 import { buttonStyles } from '../../res/styles/button';
 
+import useResData from '../../hooks/useResData';
+
 function QuantityInput({id, quantity, setQuantity}) {
   return(
     <View style={{flex: 1}}>
@@ -48,12 +50,13 @@ function QuantityInput({id, quantity, setQuantity}) {
 }
 
 function CartModal({modalVisible, setModalVisible, item, cart, restaurantId, addItem, editItem, deleteItem, findIndex}) {
+  const [quantity, setQuantity] = useState('0');
+  const { menu } = useResData();
+
   let itemId = item.id;
   let name = item.name;
   let cost = item.cost;
   let desc = item.description;
-
-  const [quantity, setQuantity] = useState('0');
 
   return (
     <Modal
@@ -92,7 +95,7 @@ function CartModal({modalVisible, setModalVisible, item, cart, restaurantId, add
                 style={buttonStyles.addToCartButton}
                 onPress={() => {
                   if (findIndex(cart, itemId) === -1) {
-                    addItem(itemId, quantity);
+                    addItem(itemId, quantity, menu);
                   } else {
                     editItem(itemId, quantity);
                   }
