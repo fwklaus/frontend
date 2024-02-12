@@ -38,13 +38,15 @@ const useCart = () => {
   }
 
   function deleteItem (id) {
-    let cartClone = getCopy(cart);
+    let cartCopy = getCopy(cart);
     let index = findIndex(cart, id);
-    cartClone = cartClone.filter((el, idx) => {
+    cartCopy = cartCopy.filter((el, idx) => {
       return index !== idx;
     });
 
-    setCart(cartClone);
+    updateCart(resId, cartCopy)
+
+    setCart(cartCopy);
   }
 
 //   function editItem (id, type) {
