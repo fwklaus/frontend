@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 const SignInContext = createContext(null);
 
 const SignInProvider = (props) => {
@@ -16,6 +16,18 @@ const SignInProvider = (props) => {
     'id': '',
     'email': ''
   });
+
+    useEffect(() => {
+  //     console.log(signedIn);
+    }, [signedIn]);
+
+    useEffect(() => {
+  //     console.log(currentMerchant, " from use signIn")
+    }, [currentMerchant]);
+
+    useEffect(() => {
+  //     console.log(credentials);
+    }, [ credentials]);
 
   return (
     <SignInContext.Provider value={{

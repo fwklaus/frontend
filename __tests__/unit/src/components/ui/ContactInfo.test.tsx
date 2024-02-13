@@ -12,8 +12,7 @@ import {it} from '@jest/globals';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
-
-describe('Component tests', () => {
+describe('ContactInfo tests', () => {
   it('renders correctly', () => {
     <ContactInfo />
   });

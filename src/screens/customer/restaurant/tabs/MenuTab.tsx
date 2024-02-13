@@ -177,7 +177,7 @@ function SectionHeader({handleToggle, title}) {
         {flexDirection: 'row', justifyContent: 'space-between', flex: 1},
         { backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'},
     ]}>
-      <Text style={textStyles.headerText}>{title}</Text>
+      <Text style={[textStyles.headerText, {flex: 1}]}>{title}</Text>
       <Image
        style={{width: 20, height: 20, alignSelf: 'center', marginRight: 20}}
        source={require('../../../../res/images/angle-small-down.png')}

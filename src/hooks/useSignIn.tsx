@@ -9,7 +9,7 @@ const useSignIn = () => {
     setSignedIn, currentMerchant, setCurrentMerchant
     } = useContext(SignInContext);
 
-  useEffect(() => {
+/*   useEffect(() => {
 //     console.log(signedIn);
   }, [signedIn]);
 
@@ -19,7 +19,7 @@ const useSignIn = () => {
 
   useEffect(() => {
 //     console.log(credentials);
-  }, [ credentials]);
+  }, [ credentials]); */
 
   function getCopy() {
     return JSON.parse(JSON.stringify(credentials));

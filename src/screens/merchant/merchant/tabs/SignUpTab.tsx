@@ -6,10 +6,13 @@ import {
   TextInput,
   Pressable,
   StyleSheet,
-  Animated
+  Animated,
+  FlatList,
+  Modal
 } from 'react-native';
 import  { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
+import {STATES} from '../../../../utils/states';
 
 import {SignUpProvider, SignUpContext} from '../../../../context/SignUpContext';
 import useMerchant from '../../../../hooks/useMerchant';
@@ -106,7 +109,11 @@ function NextButton({navigation, nextTab}) {
 }
 
 function StoreInfo({ navigation }) {
-  const { newMerchant, updateNewMerchant } = useSignUp();
+  const { newMerchant, updateNewMerchant, validRestaurantName, validPhoneNumber } = useSignUp();
+  const [nameField, setNameField] = useState(false);
+  const [phoneField, setPhoneField] = useState(false);
+  useEffect(() => {}, [nameField, phoneField]);
+
   const restaurantName = 'restaurantName';
   const phone = 'phone';
 
@@ -114,6 +121,14 @@ function StoreInfo({ navigation }) {
     <SafeAreaView style={[merchContCSS.main, {alignItems: 'left', padding: 20}]}>
       <View style={merchContCSS.header}>
         <Text style={[merchTextCSS.text, merchTextCSS.header]}>Store Information</Text>
+      </View>
+      <View>
+        <Text style={[ merchTextCSS.text, {color: nameField ? 'green' : 'red'}]}>
+         {BULLET_POINT} Restaurant Name is required
+        </Text>
+        <Text style={[merchTextCSS.text, {color: phoneField ? 'green' : 'red'}]}>
+          {BULLET_POINT} Phone number is required and must contain 10 digits
+        </Text>
       </View>
       <View style={merchContCSS.tabMain}>
         <View style={[merchContCSS.mainSpacer, {flex: 2}]}>
@@ -124,14 +139,28 @@ function StoreInfo({ navigation }) {
           <TextInput
             style={merchContCSS.input}
             value={newMerchant[restaurantName]}
+            placeholder='e.g. The Red Table'
             onChangeText={(text) => {
+              if (validRestaurantName(text)) {
+                setNameField(true);
+              } else {
+                setNameField(false);
+              }
+
               updateNewMerchant(restaurantName, text);
             }}
           />
           <TextInput
             style={merchContCSS.input}
             value={newMerchant[phone]}
+            placeholder='(555)555-5555'
             onChangeText={(text) => {
+              if (validPhoneNumber(text)) {
+                setPhoneField(true);
+              } else {
+                setPhoneField(false);
+              }
+
               updateNewMerchant(phone, text);
             }}
           />
@@ -143,7 +172,13 @@ function StoreInfo({ navigation }) {
 }
 
 function BusinessAddress({ navigation }) {
-  const { newMerchant, updateNewMerchant } = useSignUp();
+  const { newMerchant, updateNewMerchant, validStreet, validCity, validState, validZip } = useSignUp();
+  const [streetField, setStreetField] = useState(false);
+  const [cityField, setCityField] = useState(false);
+  const [zipField, setZipField] = useState(false);
+  const [stateField, setStateField] = useState(false);
+  useEffect(() => {}, [streetField, cityField, zipField, stateField]);
+
   const street = 'street';
   const city = 'city';
   const state = 'state';
@@ -153,6 +188,20 @@ function BusinessAddress({ navigation }) {
     <SafeAreaView style={[merchContCSS.main, {alignItems: 'left', padding: 20}]}>
      <View style={merchContCSS.header}>
        <Text style={[merchTextCSS.text, merchTextCSS.header]}>Business Address</Text>
+     </View>
+     <View>
+      <Text style={[ merchTextCSS.text, {color: streetField ? 'green' : 'red'}]}>
+        {BULLET_POINT} Street is required and must contain valid characters (A-Z, a-z, 0-9, '  ' and [ . , # & - ])
+      </Text>
+      <Text style={[merchTextCSS.text, {color: cityField ? 'green' : 'red'}]}>
+        {BULLET_POINT} City is required and must contain valid characters (A-Z, a-z, '  ' and [ ' . - ])
+      </Text>
+      <Text style={[merchTextCSS.text, {color: stateField ? 'green' : 'red'}]}>
+        {BULLET_POINT} State code is required
+      </Text>
+      <Text style={[merchTextCSS.text, {color: zipField ? 'green' : 'red'}]}>
+        {BULLET_POINT} Zip code is required and must contain 5 digits
+      </Text>
      </View>
      <View style={merchContCSS.tabMain}>
        <View style={[merchContCSS.mainSpacer, {flex: 2}]}>
@@ -165,28 +214,58 @@ function BusinessAddress({ navigation }) {
          <TextInput
           style={merchContCSS.input}
           value={newMerchant[street]}
+          placeholder="5555 Main St"
           onChangeText={(text) => {
+            if (validStreet(text)) {
+              setStreetField(true);
+            } else {
+              setStreetField(false);
+            }
+
             updateNewMerchant(street, text);
           }}
         />
          <TextInput
           style={merchContCSS.input}
           value={newMerchant[city]}
+          placeholder="Seattle"
           onChangeText={(text) => {
+            if (validCity(text)) {
+              setCityField(true);
+            } else {
+              setCityField(false);
+            }
+
             updateNewMerchant(city, text);
           }}
          />
-         <TextInput
-          style={merchContCSS.input}
-          value={newMerchant[state]}
-          onChangeText={(text) => {
-            updateNewMerchant(state, text);
-          }}
-         />
+          <TextInput
+           style={merchContCSS.input}
+           value={newMerchant[state]}
+           placeholder="Washington"
+           onChangeText={(text) => {
+            let formattedText;
+             if (validState(text)) {
+               setStateField(true);
+               formattedText = validState(text);
+             } else {
+               setStateField(false);
+             }
+
+             updateNewMerchant(state, formattedText);
+           }}
+          />
          <TextInput
           style={merchContCSS.input}
           value={newMerchant[zip]}
+          placeholder="80008"
           onChangeText={(text) => {
+            if (validZip(text)) {
+              setZipField(true);
+            } else {
+              setZipField(false);
+            }
+
             updateNewMerchant(zip, text);
           }}
          />
@@ -198,9 +277,12 @@ function BusinessAddress({ navigation }) {
 }
 
 function ContactInformation({ navigation }) {
-//   const { newMerchant, updateNewMerchant, validPassword } = useSignUp();
-  const { newMerchant, updateNewMerchant} = useSignUp();
-//   const { merchants } = useMerchant();
+  const { newMerchant, updateNewMerchant, validEmail, validPassword, validValidator } = useSignUp();
+  const [emailField, setEmailField] = useState(false);
+  const [passwordField, setPasswordField] = useState(false);
+  const [validatorField, setValidatorField] = useState(false);
+  useEffect(()=> {}, [emailField, passwordField, validatorField]);
+
   const email = 'email';
   const password = 'password';
   const validator = 'validator';
@@ -221,6 +303,12 @@ function ContactInformation({ navigation }) {
             style={merchContCSS.input}
             value={newMerchant[email]}
             onChangeText={(text) => {
+              if (validEmail(text)) {
+                setEmailField(true);
+              } else {
+                setEmailField(false);
+              }
+
               updateNewMerchant(email, text);
             }}
           />
@@ -228,6 +316,12 @@ function ContactInformation({ navigation }) {
             style={merchContCSS.input}
             value={newMerchant[password]}
             onChangeText={(text) => {
+              if (validPassword(text)) {
+                setPasswordField(true);
+              } else {
+                setPasswordField(false);
+              }
+
               updateNewMerchant(password, text);
             }}
           />
@@ -235,6 +329,12 @@ function ContactInformation({ navigation }) {
             style={merchContCSS.input}
             value={newMerchant[validator]}
             onChangeText={(text) => {
+              if (validValidator(text)) {
+                setValidatorField(true);
+              } else {
+                setValidatorField(false);
+              }
+
               updateNewMerchant(validator, text);
             }}
           />
@@ -436,6 +536,35 @@ const styles = StyleSheet.create({
   },
   progressList: {
     marginBottom: 10
+  },
+//   button: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     backgroundColor: 'white',
+//     borderColor: 'black',
+//     borderWidth: 1,
+//     height: 50,
+//     width: '90%',
+//     paddingHorizontal: 10,
+//     zIndex: 1,
+//   },
+  dropdown: {
+    position: 'absolute',
+    backgroundColor: '#fff',
+    width: '100%',
+    shadowColor: '#000000',
+    shadowRadius: 4,
+    shadowOffset: { height: 4, width: 0 },
+    shadowOpacity: 0.5,
+  },
+  buttonText: {
+    flex: 1,
+    textAlign: 'center',
+  },
+  dropdown: {
+    position: 'absolute',
+    backgroundColor: '#fff',
+    top: 50,
   }
 });
 

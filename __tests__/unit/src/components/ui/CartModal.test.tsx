@@ -19,11 +19,10 @@ describe('CartModal tests', () => {
       name: 'Pizza',
       cost: '9.99',
       description: 'delicious'
-    }
+    };
 
-    let restaurantId = 10;
 
-     renderer.create(<CartModal item={item} restaurantId={restaurantId} />)
+    <CartModal item={item} />
   });
 
   it.todo("exits to MenuTab when 'X' is pressed");
