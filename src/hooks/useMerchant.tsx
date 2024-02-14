@@ -9,10 +9,6 @@ const useMerchant = () => {
   const [merchants, setMerchants] = useContext(MerchantContext);
   const url = 'http://localhost:3000/api/merchants';
 
-  useEffect(() => {
-//     console.log(merchants, " from useMerchant");
-  }, [merchants]);
-
   function getCopy() {
     return JSON.parse(JSON.stringify(merchants));
   }

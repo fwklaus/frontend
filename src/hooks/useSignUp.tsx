@@ -1,17 +1,27 @@
 import { useContext, useEffect } from 'react';
+// import bcrypt from 'react-native-bcrypt';
+// import isaac from 'isaac';
 import { SignUpContext } from '../context/SignUpContext';
 import { STATES } from '../utils/states';
+import useMerchant from './useMerchant';
+
+// bcrypt.setRandomFallback((len) => {
+//   const buf = new Uint8Array(len);
+//   return buf.map(() => Math.floor(isaac.random() * 256));
+// });
+
 
 // used to handle form information for createMerchant (POST 'localhost:3000/api/merchants/')
 const useSignUp = () => {
   const [newMerchant, setNewMerchant] = useContext(SignUpContext);
+  const { merchants } = useMerchant();
 
-  function getCopy() {
+  function getCopyNewMerchant() {
     return JSON.parse(JSON.stringify(newMerchant));
   }
 
   function updateNewMerchant(field, input) {
-    let copy = getCopy(newMerchant);
+    let copy = getCopyNewMerchant(newMerchant);
     copy[field] = input;
     setNewMerchant(copy);
   }
@@ -63,8 +73,16 @@ const useSignUp = () => {
     return fieldNotNull(text) && validCityPattern(text);
   }
 
+  function isStateCode(text) {
+    return Object.values(STATES).find(code => code === text);
+  }
+
+  function isFullState(text) {
+    return Object.keys(STATES).find(state => state === text);
+  }
+
   function validState(text) {
-    return fieldNotNull(text, 2) && STATES[text];
+    return fieldNotNull(text) && (isStateCode(text) || isFullState(text));
   }
 
   function validZip(text) {
@@ -72,34 +90,26 @@ const useSignUp = () => {
   }
 
   function validEmail(text) {
-    // email must be unique - check server
-    // must be valid email pattern ✔️
-    // must not be empty ✔️
-    // must be greater than 4 length ✔️
-    // email and password must not be the same
-
-    return fieldNotNull(text)
-      && text >= 4
-      && validEmailPattern(text)
+      let isUnique = !merchants.find(merchant => merchant.email === text);
+      let password = newMerchant["password"];
+      return fieldNotNull(text)
+        && text != password
+        && isUnique
+        && text.length >= 4
+        && validEmailPattern(text)
   }
 
-  // must match the first password
   function validValidator(text) {
-
+    return text === newMerchant['password'];
   }
 
  // refactor validPassword check
  // check if email password combination already exists
-  function validPassword(merchants) {
-    if (merchants.length < 1) return true;
-    let matching = matchingPasswords();
-    let unique = isUnique(merchants);
+  function validPassword(text) {
+    let email = newMerchant["email"];
 
-    if (matching && unique) {
-      return true;
-    }
-
-    return false;
+    return text.length >= 8
+           && text !== email;
   }
 
   function isUnique(merchants) {
@@ -114,13 +124,52 @@ const useSignUp = () => {
     return !!(match);
   }
 
-  function matchingPasswords() {
-    return newMerchant.password === newMerchant.validator;
-  }
+//   function matchingPasswords() {
+//     return newMerchant.password === newMerchant.validator;
+//   }
 
   function fieldNotNull(text, maxChars=225) {
     text = text.trim();
     return text.length > 0 && text.length <= maxChars;
+  }
+
+  // replace isValid for authentication in singIn tab
+  function checkEmail() {
+
+
+  }
+
+  function encryptPassword(password) {
+    let salt = bcrypt.genSaltSync(10);
+    let hash = bcrypt.hashSync(password, salt);
+    return hash;
+  }
+
+  function checkPassword(password, hashedPassword) {
+    // provide hashed password or id to get hashed password for user
+    let isEqual = bcrypt.compareSync(password, hashedPassword)
+    return isEqual;
+  }
+
+  function getStateCode(text) {
+      if (isFullState(text)) {
+        return (STATES[text]);
+      } else {
+        return text
+      }
+  }
+
+  function formatPhone(text) {
+    return text.replace(/[\-\(\)]/g, '');
+  }
+
+  function formatNewMerchant() {
+    let newMerchantCopy = getCopyNewMerchant();
+    newMerchantCopy.password = encryptPassword(newMerchantCopy.password);
+    newMerchantCopy.state = getStateCode(newMerchantCopy.state);
+    newMerchantCopy.phone = formatPhone(newMerchantCopy.phone);
+
+    return newMerchantCopy;
   }
 
   return {
@@ -134,6 +183,10 @@ const useSignUp = () => {
     validZip,
     validEmail,
     validPassword,
+    validValidator,
+    encryptPassword,
+    checkPassword,
+    formatNewMerchant
   }
 };
 

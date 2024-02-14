@@ -12,9 +12,9 @@ import {
 } from 'react-native';
 import  { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
-import {STATES} from '../../../../utils/states';
+import { STATES } from '../../../../utils/states';
 
-import {SignUpProvider, SignUpContext} from '../../../../context/SignUpContext';
+import { SignUpProvider, SignUpContext } from '../../../../context/SignUpContext';
 import useMerchant from '../../../../hooks/useMerchant';
 import useSignUp from '../../../../hooks/useSignUp';
 import useSignIn from '../../../../hooks/useSignIn';
@@ -155,8 +155,10 @@ function StoreInfo({ navigation }) {
             value={newMerchant[phone]}
             placeholder='(555)555-5555'
             onChangeText={(text) => {
+//               let formattedNumber;
               if (validPhoneNumber(text)) {
                 setPhoneField(true);
+//                 formattedNumber = formatPhone(text);
               } else {
                 setPhoneField(false);
               }
@@ -197,7 +199,7 @@ function BusinessAddress({ navigation }) {
         {BULLET_POINT} City is required and must contain valid characters (A-Z, a-z, '  ' and [ ' . - ])
       </Text>
       <Text style={[merchTextCSS.text, {color: stateField ? 'green' : 'red'}]}>
-        {BULLET_POINT} State code is required
+        {BULLET_POINT} Full state name or state code is required
       </Text>
       <Text style={[merchTextCSS.text, {color: zipField ? 'green' : 'red'}]}>
         {BULLET_POINT} Zip code is required and must contain 5 digits
@@ -242,17 +244,17 @@ function BusinessAddress({ navigation }) {
           <TextInput
            style={merchContCSS.input}
            value={newMerchant[state]}
-           placeholder="Washington"
+           placeholder="Washington (WA)"
            onChangeText={(text) => {
-            let formattedText;
+//             let formattedText;
              if (validState(text)) {
                setStateField(true);
-               formattedText = validState(text);
+//                formattedText = getStateCode(text);
              } else {
                setStateField(false);
              }
 
-             updateNewMerchant(state, formattedText);
+              updateNewMerchant(state, text);
            }}
           />
          <TextInput
@@ -292,6 +294,17 @@ function ContactInformation({ navigation }) {
       <View style={merchContCSS.header}>
         <Text style={[merchTextCSS.text, merchTextCSS.header]}>Contact Information</Text>
       </View>
+      <View>
+        <Text style={[ merchTextCSS.text, {color: emailField ? 'green' : 'red'}]}>
+          {BULLET_POINT} Email field is required, must be unique, must not match your password, and must be a valid email address
+        </Text>
+        <Text style={[merchTextCSS.text, {color: passwordField ? 'green' : 'red'}]}>
+          {BULLET_POINT} Password is required, must have 8 or more characters, and must not match email
+        </Text>
+        <Text style={[merchTextCSS.text, {color: validatorField ? 'green' : 'red'}]}>
+          {BULLET_POINT} Please reenter password to confirm
+        </Text>
+      </View>
       <View style={merchContCSS.tabMain}>
         <View style={[merchContCSS.mainSpacer, {flex: 2}]}>
           <Text style={[merchTextCSS.text, {margin: 20}]}>Primary Contact Email</Text>
@@ -302,8 +315,9 @@ function ContactInformation({ navigation }) {
           <TextInput
             style={merchContCSS.input}
             value={newMerchant[email]}
+            placeholder="email@provider.com"
             onChangeText={(text) => {
-              if (validEmail(text)) {
+              if (validEmail(text)){
                 setEmailField(true);
               } else {
                 setEmailField(false);
@@ -420,7 +434,7 @@ function OAuth({navigation}) {
 }
 
 function CreateAccount({navigation}) {
-  const { newMerchant, updateNewMerchant } = useSignUp();
+  const { newMerchant, updateNewMerchant, formatNewMerchant } = useSignUp();
   const { createMerchant, merchants } = useMerchant();
   const { resetFields } = useSignIn();
 
@@ -438,10 +452,13 @@ function CreateAccount({navigation}) {
                 style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
                 onPress={ async () => {
                   try {
-                    await createMerchant(newMerchant);
+                    let newMerchantCopy = formatNewMerchant();
+//                     await createMerchant(newMerchant);
+                    await createMerchant(newMerchantCopy);
                     resetFields();
-                    // provide a message following redirect, pass in the params object
+                    // provide a message following redirect, pass in the params object? alert?
                     navigation.navigate("SignIn");
+                    alert(`Welcome ${newMerchantCopy.email}`);
                   } catch (e) {
                     console.error(e, "CreateAccount");
                   }
