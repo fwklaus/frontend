@@ -21,28 +21,11 @@ const windowHeight = Dimensions.get('window').height;
 
 function StoreInformation() {
   const { currentMerchant, setCurrentMerchant } = useSignIn();
-  let fields = {
-     "restaurant_name": currentMerchant.restaurant_name,
-     "phone": currentMerchant.phone,
-     "street": currentMerchant.street,
-     "city": currentMerchant.city,
-     "state": currentMerchant.state,
-     "zip": currentMerchant.zip,
-  }
-  const { updateMerchant, getMerchant } = useMerchant();
-  const [storeInfo, setStoreInfo] = useState(fields);
+  const { updateMerchant, getMerchant, initStoreFields, storeInfo, updateStoreInfo } = useMerchant();
 
-  useEffect(()=>{
-//     console.log(storeInfo, "from ProfileTab");
-  }, [storeInfo]);
-
-  // for an update we submit an object with values different from the existing values
-
-  function updateStoreInfo(field, text) {
-    let copy = JSON.parse(JSON.stringify(storeInfo));
-    copy[field] = text;
-    setStoreInfo(copy);
-  }
+   useEffect(() => {
+    initStoreFields(currentMerchant);
+   }, []);
 
   return (
     <View style={styles.bottomMargin}>
@@ -58,42 +41,42 @@ function StoreInformation() {
         <View style={styles.fieldInput}>
           <TextInput
             style={[merchContCSS.input, styles.profileInput]}
-            placeholder={fields.restaurant_name}
+            placeholder={currentMerchant.restaurant_name}
             onChangeText={(text) => {
               updateStoreInfo("restaurant_name", text);
             }}
           />
           <TextInput
             style={[merchContCSS.input, styles.profileInput]}
-            placeholder={fields.phone}
+            placeholder={currentMerchant.phone}
             onChangeText={(text) => {
               updateStoreInfo("phone", text);
             }}
           />
           <TextInput
             style={[merchContCSS.input, styles.profileInput]}
-            placeholder={fields.street}
+            placeholder={currentMerchant.street}
             onChangeText={(text) => {
               updateStoreInfo("street", text);
             }}
           />
           <TextInput
             style={[merchContCSS.input, styles.profileInput]}
-            placeholder={fields.city}
+            placeholder={currentMerchant.city}
             onChangeText={(text) => {
               updateStoreInfo("city", text);
             }}
           />
           <TextInput
             style={[merchContCSS.input, styles.profileInput]}
-            placeholder={fields.state}
+            placeholder={currentMerchant.state}
             onChangeText={(text) => {
               updateStoreInfo("state", text);
             }}
           />
           <TextInput
             style={[merchContCSS.input, styles.profileInput]}
-            placeholder={fields.zip}
+            placeholder={currentMerchant.zip}
             onChangeText={(text) => {
               updateStoreInfo("zip", text);
             }}
@@ -104,9 +87,13 @@ function StoreInformation() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent]}
           onPress={async ()=>{
-            await updateMerchant(currentMerchant, storeInfo);
-            let merchant = await getMerchant(currentMerchant.id, true);
-            setCurrentMerchant(merchant);
+            try {
+              await updateMerchant(currentMerchant, storeInfo);
+              let merchant = await getMerchant(currentMerchant.id, true);
+              setCurrentMerchant(merchant);
+            } catch (e) {
+              alert(e.message);
+            }
           }}
         >
           <Text style={merchTextCSS.buttonText}>Update Store Info</Text>
@@ -120,34 +107,15 @@ function StoreInformation() {
 
 function LoginInformation() {
   const { currentMerchant, setCurrentMerchant } = useSignIn();
-  const [email, setEmail] = useState({
-    "email": ''
-  });
-  const [password, setPassword] = useState({
-    "password": ''
-  });
-  const { updateMerchant, getMerchant } = useMerchant();
+  const {
+    updateMerchant, getMerchant, updateEmail,
+    updatePassword, initLoginInfo,
+    password, email
+  } = useMerchant();
 
-  useEffect(()=>{
-    console.log(password);
-  }, [password]);
-
-    useEffect(()=>{
-      console.log(email);
-    }, [email]);
-
-  // for an update we submit an object with values different from the existing values
-  function updatePassword(text) {
-    let copy = JSON.parse(JSON.stringify(password));
-    copy["password"] = text;
-    setPassword(copy);
-  }
-
-  function updateEmail(text) {
-    let copy = JSON.parse(JSON.stringify(email));
-    copy["email"] = text;
-    setEmail(copy);
-  }
+  useEffect(() => {
+    initLoginInfo(currentMerchant);
+  }, []);
 
   return (
     <View style={styles.bottomMargin}>
@@ -177,9 +145,13 @@ function LoginInformation() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent]}
           onPress={async ()=>{
-            await updateMerchant(currentMerchant, email);
-            let merchant = await getMerchant(currentMerchant.id, true);
-            setCurrentMerchant(merchant);
+            try {
+              await updateMerchant(currentMerchant, email);
+              let merchant = await getMerchant(currentMerchant.id, true);
+              setCurrentMerchant(merchant);
+            } catch (e) {
+              alert(e.message);
+            }
           }}
         >
           <Text style={merchTextCSS.buttonText}>Change Email</Text>
@@ -188,9 +160,13 @@ function LoginInformation() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent]}
           onPress={async ()=>{
-            await updateMerchant(currentMerchant, password);
-            let merchant = await getMerchant(currentMerchant.id, true);
-            setCurrentMerchant(merchant);
+            try {
+              await updateMerchant(currentMerchant, password);
+              let merchant = await getMerchant(currentMerchant.id, true);
+              setCurrentMerchant(merchant);
+            } catch (e) {
+              alert(e.message);
+            }
           }}
         >
           <Text style={merchTextCSS.buttonText}>Change Password</Text>
@@ -218,9 +194,13 @@ function DeleteAccount() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent, {backgroundColor: 'red'}]}
           onPress={ async() => {
-            await deleteMerchant(currentMerchant.id);
-            signOut();
-            navigation.navigate("MerchantHome");
+            try {
+              await deleteMerchant(currentMerchant.id);
+              signOut();
+              navigation.navigate("MerchantHome");
+            } catch (e) {
+              alert(e.message);
+            }
           }}
         >
           <Text style={merchTextCSS.buttonText}>Delete Account</Text>

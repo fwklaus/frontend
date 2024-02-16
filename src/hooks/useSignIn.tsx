@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { SignInContext } from '../context/SignInContext';
-
-// import loginData from '../data/loginData';
+import useMerchant from './useMerchant';
 
 const useSignIn = () => {
   const {
@@ -9,71 +8,65 @@ const useSignIn = () => {
     setSignedIn, currentMerchant, setCurrentMerchant
     } = useContext(SignInContext);
 
-/*   useEffect(() => {
-//     console.log(signedIn);
-  }, [signedIn]);
+   const { postSignIn, merchants } = useMerchant();
 
-  useEffect(() => {
-//     console.log(currentMerchant, " from use signIn")
-  }, [currentMerchant]);
-
-  useEffect(() => {
-//     console.log(credentials);
-  }, [ credentials]); */
-
-  function getCopy() {
+  function getCredentialsCopy() {
     return JSON.parse(JSON.stringify(credentials));
   }
 
-  function getUser(merchants) {
+  function getMerchant(email) {
     return merchants.filter(merchant => {
-      return merchant.password === credentials.password
-             && merchant.email === credentials.email;
+         return merchant.email === email
     });
   }
 
   function signOut() {
+    toggleSignIn();
+  }
+
+  function toggleSignIn() {
     setSignedIn(!signedIn);
   }
 
-  function signIn(merchants) {
-    let user = getUser(merchants)[0];
-    setSignedIn(!signedIn);
-    setCurrentMerchant(user);
+  async function signIn() {
+    try {
+      await postSignIn(credentials);
+      let merchant = getMerchant(credentials.email)[0];
+      setCurrentMerchant(merchant);
+      toggleSignIn();
+    } catch (e) {
+      throw new Error(e.message);
+    }
   }
-
 
   function updateCredentials(field, text) {
-    let copy = getCopy();
+    let copy = getCredentialsCopy();
     copy[field] = text;
     setCredentials(copy);
   }
 
   function resetFields() {
-    setCredentials({
-      'email': '',
-      'password': ''
-    });
+      setCredentials({
+        'email': '',
+        'password': ''
+      });
   }
 
-  function validCredentials(merchants) {
-    let match = getUser(merchants);
-
-
+  function validEmail() {
+    let match = getMerchant(credentials.email);
     return match.length === 1;
   }
 
   return {
     credentials,
     updateCredentials,
-    validCredentials,
+    validEmail,
     resetFields,
-//     setSignedIn,
     signedIn,
-//     currentUser,
     currentMerchant,
     setCurrentMerchant,
     signOut,
+    toggleSignIn,
     signIn
   };
 };

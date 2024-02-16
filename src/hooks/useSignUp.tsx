@@ -1,17 +1,10 @@
 import { useContext, useEffect } from 'react';
-// import bcrypt from 'react-native-bcrypt';
-// import isaac from 'isaac';
 import { SignUpContext } from '../context/SignUpContext';
-import { STATES } from '../utils/states';
+// import { STATES } from '../utils/states';
 import useMerchant from './useMerchant';
+import {formatPhone, getStateCode} from '../utils/formatUtils';
 
-// bcrypt.setRandomFallback((len) => {
-//   const buf = new Uint8Array(len);
-//   return buf.map(() => Math.floor(isaac.random() * 256));
-// });
-
-
-// used to handle form information for createMerchant (POST 'localhost:3000/api/merchants/')
+// used to handle sign-up form info - createMerchant (POST 'localhost:3000/api/merchants/')
 const useSignUp = () => {
   const [newMerchant, setNewMerchant] = useContext(SignUpContext);
   const { merchants } = useMerchant();
@@ -77,6 +70,7 @@ const useSignUp = () => {
     return Object.values(STATES).find(code => code === text);
   }
 
+  // duplicate in useSignUp
   function isFullState(text) {
     return Object.keys(STATES).find(state => state === text);
   }
@@ -124,48 +118,13 @@ const useSignUp = () => {
     return !!(match);
   }
 
-//   function matchingPasswords() {
-//     return newMerchant.password === newMerchant.validator;
-//   }
-
   function fieldNotNull(text, maxChars=225) {
     text = text.trim();
     return text.length > 0 && text.length <= maxChars;
   }
 
-  // replace isValid for authentication in singIn tab
-  function checkEmail() {
-
-
-  }
-
-  function encryptPassword(password) {
-    let salt = bcrypt.genSaltSync(10);
-    let hash = bcrypt.hashSync(password, salt);
-    return hash;
-  }
-
-  function checkPassword(password, hashedPassword) {
-    // provide hashed password or id to get hashed password for user
-    let isEqual = bcrypt.compareSync(password, hashedPassword)
-    return isEqual;
-  }
-
-  function getStateCode(text) {
-      if (isFullState(text)) {
-        return (STATES[text]);
-      } else {
-        return text
-      }
-  }
-
-  function formatPhone(text) {
-    return text.replace(/[\-\(\)]/g, '');
-  }
-
   function formatNewMerchant() {
     let newMerchantCopy = getCopyNewMerchant();
-    newMerchantCopy.password = encryptPassword(newMerchantCopy.password);
     newMerchantCopy.state = getStateCode(newMerchantCopy.state);
     newMerchantCopy.phone = formatPhone(newMerchantCopy.phone);
 
@@ -184,9 +143,7 @@ const useSignUp = () => {
     validEmail,
     validPassword,
     validValidator,
-    encryptPassword,
-    checkPassword,
-    formatNewMerchant
+    formatNewMerchant,
   }
 };
 

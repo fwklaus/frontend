@@ -14,24 +14,20 @@ import { merchContCSS } from '../../../../res/styles/merchantContainer';
 import { merchTextCSS } from '../../../../res/styles/merchantText';
 
 function SignInButton({navigation}) {
-  const { validCredentials, resetFields, currentMerchant, signIn } = useSignIn();
+  const { validEmail, resetFields, currentMerchant, signIn } = useSignIn();
   const { merchants } = useMerchant();
-
-  console.log(merchants, " from SignInTab");
 
   return (
     <Pressable
       style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
-      onPress={() => {
-        if (validCredentials(merchants)) {
-          signIn(merchants);
-          alert("Welcome back " + currentMerchant.email);
+      onPress={async () => {
+        try {
+          await signIn();
           navigation.navigate("Orders");
-          resetFields();
-        } else {
-          alert("Invalid credentials. Please try again");
-          resetFields();
+        } catch (e) {
+          alert(e.message);
         }
+        resetFields();
       }}
     >
       <Text style={merchTextCSS.buttonText}>Login</Text>
@@ -42,7 +38,6 @@ function SignInButton({navigation}) {
 function SignInTab({navigation}) {
   const {credentials, updateCredentials} = useSignIn();
   const {getMerchants, merchants} = useMerchant();
-//   useEffect(() => {getMerchants()}, []);
 
   useFocusEffect(
       React.useCallback(() => {

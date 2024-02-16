@@ -1,20 +1,76 @@
 import { useContext, useEffect } from 'react';
 import { MerchantContext } from '../context/MerchantContext';
 // this should be changed after deployment
+//   const url = 'http://localhost:3000/api/merchants';
 // const baseURL = 'http://172.24.112.109:3000';
-const baseURL = 'http://172.25.103.21:3000';
+const baseURL = 'http://172.25.103.21:3000/api/merchants/';
+import { formatPhone, getStateCode } from '../utils/formatUtils';
 
-// used to interface with backend api
+// interfaces with backend
 const useMerchant = () => {
-  const [merchants, setMerchants] = useContext(MerchantContext);
-  const url = 'http://localhost:3000/api/merchants';
+  const {
+    merchants, setMerchants, email,
+    setEmail, password, setPassword,
+    storeInfo, setStoreInfo
+  } = useContext(MerchantContext);
+
+  function initStoreFields(currentMerchant) {
+    let fields = {
+       "restaurant_name": currentMerchant.restaurant_name,
+       "phone": currentMerchant.phone,
+       "street": currentMerchant.street,
+       "city": currentMerchant.city,
+       "state": currentMerchant.state,
+       "zip": currentMerchant.zip,
+    }
+    setStoreInfo(fields);
+  }
+
+  function initLoginInfo(currentMerchant) {
+    setEmail({
+      "email": currentMerchant.email
+    });
+
+    // need to set to hidden unencrypted password
+    // get merchant by currentMerchant.id ?
+    // route to return unencrypted password ?
+    setPassword({
+      "password": currentMerchant.password
+    });
+  }
+
+  function updateStoreInfo(field, text) {
+    let copy = JSON.parse(JSON.stringify(storeInfo));
+
+    if (field === 'phone') {
+      text = formatPhone(text)
+    }
+    if (field === 'state') {
+      text = getStateCode(text)
+    }
+
+    copy[field] = text;
+    setStoreInfo(copy);
+  }
+
+  function updatePassword(text) {
+    let copy = JSON.parse(JSON.stringify(password));
+    copy["password"] = text;
+    setPassword(copy);
+  }
+
+  function updateEmail(text) {
+    let copy = JSON.parse(JSON.stringify(email));
+    copy["email"] = text;
+    setEmail(copy);
+  }
 
   function getCopy() {
     return JSON.parse(JSON.stringify(merchants));
   }
 
   function getMerchants() {
-    return fetch(`${baseURL}/api/merchants/`)
+    return fetch(`${baseURL}`)
       .then(response => response.json())
       .then(json => {
         if (JSON.stringify(merchants) !== JSON.stringify(json)) {
@@ -29,7 +85,7 @@ const useMerchant = () => {
   }
 
   function getMerchant(id, update=false) {
-    return fetch(`${baseURL}/api/merchants/${id}`)
+    return fetch(baseURL + id)
       .then(response => response.json())
       .then(json => {
         let merchant = json[0];
@@ -77,21 +133,21 @@ const useMerchant = () => {
         body: JSON.stringify(body)
       };
 
-      return fetch(`${baseURL}/api/merchants/${merchant.id}`, requestObject);
+      return fetch(baseURL + merchant.id, requestObject);
     });
 
     try {
       let responses = await Promise.all(requests);
       let json = await Promise.all(responses.map(response => response.json()));
       json.forEach(obj => console.log(obj.message));
+      alert ('Successfully update merchant.')
     } catch (e) {
-      console.log(e);
+      throw new Error(e.message);
     }
   }
 
   async function deleteMerchant(id) {
     // filter out merchant fom merchants and setMerchants to new merchant array
-    // delete the merchant on the server
     let merchantsCopy = getCopy();
     let filtered = merchantsCopy.filter(merchant => merchant.id !== id);
     setMerchants(filtered);
@@ -104,11 +160,18 @@ const useMerchant = () => {
       }
     }
 
+    // delete the merchant on the server
     try {
-      await fetch(`${baseURL}/api/merchants/${id}`, requestObj);
-      alert('Successfully Deleted Merchant');
+      let res = await fetch(baseURL + id, requestObj);
+      let json = await res.json();
+
+      if (res.status === 400) {
+        throw new Error(json.error);
+      }
+
+      alert(json.message);
     } catch (e) {
-      console.log(e);
+      throw new Error(e.message);
     }
   }
 
@@ -122,9 +185,36 @@ const useMerchant = () => {
       body: JSON.stringify(newMerchant),
     }
 
-    let response = await fetch(`${baseURL}/api/merchants/`, requestObject)
-    let json = await response.json();
-    console.log(json.message);
+    try {
+      let response = await fetch(baseURL, requestObject);
+      let json = await response.json();
+      console.log(json.message);
+    } catch (e) {
+      throw new Error(e, 'useMerchant.createMerchant');
+    }
+  }
+
+  async function postSignIn(credentials) {
+    let requestObject = {
+      method: 'POST',
+      headers : {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    }
+
+    try {
+      let response = await fetch(baseURL + '/sign-in', requestObject);
+      let json = await response.json();
+      if (response.status === 400) {
+        throw new Error(json.error);
+      }
+
+      alert(json.success);
+    } catch (e) {
+      throw new Error(e.message);
+    }
   }
 
   return {
@@ -133,7 +223,16 @@ const useMerchant = () => {
     createMerchant,
     merchants,
     updateMerchant,
-    deleteMerchant
+    deleteMerchant,
+    postSignIn,
+    updatePassword,
+    updateEmail,
+    initStoreFields,
+    initLoginInfo,
+    storeInfo,
+    updateStoreInfo,
+    email,
+    password
   }
 };
 
