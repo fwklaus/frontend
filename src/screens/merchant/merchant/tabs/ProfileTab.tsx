@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
-  SafeAreaView,
   View,
   Text,
   TextInput,
   Pressable,
   StyleSheet,
   ScrollView,
-  Dimensions
+  Dimensions,
+  SafeAreaView
 } from 'react-native';
 import useSignIn from '../../../../hooks/useSignIn';
 import useMerchant from '../../../../hooks/useMerchant';
 
 import { merchContCSS } from '../../../../res/styles/merchantContainer';
 import { merchTextCSS } from '../../../../res/styles/merchantText';
+import  {
+  InvalidNameMessage, InvalidPhoneMessage, InvalidStreetMessage,
+  InvalidCityMessage, InvalidStateMessage, InvalidZipMessage,
+  InvalidEmailMessage, InvalidPasswordMessage, DeleteAccountMessage
+  } from '../../../../components/ui/ValidationMessages';
+
+import {
+  isValidRestaurantName, isValidStreet, isValidCity,
+  isValidState, isValidZip, isValidPhoneNumber,
+  isValidEmail, isValidPassword
+  } from '../../../../utils/validationUtils';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -22,13 +33,25 @@ const windowHeight = Dimensions.get('window').height;
 function StoreInformation() {
   const { currentMerchant, setCurrentMerchant } = useSignIn();
   const { updateMerchant, getMerchant, initStoreFields, storeInfo, updateStoreInfo } = useMerchant();
-
-   useEffect(() => {
+  const [validName, setValidName] = useState(true);
+  const [validPhone, setValidPhone] = useState(true);
+  const [validStreet, setValidStreet] = useState(true);
+  const [validCity, setValidCity] = useState(true);
+  const [validState, setValidState] = useState(true);
+  const [validZip, setValidZip] = useState(true);
+  useEffect(() => {}, [validName, validPhone, validStreet, validCity, validState, validZip]);
+  useEffect(() => {
     initStoreFields(currentMerchant);
-   }, []);
+  }, []);
 
   return (
     <View style={styles.bottomMargin}>
+      <InvalidNameMessage validName={validName} />
+      <InvalidPhoneMessage validPhone={validPhone} />
+      <InvalidStreetMessage validStreet={validStreet} />
+      <InvalidCityMessage validCity={validCity} />
+      <InvalidStateMessage validState={validState} />
+      <InvalidZipMessage validZip={validZip} />
       <View style={{flexDirection: 'row', margin: 10}}>
         <View style={styles.fieldInput}>
           <Text style={[merchTextCSS.text, styles.textMargin]}>Restaurant Name</Text>
@@ -43,6 +66,13 @@ function StoreInformation() {
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={currentMerchant.restaurant_name}
             onChangeText={(text) => {
+              if (isValidRestaurantName(text)
+                || text.length === 0) {
+                setValidName(true);
+              } else {
+                setValidName(false);
+              }
+
               updateStoreInfo("restaurant_name", text);
             }}
           />
@@ -50,6 +80,13 @@ function StoreInformation() {
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={currentMerchant.phone}
             onChangeText={(text) => {
+              if (isValidPhoneNumber(text)
+                || text.length === 0) {
+                setValidPhone(true);
+              } else {
+                setValidPhone(false);
+              }
+
               updateStoreInfo("phone", text);
             }}
           />
@@ -57,6 +94,13 @@ function StoreInformation() {
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={currentMerchant.street}
             onChangeText={(text) => {
+              if (isValidStreet(text)
+                  || text.length === 0) {
+                setValidStreet(true);
+              } else {
+                setValidStreet(false);
+              }
+
               updateStoreInfo("street", text);
             }}
           />
@@ -64,6 +108,13 @@ function StoreInformation() {
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={currentMerchant.city}
             onChangeText={(text) => {
+              if (isValidCity(text)
+                  || text.length === 0) {
+                setValidCity(true);
+              } else {
+                setValidCity(false);
+              }
+
               updateStoreInfo("city", text);
             }}
           />
@@ -71,6 +122,13 @@ function StoreInformation() {
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={currentMerchant.state}
             onChangeText={(text) => {
+              if (isValidState(text)
+                  || text.length === 0) {
+                setValidState(true);
+              } else {
+                setValidState(false);
+              }
+
               updateStoreInfo("state", text);
             }}
           />
@@ -78,6 +136,13 @@ function StoreInformation() {
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={currentMerchant.zip}
             onChangeText={(text) => {
+              if (isValidZip(text)
+                  || text.length === 0) {
+                setValidZip(true);
+              } else {
+                setValidZip(false);
+              }
+
               updateStoreInfo("zip", text);
             }}
           />
@@ -87,6 +152,8 @@ function StoreInformation() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent]}
           onPress={async ()=>{
+            // move callback to useMerchant
+
             try {
               await updateMerchant(currentMerchant, storeInfo);
               let merchant = await getMerchant(currentMerchant.id, true);
@@ -110,15 +177,19 @@ function LoginInformation() {
   const {
     updateMerchant, getMerchant, updateEmail,
     updatePassword, initLoginInfo,
-    password, email
+    password, email, merchants
   } = useMerchant();
-
+  const [validEmail, setValidEmail] = useState(true);
+  const [validPassword, setValidPassword] = useState(true);
+  useEffect(() => {}, [validEmail, validPassword]);
   useEffect(() => {
     initLoginInfo(currentMerchant);
   }, []);
 
   return (
     <View style={styles.bottomMargin}>
+      <InvalidEmailMessage validEmail={validEmail} />
+      <InvalidPasswordMessage validPassword={validPassword} />
       <View style={{flexDirection: 'row', margin: 10}}>
         <View style={styles.fieldInput}>
           <Text style={[merchTextCSS.text, styles.textMargin]}>Primary Contact Email</Text>
@@ -129,6 +200,13 @@ function LoginInformation() {
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={currentMerchant.email}
             onChangeText={(text) => {
+              if (isValidEmail(text, merchants, currentMerchant)
+                  || text.length === 0) {
+                setValidEmail(true);
+              } else {
+                setValidEmail(false);
+              }
+
               updateEmail(text);
             }}
           />
@@ -136,6 +214,13 @@ function LoginInformation() {
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={currentMerchant.password}
             onChangeText={(text) => {
+              if ( isValidPassword(text, currentMerchant)
+                  || text.length === 0) {
+                setValidPassword(true);
+              } else {
+                setValidPassword(false);
+              }
+
               updatePassword(text);
             }}
           />
@@ -145,6 +230,8 @@ function LoginInformation() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent]}
           onPress={async ()=>{
+            // move callback to useMerchant
+
             try {
               await updateMerchant(currentMerchant, email);
               let merchant = await getMerchant(currentMerchant.id, true);
@@ -160,6 +247,8 @@ function LoginInformation() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent]}
           onPress={async ()=>{
+            // move callback to useMerchant
+
             try {
               await updateMerchant(currentMerchant, password);
               let merchant = await getMerchant(currentMerchant.id, true);
@@ -186,14 +275,14 @@ function DeleteAccount() {
   return (
     <View style={styles.bottomMargin}>
       <View style={[styles.fieldInput, {margin: 10}]}>
-        <Text style={[merchTextCSS.text, styles.textMargin, {color: 'red'}]}>
-          This action is irreversible. All account and restaurant information will be lost
-        </Text>
+      <DeleteAccountMessage />
       </View>
       <View style={styles.buttonContainer}>
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent, {backgroundColor: 'red'}]}
           onPress={ async() => {
+            // move callback to useMerchant
+
             try {
               await deleteMerchant(currentMerchant.id);
               signOut();
@@ -262,5 +351,3 @@ const styles = StyleSheet.create({
 });
 
 export { ProfileTab, StoreInformation, LoginInformation, DeleteAccount};
-
-

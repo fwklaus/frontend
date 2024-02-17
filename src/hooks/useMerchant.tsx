@@ -1,10 +1,13 @@
 import { useContext, useEffect } from 'react';
 import { MerchantContext } from '../context/MerchantContext';
+
 // this should be changed after deployment
 //   const url = 'http://localhost:3000/api/merchants';
 // const baseURL = 'http://172.24.112.109:3000';
-const baseURL = 'http://172.25.103.21:3000/api/merchants/';
-import { formatPhone, getStateCode } from '../utils/formatUtils';
+// const baseURL = 'http://172.25.103.21:3000/api/merchants/';
+const baseURL = 'http://172.21.238.183:3000/api/merchants/';
+
+// import { formatPhone, getStateCode } from '../utils/validationUtils';
 
 // interfaces with backend
 const useMerchant = () => {
@@ -42,12 +45,15 @@ const useMerchant = () => {
   function updateStoreInfo(field, text) {
     let copy = JSON.parse(JSON.stringify(storeInfo));
 
-    if (field === 'phone') {
-      text = formatPhone(text)
-    }
-    if (field === 'state') {
-      text = getStateCode(text)
-    }
+
+    // do this in the callback prior to invocation using
+    //  validation methods in validationUtils
+//     if (field === 'phone') {
+//       text = formatPhone(text)
+//     }
+//     if (field === 'state') {
+//       text = getStateCode(text)
+//     }
 
     copy[field] = text;
     setStoreInfo(copy);
@@ -188,9 +194,14 @@ const useMerchant = () => {
     try {
       let response = await fetch(baseURL, requestObject);
       let json = await response.json();
-      console.log(json.message);
+
+      if (response.status === 400) {
+        throw new Error(json.error);
+      }
+
+      alert(json.success);
     } catch (e) {
-      throw new Error(e, 'useMerchant.createMerchant');
+      throw new Error(e.message);
     }
   }
 

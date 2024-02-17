@@ -12,12 +12,22 @@ import {
 } from 'react-native';
 import  { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
-import { STATES } from '../../../../utils/states';
 
 import { SignUpProvider, SignUpContext } from '../../../../context/SignUpContext';
 import useMerchant from '../../../../hooks/useMerchant';
 import useSignUp from '../../../../hooks/useSignUp';
 import useSignIn from '../../../../hooks/useSignIn';
+
+import {
+  isValidPhoneNumber, isValidRestaurantName, isValidStreet,
+  isValidCity, isValidState, isValidZip,
+  isValidPass, isValidValidator, isValidEmail
+  } from '../../../../utils/validationUtils';
+import  {
+  InvalidNameMessage, InvalidPhoneMessage, InvalidStreetMessage,
+  InvalidCityMessage, InvalidStateMessage, InvalidZipMessage,
+  InvalidEmailMessage, InvalidPasswordMessage, InvalidValidatorMessage
+  } from '../../../../components/ui/ValidationMessages';
 
 import { merchContCSS } from '../../../../res/styles/merchantContainer';
 import { merchTextCSS } from '../../../../res/styles/merchantText';
@@ -109,10 +119,10 @@ function NextButton({navigation, nextTab}) {
 }
 
 function StoreInfo({ navigation }) {
-  const { newMerchant, updateNewMerchant, validRestaurantName, validPhoneNumber } = useSignUp();
-  const [nameField, setNameField] = useState(false);
-  const [phoneField, setPhoneField] = useState(false);
-  useEffect(() => {}, [nameField, phoneField]);
+  const { newMerchant, updateNewMerchant } = useSignUp();
+  const [validName, setValidName] = useState(false);
+  const [validPhone, setValidPhone] = useState(false);
+  useEffect(() => {}, [validName, validPhone]);
 
   const restaurantName = 'restaurantName';
   const phone = 'phone';
@@ -123,12 +133,8 @@ function StoreInfo({ navigation }) {
         <Text style={[merchTextCSS.text, merchTextCSS.header]}>Store Information</Text>
       </View>
       <View>
-        <Text style={[ merchTextCSS.text, {color: nameField ? 'green' : 'red'}]}>
-         {BULLET_POINT} Restaurant Name is required
-        </Text>
-        <Text style={[merchTextCSS.text, {color: phoneField ? 'green' : 'red'}]}>
-          {BULLET_POINT} Phone number is required and must contain 10 digits
-        </Text>
+        <InvalidNameMessage validName={validName} />
+        <InvalidPhoneMessage validPhone={validPhone} />
       </View>
       <View style={merchContCSS.tabMain}>
         <View style={[merchContCSS.mainSpacer, {flex: 2}]}>
@@ -141,10 +147,10 @@ function StoreInfo({ navigation }) {
             value={newMerchant[restaurantName]}
             placeholder='e.g. The Red Table'
             onChangeText={(text) => {
-              if (validRestaurantName(text)) {
-                setNameField(true);
+              if (isValidRestaurantName(text)) {
+                setValidName(true);
               } else {
-                setNameField(false);
+                setValidName(false);
               }
 
               updateNewMerchant(restaurantName, text);
@@ -155,12 +161,10 @@ function StoreInfo({ navigation }) {
             value={newMerchant[phone]}
             placeholder='(555)555-5555'
             onChangeText={(text) => {
-//               let formattedNumber;
-              if (validPhoneNumber(text)) {
-                setPhoneField(true);
-//                 formattedNumber = formatPhone(text);
+              if (isValidPhoneNumber(text)) {
+                setValidPhone(true);
               } else {
-                setPhoneField(false);
+                setValidPhone(false);
               }
 
               updateNewMerchant(phone, text);
@@ -174,12 +178,12 @@ function StoreInfo({ navigation }) {
 }
 
 function BusinessAddress({ navigation }) {
-  const { newMerchant, updateNewMerchant, validStreet, validCity, validState, validZip } = useSignUp();
-  const [streetField, setStreetField] = useState(false);
-  const [cityField, setCityField] = useState(false);
-  const [zipField, setZipField] = useState(false);
-  const [stateField, setStateField] = useState(false);
-  useEffect(() => {}, [streetField, cityField, zipField, stateField]);
+  const { newMerchant, updateNewMerchant } = useSignUp();
+  const [validStreet, setValidStreet] = useState(false);
+  const [validCity, setValidCity] = useState(false);
+  const [validZip, setValidZip] = useState(false);
+  const [validState, setValidState] = useState(false);
+  useEffect(() => {}, [validStreet, validCity, validZip, validState]);
 
   const street = 'street';
   const city = 'city';
@@ -192,18 +196,10 @@ function BusinessAddress({ navigation }) {
        <Text style={[merchTextCSS.text, merchTextCSS.header]}>Business Address</Text>
      </View>
      <View>
-      <Text style={[ merchTextCSS.text, {color: streetField ? 'green' : 'red'}]}>
-        {BULLET_POINT} Street is required and must contain valid characters (A-Z, a-z, 0-9, '  ' and [ . , # & - ])
-      </Text>
-      <Text style={[merchTextCSS.text, {color: cityField ? 'green' : 'red'}]}>
-        {BULLET_POINT} City is required and must contain valid characters (A-Z, a-z, '  ' and [ ' . - ])
-      </Text>
-      <Text style={[merchTextCSS.text, {color: stateField ? 'green' : 'red'}]}>
-        {BULLET_POINT} Full state name or state code is required
-      </Text>
-      <Text style={[merchTextCSS.text, {color: zipField ? 'green' : 'red'}]}>
-        {BULLET_POINT} Zip code is required and must contain 5 digits
-      </Text>
+      <InvalidStreetMessage validStreet={validStreet}/>
+      <InvalidCityMessage validCity={validCity}/>
+      <InvalidStateMessage validStreet={validState}/>
+      <InvalidZipMessage validZip={validZip}/>
      </View>
      <View style={merchContCSS.tabMain}>
        <View style={[merchContCSS.mainSpacer, {flex: 2}]}>
@@ -218,10 +214,10 @@ function BusinessAddress({ navigation }) {
           value={newMerchant[street]}
           placeholder="5555 Main St"
           onChangeText={(text) => {
-            if (validStreet(text)) {
-              setStreetField(true);
+            if (isValidStreet(text)) {
+              setValidStreet(true);
             } else {
-              setStreetField(false);
+              setValidStreet(false);
             }
 
             updateNewMerchant(street, text);
@@ -232,10 +228,10 @@ function BusinessAddress({ navigation }) {
           value={newMerchant[city]}
           placeholder="Seattle"
           onChangeText={(text) => {
-            if (validCity(text)) {
-              setCityField(true);
+            if (isValidCity(text)) {
+              setValidCity(true);
             } else {
-              setCityField(false);
+              setValidCity(false);
             }
 
             updateNewMerchant(city, text);
@@ -246,12 +242,10 @@ function BusinessAddress({ navigation }) {
            value={newMerchant[state]}
            placeholder="Washington (WA)"
            onChangeText={(text) => {
-//             let formattedText;
-             if (validState(text)) {
-               setStateField(true);
-//                formattedText = getStateCode(text);
+             if (isValidState(text)) {
+               setValidState(true);
              } else {
-               setStateField(false);
+               setValidState(false);
              }
 
               updateNewMerchant(state, text);
@@ -262,10 +256,10 @@ function BusinessAddress({ navigation }) {
           value={newMerchant[zip]}
           placeholder="80008"
           onChangeText={(text) => {
-            if (validZip(text)) {
-              setZipField(true);
+            if (isValidZip(text)) {
+              setValidZip(true);
             } else {
-              setZipField(false);
+              setValidZip(false);
             }
 
             updateNewMerchant(zip, text);
@@ -279,11 +273,12 @@ function BusinessAddress({ navigation }) {
 }
 
 function ContactInformation({ navigation }) {
-  const { newMerchant, updateNewMerchant, validEmail, validPassword, validValidator } = useSignUp();
-  const [emailField, setEmailField] = useState(false);
-  const [passwordField, setPasswordField] = useState(false);
-  const [validatorField, setValidatorField] = useState(false);
-  useEffect(()=> {}, [emailField, passwordField, validatorField]);
+  const { newMerchant, updateNewMerchant } = useSignUp();
+  const { merchants } = useMerchant();
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validValidator, setValidValidator] = useState(false);
+  useEffect(()=> {}, [validEmail, validPassword, validValidator]);
 
   const email = 'email';
   const password = 'password';
@@ -295,15 +290,9 @@ function ContactInformation({ navigation }) {
         <Text style={[merchTextCSS.text, merchTextCSS.header]}>Contact Information</Text>
       </View>
       <View>
-        <Text style={[ merchTextCSS.text, {color: emailField ? 'green' : 'red'}]}>
-          {BULLET_POINT} Email field is required, must be unique, must not match your password, and must be a valid email address
-        </Text>
-        <Text style={[merchTextCSS.text, {color: passwordField ? 'green' : 'red'}]}>
-          {BULLET_POINT} Password is required, must have 8 or more characters, and must not match email
-        </Text>
-        <Text style={[merchTextCSS.text, {color: validatorField ? 'green' : 'red'}]}>
-          {BULLET_POINT} Please reenter password to confirm
-        </Text>
+        <InvalidEmailMessage validEmail={validEmail}/>
+        <InvalidPasswordMessage validPassword={validPassword}/>
+        <InvalidValidatorMessage validValidator={validValidator}/>
       </View>
       <View style={merchContCSS.tabMain}>
         <View style={[merchContCSS.mainSpacer, {flex: 2}]}>
@@ -317,7 +306,7 @@ function ContactInformation({ navigation }) {
             value={newMerchant[email]}
             placeholder="email@provider.com"
             onChangeText={(text) => {
-              if (validEmail(text)){
+              if (isValidEmail(text, newMerchant, merchants)){
                 setEmailField(true);
               } else {
                 setEmailField(false);
@@ -330,7 +319,7 @@ function ContactInformation({ navigation }) {
             style={merchContCSS.input}
             value={newMerchant[password]}
             onChangeText={(text) => {
-              if (validPassword(text)) {
+              if (isValidPassword(text, newMerchant)) {
                 setPasswordField(true);
               } else {
                 setPasswordField(false);
@@ -343,7 +332,7 @@ function ContactInformation({ navigation }) {
             style={merchContCSS.input}
             value={newMerchant[validator]}
             onChangeText={(text) => {
-              if (validValidator(text)) {
+              if (isValidValidator(text, newMerchant)) {
                 setValidatorField(true);
               } else {
                 setValidatorField(false);
@@ -453,14 +442,11 @@ function CreateAccount({navigation}) {
                 onPress={ async () => {
                   try {
                     let newMerchantCopy = formatNewMerchant();
-//                     await createMerchant(newMerchant);
                     await createMerchant(newMerchantCopy);
                     resetFields();
-                    // provide a message following redirect, pass in the params object? alert?
                     navigation.navigate("SignIn");
-                    alert(`Welcome ${newMerchantCopy.email}`);
                   } catch (e) {
-                    console.error(e, "CreateAccount");
+                    alert(e.message);
                   }
                 }}
               >
@@ -554,35 +540,10 @@ const styles = StyleSheet.create({
   progressList: {
     marginBottom: 10
   },
-//   button: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     backgroundColor: 'white',
-//     borderColor: 'black',
-//     borderWidth: 1,
-//     height: 50,
-//     width: '90%',
-//     paddingHorizontal: 10,
-//     zIndex: 1,
-//   },
-  dropdown: {
-    position: 'absolute',
-    backgroundColor: '#fff',
-    width: '100%',
-    shadowColor: '#000000',
-    shadowRadius: 4,
-    shadowOffset: { height: 4, width: 0 },
-    shadowOpacity: 0.5,
-  },
   buttonText: {
     flex: 1,
     textAlign: 'center',
   },
-  dropdown: {
-    position: 'absolute',
-    backgroundColor: '#fff',
-    top: 50,
-  }
 });
 
 export {
