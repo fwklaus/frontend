@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,6 +7,8 @@ import {
   Pressable,
   StyleSheet
 } from 'react-native';
+import useOrders from '../../../../hooks/useOrders';
+
 import { merchContCSS } from '../../../../res/styles/merchantContainer';
 import { merchTextCSS } from '../../../../res/styles/merchantText';
 
@@ -35,29 +37,22 @@ function PickupPendingPanel() {
   );
 }
 
-function Unavailable() {
+function Status() {
+  const { takingOrders } = useOrders();
   return (
-    <View style={styles.unavailable}>
-      <Text style={styles.statusPanelText}>Unavailable. Press Take Orders to start accepting new orders.</Text>
+    <View style={ takingOrders ? styles.available : styles.unavailable}>
+      { takingOrders ?
+      <Text style={styles.statusPanelText}>Taking Orders.</Text> :
+        <Text style={styles.statusPanelText}>Unavailable. Press Take Orders to start accepting new orders.</Text>
+      }
     </View>
   );
 }
 
-function TakingOrders() {
-  return (
-    <View style={styles.takingOrders}>
-      <Text style={styles.statusPanelText}>TakingOrders</Text>
-    </View>
-  )
-}
-
 function OrdersTab() {
-  // need state to handle order status for status bar
-  // switch between Unavailable and TakingOrders status bar
-
   return (
     <SafeAreaView style={[merchContCSS.main, { padding: 0, alignItems: 'left'}]}>
-      <Unavailable />
+      <Status />
       <View style={styles.mainPanels}>
         <OpenOrdersPanel />
         <ClosedOrdersPanel />
@@ -70,6 +65,11 @@ function OrdersTab() {
 const styles = StyleSheet.create({
   unavailable: {
     backgroundColor: 'red',
+    flex: 1,
+    justifyContent: 'center'
+  },
+  available : {
+    backgroundColor: '#1BC100',
     flex: 1,
     justifyContent: 'center'
   },
@@ -94,4 +94,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { OrdersTab, PickupPendingPanel, ClosedOrdersPanel, OpenOrdersPanel, Unavailable, TakingOrders };
+export { OrdersTab, PickupPendingPanel, ClosedOrdersPanel, OpenOrdersPanel, Status };

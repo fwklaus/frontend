@@ -18,7 +18,7 @@ function getStateCode(text) {
   if (isFullState(text)) {
     return (STATES[text]);
   } else {
-    return text.toUpperCase();
+    return text;
   }
 }
 

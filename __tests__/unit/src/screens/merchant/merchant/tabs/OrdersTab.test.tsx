@@ -6,7 +6,7 @@ import 'react-native';
 import React from 'react';
 import {
   OrdersTab, PickupPendingPanel, ClosedOrdersPanel,
-  OpenOrdersPanel, Unavailable, TakingOrders
+  OpenOrdersPanel, Status
   } from '../../../../../../../src/screens/merchant/merchant/tabs/OrdersTab';
 
 // Note: import explicitly to use the types shipped with jest.
@@ -39,15 +39,8 @@ describe("OpenOrdersPanel Tests", () => {
   })
 })
 
-describe("Unavailable Tests", () => {
+describe("Status Tests", () => {
   it("renders correctly", () => {
-    <Unavailable />
+    <Status />
   })
-})
-
-
-describe("TakingOrders Tests", () => {
-  it("renders correctly", () => {
-    <TakingOrders />
-  })
-})
+});

@@ -8,11 +8,12 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native';
+import useSignIn from '../../../hooks/useSignIn';
+import useOrders from '../../../hooks/useOrders';
+import { HeaderButtons, Item} from 'react-navigation-header-buttons';
+
 import { containerStyles } from '../../../res/styles/container';
 import { textStyles } from '../../../res/styles/text';
-
-import useSignIn from '../../../hooks/useSignIn';
-import { HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 import { SignInTab } from './tabs/SignInTab';
 import { SignUpTab } from './tabs/SignUpTab';
@@ -25,17 +26,19 @@ const Tab = createBottomTabNavigator();
 
 function SignedInHeader({navigation}) {
   const {signOut} = useSignIn();
+  const {takingOrders, setTakingOrders} = useOrders();
 
   return (
     <HeaderButtons>
       <Item
-        title="Take Orders"
-        onPress={({pressed}) => {
-          console.log('change style on press');
+        title={takingOrders ? "Stop Orders" : "Take Orders"}
+        onPress={() => {
+          // if taking orders is true, need to do something on the server to accept orders
 
-
+          setTakingOrders(!takingOrders);
+          navigation.navigate("Orders");
         }}
-        style={[styles.button, {backgroundColor: '#1BC100'}]}
+        style={[styles.button, takingOrders ? {backgroundColor: 'red'} : {backgroundColor: '#1BC100'}]}
         buttonStyle={styles.buttonText}
       />
       <Item
