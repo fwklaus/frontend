@@ -14,7 +14,16 @@ const SignInProvider = (props) => {
   // we use the currentMerchant to get and update the information from the merchant profile page
   const [currentMerchant, setCurrentMerchant] = useState({
     'id': '',
-    'email': ''
+    'email': '',
+    'password': '',
+    'restaurant_name': '',
+    'street': '',
+    'city': '',
+    'state': '',
+    'zip': '',
+    'phone': '',
+    'sq_access_token': '',
+    'sq_access_token': '',
   });
 
     useEffect(() => {
@@ -22,7 +31,7 @@ const SignInProvider = (props) => {
     }, [signedIn]);
 
     useEffect(() => {
-  //     console.log(currentMerchant, " from use signIn")
+//       console.log(currentMerchant, "currentMerchant");
     }, [currentMerchant]);
 
     useEffect(() => {

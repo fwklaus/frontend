@@ -25,7 +25,9 @@ const MerchantProvider = (props) => {
   }, [merchants]);
 
   useEffect(()=>{
-//       console.log(password);
+//       console.log(password, "password");
+//       console.log(email, "email");
+//     console.log(storeInfo, "storeInfo");
   }, [password, email, storeInfo]);
 
   return (

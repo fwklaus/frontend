@@ -17,7 +17,7 @@ const useMerchant = () => {
     storeInfo, setStoreInfo
   } = useContext(MerchantContext);
 
-  function initStoreFields(currentMerchant) {
+  function fillStoreInfo(currentMerchant) {
     let fields = {
        "restaurant_name": currentMerchant.restaurant_name,
        "phone": currentMerchant.phone,
@@ -29,7 +29,7 @@ const useMerchant = () => {
     setStoreInfo(fields);
   }
 
-  function initLoginInfo(currentMerchant) {
+  function fillLoginInfo(currentMerchant) {
     setEmail({
       "email": currentMerchant.email
     });
@@ -44,16 +44,6 @@ const useMerchant = () => {
 
   function updateStoreInfo(field, text) {
     let copy = JSON.parse(JSON.stringify(storeInfo));
-
-
-    // do this in the callback prior to invocation using
-    //  validation methods in validationUtils
-//     if (field === 'phone') {
-//       text = formatPhone(text)
-//     }
-//     if (field === 'state') {
-//       text = getStateCode(text)
-//     }
 
     copy[field] = text;
     setStoreInfo(copy);
@@ -71,7 +61,7 @@ const useMerchant = () => {
     setEmail(copy);
   }
 
-  function getCopy() {
+  function getMerchantsCopy() {
     return JSON.parse(JSON.stringify(merchants));
   }
 
@@ -94,27 +84,27 @@ const useMerchant = () => {
     return fetch(baseURL + id)
       .then(response => response.json())
       .then(json => {
-        let merchant = json[0];
-
-        // if we are updating, replace the merchant with the update merchant in merchants
+        let merchant = json;
+        // if we are updating, replace merchant in merchants with updated merchant
         if (update) {
           let idx = findIndex(merchant.id);
           if (idx === -1) {
             throw Error("getMerchant: merchant is missing")
           }
 
-          let merchantsCopy = getCopy();
+          let merchantsCopy = getMerchantsCopy();
           merchantsCopy.splice(idx, 1, merchant);
           setMerchants(merchantsCopy);
         }
 
-        return json[0];
+        return merchant;
       })
       .catch(error => console.log(error));
   }
 
   async function updateMerchant(merchant, updateObj) {
     let updateFields = []
+    let merchantId = merchant.id;
 
     for (const field in updateObj) {
       let value = updateObj[field];
@@ -139,7 +129,7 @@ const useMerchant = () => {
         body: JSON.stringify(body)
       };
 
-      return fetch(baseURL + merchant.id, requestObject);
+      return fetch(baseURL + merchantId, requestObject);
     });
 
     try {
@@ -148,13 +138,13 @@ const useMerchant = () => {
       json.forEach(obj => console.log(obj.message));
       alert ('Successfully update merchant.')
     } catch (e) {
-      throw new Error(e.message);
+      throw new Error(e.message, "at UpdateMerchant");
     }
   }
 
   async function deleteMerchant(id) {
     // filter out merchant fom merchants and setMerchants to new merchant array
-    let merchantsCopy = getCopy();
+    let merchantsCopy = getMerchantsCopy();
     let filtered = merchantsCopy.filter(merchant => merchant.id !== id);
     setMerchants(filtered);
 
@@ -216,15 +206,15 @@ const useMerchant = () => {
     }
 
     try {
-      let response = await fetch(baseURL + '/sign-in', requestObject);
+      let response = await fetch(baseURL + 'sign-in', requestObject);
       let json = await response.json();
       if (response.status === 400) {
-        throw new Error(json.error);
+        throw new Error(json.error, "at /sign-in");
       }
 
       alert(json.success);
     } catch (e) {
-      throw new Error(e.message);
+      throw new Error(e.message, "at postSignIn");
     }
   }
 
@@ -238,8 +228,8 @@ const useMerchant = () => {
     postSignIn,
     updatePassword,
     updateEmail,
-    initStoreFields,
-    initLoginInfo,
+    fillStoreInfo,
+    fillLoginInfo,
     storeInfo,
     updateStoreInfo,
     email,

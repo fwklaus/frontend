@@ -21,7 +21,7 @@ import useSignIn from '../../../../hooks/useSignIn';
 import {
   isValidPhoneNumber, isValidRestaurantName, isValidStreet,
   isValidCity, isValidState, isValidZip,
-  isValidPass, isValidValidator, isValidEmail
+  isValidPassword, isValidValidator, isValidEmail
   } from '../../../../utils/validationUtils';
 import  {
   InvalidNameMessage, InvalidPhoneMessage, InvalidStreetMessage,
@@ -198,7 +198,7 @@ function BusinessAddress({ navigation }) {
      <View>
       <InvalidStreetMessage validStreet={validStreet}/>
       <InvalidCityMessage validCity={validCity}/>
-      <InvalidStateMessage validStreet={validState}/>
+      <InvalidStateMessage validState={validState}/>
       <InvalidZipMessage validZip={validZip}/>
      </View>
      <View style={merchContCSS.tabMain}>
@@ -306,10 +306,10 @@ function ContactInformation({ navigation }) {
             value={newMerchant[email]}
             placeholder="email@provider.com"
             onChangeText={(text) => {
-              if (isValidEmail(text, newMerchant, merchants)){
-                setEmailField(true);
+              if (isValidEmail(text, merchants, newMerchant)){
+                setValidEmail(true);
               } else {
-                setEmailField(false);
+                setValidEmail(false);
               }
 
               updateNewMerchant(email, text);
@@ -320,9 +320,9 @@ function ContactInformation({ navigation }) {
             value={newMerchant[password]}
             onChangeText={(text) => {
               if (isValidPassword(text, newMerchant)) {
-                setPasswordField(true);
+                setValidPassword(true);
               } else {
-                setPasswordField(false);
+                setValidPassword(false);
               }
 
               updateNewMerchant(password, text);
@@ -333,9 +333,9 @@ function ContactInformation({ navigation }) {
             value={newMerchant[validator]}
             onChangeText={(text) => {
               if (isValidValidator(text, newMerchant)) {
-                setValidatorField(true);
+                setValidValidator(true);
               } else {
-                setValidatorField(false);
+                setValidValidator(false);
               }
 
               updateNewMerchant(validator, text);

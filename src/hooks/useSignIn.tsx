@@ -35,7 +35,7 @@ const useSignIn = () => {
       setCurrentMerchant(merchant);
       toggleSignIn();
     } catch (e) {
-      throw new Error(e.message);
+      throw new Error(e.message, "at SignIn");
     }
   }
 
