@@ -1,14 +1,20 @@
 import { STATES } from './states';
 
 function isFullState(text) {
-  return Object.keys(STATES).find(state => state === text);
+  text = text.toLowerCase();
+  return Object.keys(STATES).find(state => state.toLowerCase() === text);
 }
 
 function isStateCode(text) {
-  return Object.values(STATES).find(code => code === text);
+  text = text.toLowerCase();
+  return Object.values(STATES).find(code => code.toLowerCase() === text);
 }
 
 function getStateCode(text) {
+  text = text.split(' ');
+  text = text.map(word => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase());
+  text = text.join(' ');
+
   if (isFullState(text)) {
     return (STATES[text]);
   } else {
@@ -65,8 +71,8 @@ function isValidZip(text) {
 
 function isNotEmpty(text, maxChars=225) {
   if (maxChars > 225) return false;
-
   text = text.trim();
+
   return text.length > 0 && text.length <= maxChars;
 }
 
@@ -111,5 +117,6 @@ export {
   isValidEmail, isValidPassword, isValidValidator,
   isNotEmpty, getStateCode, formatPhone,
   validZipPattern, validStreetPattern, validCityPattern,
-  validEmailPattern, validNumPattern
+  validEmailPattern, validNumPattern, isFullState,
+  isStateCode
 };
