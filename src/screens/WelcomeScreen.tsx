@@ -98,7 +98,7 @@ function WelcomeScreen({navigation}) {
     (async function () {
       getLocation(location, setLocation);
     })();
-  }, []);
+  });
 
   return (
     <SafeAreaView style={[containerStyles.main, {padding: 10}]}>

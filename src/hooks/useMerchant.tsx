@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {MerchantContext} from '../context/MerchantContext';
 
 // this should be changed after deployment

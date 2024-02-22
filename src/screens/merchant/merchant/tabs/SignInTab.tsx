@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {SafeAreaView, View, Text, TextInput, Pressable} from 'react-native';
 import useSignIn from '../../../../hooks/useSignIn';
@@ -8,8 +8,7 @@ import {merchContCSS} from '../../../../res/styles/merchantContainer';
 import {merchTextCSS} from '../../../../res/styles/merchantText';
 
 function SignInButton({navigation}) {
-  const {validEmail, resetFields, currentMerchant, signIn} = useSignIn();
-  const {merchants} = useMerchant();
+  const {resetFields, signIn} = useSignIn();
 
   return (
     <Pressable
@@ -35,7 +34,7 @@ function SignInTab({navigation}) {
   useFocusEffect(
     React.useCallback(() => {
       getMerchants();
-    }, [merchants]),
+    }, [merchants, getMerchants]),
   );
 
   const email = 'email';

@@ -84,8 +84,6 @@ const useLocation = () => {
 
   // working
   async function getLocation(location, setLocation) {
-    let address;
-
     try {
       const hasPermission = await requestLocationPermission();
       await getCoordinates(hasPermission, {location, setLocation});

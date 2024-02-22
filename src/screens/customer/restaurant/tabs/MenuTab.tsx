@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   SectionList,
@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Pressable,
   Image,
-  Modal,
   RefreshControl,
 } from 'react-native';
 import useCart from '../../../../hooks/useCart';
@@ -19,11 +18,9 @@ import {GetStars} from '../../../../components/api/GetStars';
 
 import {textStyles} from '../../../../res/styles/text';
 import {containerStyles} from '../../../../res/styles/container';
-import {buttonStyles} from '../../../../res/styles/button';
 
 function MenuScreenHeader({params}) {
   let logo = '../../../../res/images/order_weasel_small.jpg';
-  let id = params.id;
   let title = params.title;
 
   return (
@@ -39,7 +36,6 @@ function MenuScreenHeader({params}) {
 }
 
 function MenuListHeader({params}) {
-  let id = params.id;
   let title = params.title;
   let category = params.category;
   let distance = params.distance;
@@ -182,7 +178,7 @@ function MenuItem({item}) {
   );
 }
 
-function MenuScreenFooter({params, navigation, cart, cartTotal}) {
+function MenuScreenFooter({params, navigation, cartTotal}) {
   return (
     <Pressable
       style={[containerStyles.bottomNav, {flex: 0.11}]}
@@ -231,9 +227,7 @@ function MenuTab({route, navigation}) {
     loadMenu,
     menu,
     expandedSections,
-    setExpandedSections,
     handleToggle,
-    resId,
     setResId,
   } = useResData();
   const {loadCart} = useCarts();
@@ -254,7 +248,7 @@ function MenuTab({route, navigation}) {
         console.log(e);
       }
     })();
-  }, []);
+  });
 
   return (
     <SafeAreaView style={containerStyles.main}>

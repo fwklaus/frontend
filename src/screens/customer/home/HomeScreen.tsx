@@ -2,11 +2,8 @@ import {React} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   SafeAreaView,
-  StyleSheet,
   Text,
   View,
-  Button,
-  Image,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 
@@ -84,7 +81,7 @@ export function ServicesTab() {
   );
 }
 
-function HomeScreen({navigation}) {
+function HomeScreen() {
   return (
     <SafeAreaView style={containerStyles.main}>
       <Tab.Navigator

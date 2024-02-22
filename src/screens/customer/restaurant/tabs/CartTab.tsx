@@ -16,7 +16,7 @@ import {CartModal} from '../../../../components/ui/CartModal';
 
 import {textStyles} from '../../../../res/styles/text';
 import {containerStyles} from '../../../../res/styles/container';
-import {modalStyles} from '../../../../res/styles/modal';
+// import {modalStyles} from '../../../../res/styles/modal';
 
 function Item({item}) {
   const {deleteItem, cart} = useCart();
@@ -40,7 +40,6 @@ function Item({item}) {
         cart={cart}
       />
       <Pressable
-        style={styles.cartItem}
         style={({pressed}) => [
           styles.cartItem,
           {backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white'},
@@ -67,7 +66,6 @@ function Item({item}) {
 
 function CartHeader({resInfo}) {
   let logo = '../../../../res/images/order_weasel_small.jpg';
-  let id = resInfo.id;
   let title = resInfo.title;
 
   return (
@@ -83,7 +81,6 @@ function CartHeader({resInfo}) {
 }
 
 function CartFooter({navigation, resInfo, cart}) {
-  const [modalVisible, setModalVisible] = useState(false);
   const [subtotal, tax, total] = calculateTaxAndTotals(cart);
   const totals = {subtotal, tax, total};
 
@@ -129,7 +126,7 @@ function CartFooter({navigation, resInfo, cart}) {
 
 function CartTab({route, navigation}) {
   let params = route.params;
-  const {cart, deleteItem, editItem} = useCart();
+  const {cart} = useCart();
 
   return (
     <SafeAreaView style={containerStyles.main}>

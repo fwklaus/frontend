@@ -29,7 +29,7 @@ function isValidEmail(text, merchants, merchant) {
   let password = merchant.password;
   return (
     isNotEmpty(text) &&
-    text != password &&
+    text !== password &&
     isUnique &&
     text.length >= 4 &&
     validEmailPattern(text)
@@ -80,7 +80,7 @@ function isNotEmpty(text, maxChars = 225) {
 }
 
 function formatPhone(text) {
-  return text.replace(/[\-\(\)]/g, '');
+  return text.replace(/[-()]/g, '');
 }
 
 function validZipPattern(text) {
@@ -111,7 +111,7 @@ function validEmailPattern(text) {
 
 function validNumPattern(text) {
   let validNum = new RegExp(/^\d{10}$/);
-  text = text.replace(/[\-\(\)]/g, '');
+  text = text.replace(/[-()]/g, '');
   text = text.trim();
   return validNum.test(text);
 }

@@ -1,20 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   FlatList,
   View,
   Text,
   RefreshControl,
-  StyleSheet,
   Pressable,
   Image,
-  TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import useLocation from '../../../../hooks/useLocation';
 import useResData from '../../../../hooks/useResData';
 
-import {GetDirections} from '../../../../components/api/GetDirections';
+// import {GetDirections} from '../../../../components/api/GetDirections';
 
 // styles
 import {containerStyles} from '../../../../res/styles/container';
@@ -124,13 +122,13 @@ function RestaurantItem({
   );
 }
 
-function HomeTab({navigation}) {
+function HomeTab() {
   const {location, setCurrentAddress, getAddress} = useLocation();
   const {loadRestaurants, restaurantData, refreshing} = useResData();
 
   useEffect(() => {
     loadRestaurants();
-  }, []);
+  });
   useEffect(() => {
     (async function () {
       try {
@@ -140,7 +138,7 @@ function HomeTab({navigation}) {
         console.log(e);
       }
     })();
-  }, []);
+  });
 
   return (
     <SafeAreaView style={{flex: 1}}>

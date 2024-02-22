@@ -40,7 +40,6 @@ import {
   formatPhone,
 } from '../../../../utils/validationUtils';
 
-const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 function StoreInformation() {
@@ -68,7 +67,7 @@ function StoreInformation() {
   ]);
   useEffect(() => {
     fillStoreInfo(currentMerchant);
-  }, []);
+  });
 
   return (
     <View style={styles.bottomMargin}>
@@ -223,7 +222,7 @@ function LoginInformation() {
   useEffect(() => {}, [validEmail, validPassword]);
   useEffect(() => {
     fillLoginInfo(currentMerchant);
-  }, []);
+  });
 
   return (
     <View style={styles.bottomMargin}>

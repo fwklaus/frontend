@@ -1,4 +1,4 @@
-import {useContext, useState, useEffect} from 'react';
+import {useContext} from 'react';
 import {CartsContext} from '../context/CartsContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -17,7 +17,7 @@ const useCarts = () => {
   async function updateCart(resId, cartCopy) {
     try {
       const jsonValue = JSON.stringify(cartCopy);
-      let returnValue = await AsyncStorage.setItem(String(resId), jsonValue);
+      await AsyncStorage.setItem(String(resId), jsonValue);
       console.log('carts updated');
     } catch (e) {
       console.log(e);
@@ -34,6 +34,8 @@ const useCarts = () => {
   }
 
   return {
+    carts,
+    setCarts
     loadCart,
     updateCart,
     deleteCart,

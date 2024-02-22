@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   View,
@@ -7,13 +7,11 @@ import {
   Pressable,
   StyleSheet,
   Animated,
-  FlatList,
-  Modal,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 // import ProgressBarAnimated from 'react-native-progress-bar-animated';
 
-import {SignUpProvider, SignUpContext} from '../../../../context/SignUpContext';
+import {SignUpProvider} from '../../../../context/SignUpContext';
 import useMerchant from '../../../../hooks/useMerchant';
 import useSignUp from '../../../../hooks/useSignUp';
 import useSignIn from '../../../../hooks/useSignIn';
@@ -474,8 +472,8 @@ function OAuth({navigation}) {
 }
 
 function CreateAccount({navigation}) {
-  const {newMerchant, updateNewMerchant, formatNewMerchant} = useSignUp();
-  const {createMerchant, merchants} = useMerchant();
+  const {formatNewMerchant} = useSignUp();
+  const {createMerchant} = useMerchant();
   const {resetFields} = useSignIn();
 
   return (
@@ -521,7 +519,7 @@ function SignUpTab() {
   const {getMerchants} = useMerchant();
   useEffect(() => {
     getMerchants();
-  }, []);
+  });
 
   return (
     <SignUpProvider>

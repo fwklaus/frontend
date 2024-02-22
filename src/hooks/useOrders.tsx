@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {OrdersContext} from '../context/OrdersContext';
 import ordersData from '../data/orders';
 

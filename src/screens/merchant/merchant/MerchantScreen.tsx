@@ -1,19 +1,14 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   SafeAreaView,
-  Text,
-  View,
-  Pressable,
   StyleSheet,
-  Dimensions,
 } from 'react-native';
 import useSignIn from '../../../hooks/useSignIn';
 import useOrders from '../../../hooks/useOrders';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 import {containerStyles} from '../../../res/styles/container';
-import {textStyles} from '../../../res/styles/text';
 
 import {SignInTab} from './tabs/SignInTab';
 import {SignUpTab} from './tabs/SignUpTab';

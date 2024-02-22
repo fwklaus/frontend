@@ -3,11 +3,9 @@ import {
   SafeAreaView,
   View,
   Text,
-  TextInput,
   Pressable,
   StyleSheet,
   FlatList,
-  Modal,
 } from 'react-native';
 import useOrders from '../../../../hooks/useOrders';
 
@@ -126,7 +124,7 @@ function OrdersTab() {
   const {loadOrders, takingOrders} = useOrders();
   useEffect(() => {
     loadOrders();
-  }, []);
+  });
 
   return (
     <SafeAreaView style={[merchContCSS.main, {padding: 0, alignItems: 'left'}]}>

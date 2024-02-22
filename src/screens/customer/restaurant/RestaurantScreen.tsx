@@ -1,12 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   SafeAreaView,
-  SectionList,
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
 } from 'react-native';
 import {MenuTab} from './tabs/MenuTab';
 import {CartTab} from './tabs/CartTab';
@@ -22,7 +17,7 @@ const Tab = createBottomTabNavigator();
 //   return menuData[id];
 // }
 
-export function RestaurantScreen({route, navigation}) {
+export function RestaurantScreen({route}) {
   // need to pass route and navigation to MenuTab
   // can we pass this as a prop to Tab.Screen component?
   // Do we use Context or State hooks?

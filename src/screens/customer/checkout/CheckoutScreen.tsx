@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   Text,
@@ -6,7 +6,6 @@ import {
   View,
   Pressable,
   Image,
-  TextInput,
 } from 'react-native';
 import {ContactInfo} from '../../../components/ui/ContactInfo';
 import {Notifications} from '../../../components/ui/Notifications';
@@ -146,7 +145,7 @@ function CheckoutFooter({resId, cart}) {
   );
 }
 
-function CheckoutScreen({route, navigation}) {
+function CheckoutScreen({route}) {
   let resInfo = route.params.resInfo;
   let totals = route.params.totals;
   let cart = route.params.cart;
