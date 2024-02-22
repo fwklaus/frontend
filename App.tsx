@@ -1,41 +1,29 @@
 import React from 'react';
-import {useState, createContext} from 'react';
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Button,
-  SectionList,
-  Pressable,
-} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // contexts
-import { HeaderButtonsProvider } from 'react-navigation-header-buttons';
-import { SignInProvider } from './src/context/SignInContext';
-import { LocationProvider } from './src/context/LocationContext';
-import { MerchantProvider } from './src/context/MerchantContext';
-import { CartsProvider } from './src/context/CartsContext';
-import { ResDataProvider } from './src/context/ResDataContext';
-import { OrdersProvider } from './src/context/OrdersContext';
+import {HeaderButtonsProvider} from 'react-navigation-header-buttons';
+import {SignInProvider} from './src/context/SignInContext';
+import {LocationProvider} from './src/context/LocationContext';
+import {MerchantProvider} from './src/context/MerchantContext';
+import {CartsProvider} from './src/context/CartsContext';
+import {ResDataProvider} from './src/context/ResDataContext';
+import {OrdersProvider} from './src/context/OrdersContext';
 
 // splash page
-import { LoadingScreen } from './src/screens/LoadingScreen';
+import {LoadingScreen} from './src/screens/LoadingScreen';
 
 // Select pathway
-import { WelcomeScreen } from './src/screens/WelcomeScreen';
+import {WelcomeScreen} from './src/screens/WelcomeScreen';
 
 // merchant screens
-import { MerchantScreen } from './src/screens/merchant/merchant/MerchantScreen';
+import {MerchantScreen} from './src/screens/merchant/merchant/MerchantScreen';
 
 // customer screens
-import { HomeScreen } from './src/screens/customer/home/HomeScreen';
-import { RestaurantScreen } from './src/screens/customer/restaurant/RestaurantScreen';
-import { CheckoutScreen } from './src/screens/customer/checkout/CheckoutScreen';
+import {HomeScreen} from './src/screens/customer/home/HomeScreen';
+import {RestaurantScreen} from './src/screens/customer/restaurant/RestaurantScreen';
+import {CheckoutScreen} from './src/screens/customer/checkout/CheckoutScreen';
 
 const stackType = 'native';
 
@@ -53,19 +41,18 @@ function App(): React.JSX.Element {
                   <HeaderButtonsProvider stackType={stackType}>
                     <Stack.Navigator
                       screenOptions={{
-                        headerTintColor: "blue",
+                        headerTintColor: 'blue',
                         headerStyle: {
-                          backgroundColor: "#FBF501",
+                          backgroundColor: '#FBF501',
                         },
                         headerTitleStyle: {
                           fontWeight: 'bold',
                           fontSize: 24,
-                          fontFamily: "sans-serif-condensed"
+                          fontFamily: 'sans-serif-condensed',
                         },
-                        headerTitleAlign: "center",
+                        headerTitleAlign: 'center',
                         statusBarStyle: 'auto',
-                      }}
-                    >
+                      }}>
                       <Stack.Screen
                         name="Loading"
                         component={LoadingScreen}
@@ -78,14 +65,14 @@ function App(): React.JSX.Element {
                         component={WelcomeScreen}
                         options={{
                           title: 'WELCOME',
-                          headerBackVisible: false
+                          headerBackVisible: false,
                         }}
                       />
                       <Stack.Screen
                         name="MerchantScreen"
                         component={MerchantScreen}
                         options={{
-                          title: "MERCHANT SIGN-UP",
+                          title: 'MERCHANT SIGN-UP',
                           headerBackVisible: false,
                         }}
                       />
@@ -93,23 +80,23 @@ function App(): React.JSX.Element {
                         name="HomeScreen"
                         component={HomeScreen}
                         options={{
-                          title: "ORDERWEASEL",
+                          title: 'ORDERWEASEL',
                         }}
                       />
                       <Stack.Screen
                         name="RestaurantScreen"
                         component={RestaurantScreen}
-                        options= {{
-                          title: "ORDER"
+                        options={{
+                          title: 'ORDER',
                         }}
                       />
-                       <Stack.Screen
-                          name="CheckoutScreen"
-                          component={CheckoutScreen}
-                          options= {{
-                            title: "CHECKOUT",
-                          }}
-                        />
+                      <Stack.Screen
+                        name="CheckoutScreen"
+                        component={CheckoutScreen}
+                        options={{
+                          title: 'CHECKOUT',
+                        }}
+                      />
                     </Stack.Navigator>
                   </HeaderButtonsProvider>
                 </CartsProvider>

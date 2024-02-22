@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const merchantContainerStyles = StyleSheet.create({
   main: {
@@ -7,7 +7,7 @@ const merchantContainerStyles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10
+    padding: 10,
   },
   header: {
     flex: 1,
@@ -17,22 +17,22 @@ const merchantContainerStyles = StyleSheet.create({
   tabMain: {
     flex: 3,
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   mainContent: {
     flex: 3,
   },
   container: {
-    flex: 1
+    flex: 1,
   },
   mainSpacer: {
-    flex: 1
+    flex: 1,
   },
   button: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: 'blue',
-    borderRadius: 16
+    borderRadius: 16,
   },
   input: {
     height: 40,
@@ -42,5 +42,4 @@ const merchantContainerStyles = StyleSheet.create({
   },
 });
 
-
-export { merchantContainerStyles as merchContCSS };
+export {merchantContainerStyles as merchContCSS};

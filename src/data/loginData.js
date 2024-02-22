@@ -9,6 +9,6 @@ export default [
     address: '5555 Main St',
     city: 'Seattle',
     state: 'WA',
-    zip: '80808'
-  }
+    zip: '80808',
+  },
 ];

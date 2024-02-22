@@ -4,20 +4,15 @@
 
 import 'react-native';
 import React from 'react';
-import {
-  Text
-} from 'react-native';
+import {Text} from 'react-native';
 import useCart from '../../../../src/hooks/useCart';
-import { CartProvider } from '../../../../src/context/CartContext';
+import {CartProvider} from '../../../../src/context/CartContext';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
-describe("useCart Tests", () => {
-  it("renders correctly", () => {
+describe('useCart Tests', () => {
+  it('renders correctly', () => {
     function App() {
       return (
         <CartProvider>
@@ -36,14 +31,12 @@ describe("useCart Tests", () => {
         getIndex,
         getCopy,
         increment,
-        decrement
+        decrement,
       } = useCart();
 
-      return (
-        <Text>Test</Text>
-      );
+      return <Text>Test</Text>;
     }
 
-    <App />
+    <App />;
   });
-})
+});

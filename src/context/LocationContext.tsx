@@ -1,26 +1,25 @@
-import { createContext, useState, useEffect } from 'react';
+import {createContext, useState, useEffect} from 'react';
 
 const LocationContext = createContext(null);
 
-const LocationProvider = (props) => {
+const LocationProvider = props => {
   const [location, setLocation] = useState(false);
   const [currentAddress, setCurrentAddress] = useState(false);
-//   const [refreshing, setRefreshing] = useState(false);
-//   const [restaurantData, setRestaurantData] = useState([]);
+  //   const [refreshing, setRefreshing] = useState(false);
+  //   const [restaurantData, setRestaurantData] = useState([]);
   useEffect(() => {
-//     console.log(location)
+    //     console.log(location)
   }, [location]);
   useEffect(() => {
-//     console.log(currentAddress)
+    //     console.log(currentAddress)
   }, [currentAddress]);
 
   return (
     <LocationContext.Provider
-      value={{ location, setLocation, currentAddress, setCurrentAddress}}
-    >
+      value={{location, setLocation, currentAddress, setCurrentAddress}}>
       {props.children}
     </LocationContext.Provider>
   );
-}
+};
 
-export { LocationContext, LocationProvider };
+export {LocationContext, LocationProvider};

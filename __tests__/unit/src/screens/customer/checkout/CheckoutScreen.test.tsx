@@ -5,20 +5,20 @@
 import 'react-native';
 import React from 'react';
 import {
-  CheckoutScreen, CheckoutFooter, CheckoutTotals,
-  NotificationsSection, ContactInfoSection, CheckoutBottomHeader,
-  CheckoutTopHeader, Address
+  CheckoutScreen,
+  CheckoutFooter,
+  CheckoutTotals,
+  NotificationsSection,
+  ContactInfoSection,
+  CheckoutBottomHeader,
+  CheckoutTopHeader,
+  Address,
 } from '../../../../../../src/screens/customer/checkout/CheckoutScreen';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
-
 describe('CheckoutScreen tests', () => {
-
   it('renders correctly', () => {
     let navigation = {
       navigate: jest.fn(),
@@ -30,49 +30,61 @@ describe('CheckoutScreen tests', () => {
       category: 'American',
       distance: 5.2,
       rating: 5,
-      address: '5555 Main St, City, State, 80080'
+      address: '5555 Main St, City, State, 80080',
     };
 
-    <CheckoutScreen navigation={navigation} params={params} />
+    <CheckoutScreen navigation={navigation} params={params} />;
   });
 
-  it.todo('navigates to OrderSuccess screen when "Submit Order and Pay Later" button is pressed');
+  it.todo(
+    'navigates to OrderSuccess screen when "Submit Order and Pay Later" button is pressed',
+  );
   it.todo('order success message created for successful order');
   it.todo('CheckoutScreen rerenders for unsuccessful order');
 });
 
-
-describe("CheckoutFooter tests", () => {
-  it.todo("renders correctly");
+describe('CheckoutFooter tests', () => {
+  it('renders correctly', () => {
+    <CheckoutFooter />;
+  });
 });
 
-describe("CheckoutTotals tests", () => {
-  it.todo("renders correctly");
+describe('CheckoutTotals tests', () => {
+  it('renders correctly', () => {
+    <CheckoutTotals />;
+  });
 });
 
-describe("NotificationsSection tests", () => {
-  it.todo("renders correctly");
+describe('NotificationsSection tests', () => {
+  it('renders correctly', () => {
+    <NotificationsSection />;
+  });
 });
 
-describe("ContactInfoSection tests", () => {
-  it.todo("renders correctly");
+describe('ContactInfoSection tests', () => {
+  it('renders correctly', () => {
+    <ContactInfoSection />;
+  });
 });
 
-describe("CheckoutBottomHeader tests", () => {
-  it.todo("renders correctly");
+describe('CheckoutBottomHeader tests', () => {
+  it('renders correctly', () => {
+    <CheckoutBottomHeader />;
+  });
 });
 
-describe("CheckoutTopHeader tests", () => {
-  it.todo("renders correctly");
+describe('CheckoutTopHeader tests', () => {
+  it('renders correctly', () => {
+    <CheckoutTopHeader />;
+  });
 });
 
 describe('Address tests', () => {
   let address = '5555 Main street';
 
   it('renders correctly', () => {
-    <Address address={address}/>
+    <Address address={address} />;
   });
 
-  it.todo("Gets current location using Google API when pressing it")
+  it.todo('Gets current location using Google API when pressing it');
 });
-

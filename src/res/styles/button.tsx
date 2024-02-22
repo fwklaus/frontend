@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const buttonStyles = StyleSheet.create({
   addToCartButton: {
@@ -7,7 +7,7 @@ const buttonStyles = StyleSheet.create({
     borderRadius: 20,
     padding: 8,
     elevation: 2,
-  }
+  },
 });
 
-export { buttonStyles };
+export {buttonStyles};

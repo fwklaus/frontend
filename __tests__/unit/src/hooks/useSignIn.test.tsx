@@ -4,20 +4,15 @@
 
 import 'react-native';
 import React from 'react';
-import {
-  Text
-} from 'react-native';
+import {Text} from 'react-native';
 import useSignIn from '../../../../src/hooks/useSignIn';
-import { SignInProvider } from '../../../../src/context/SignInContext';
+import {SignInProvider} from '../../../../src/context/SignInContext';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
-describe("useSignIn Tests", () => {
-  it("renders correctly", () => {
+describe('useSignIn Tests', () => {
+  it('renders correctly', () => {
     function App() {
       return (
         <SignInProvider>
@@ -35,14 +30,12 @@ describe("useSignIn Tests", () => {
         signedIn,
         currentMerchant,
         signOut,
-        signIn
+        signIn,
       } = useSignIn();
 
-      return (
-        <Text>Test</Text>
-      );
+      return <Text>Test</Text>;
     }
 
-    <App />
+    <App />;
   });
-})
+});

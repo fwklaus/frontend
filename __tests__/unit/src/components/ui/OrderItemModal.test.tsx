@@ -3,17 +3,16 @@
  */
 
 import 'react-native';
-import {Text} from 'react-native';
 import React from 'react';
-import {CartProvider} from '../../../../src/context/CartContext';
+import {OrderItemModal} from '../../../../../src/components/ui/OrderItemModal';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-describe('CartProvider Tests', () => {
+describe('OrderItemModal tests', () => {
   it('renders correctly', () => {
-    <CartProvider>
-      <Text>Test</Text>
-    </CartProvider>;
+    <OrderItemModal />;
   });
+
+  it.todo("exits to OrdersTab when 'X' is pressed");
 });

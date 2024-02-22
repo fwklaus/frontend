@@ -1,23 +1,23 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const merchantTextStyles = StyleSheet.create({
   text: {
     color: 'black',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   header: {
     fontSize: 34,
   },
   list: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 24
+    fontSize: 24,
   },
 });
 
-export { merchantTextStyles as merchTextCSS };
+export {merchantTextStyles as merchTextCSS};

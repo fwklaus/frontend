@@ -4,19 +4,48 @@ export default [
     order_id: '123423djfs23',
     customer_name: 'Tom Jones',
     phone: '(587)123-5323',
-    timestamp: "2023-05-01 14:30:45"
+    timestamp: '2023-05-01 14:30:45',
   },
   {
     id: 2,
     order_id: '12kfiu231252',
-    customer_name: 'Larry L\'Amor',
+    customer_name: "Larry L'Amor",
     phone: '1236759812',
-    timestamp: '2023-05-01 14:32:45'
+    timestamp: '2023-05-01 14:32:01',
   },
-  { id: 3,
+  {
+    id: 3,
     order_id: 'faset34f2sdf',
     customer_name: 'Linda Hamels',
     phone: '(123)567-7892',
-    timestamp: '2023-05-01 14:45:45'
-  }
+    timestamp: '2023-05-01 14:45:56',
+  },
+  {
+    id: 4,
+    order_id: 'fase2fsf',
+    customer_name: 'Ramon Salazar',
+    phone: '(234)522-4235',
+    timestamp: '2023-05-01 14:54:39',
+  },
+  {
+    id: 5,
+    order_id: 'faset34f2asdf3fs',
+    customer_name: 'Sylvia Doucher',
+    phone: '(555)555-5555',
+    timestamp: '2023-05-01 15:30:12',
+  },
+  {
+    id: 6,
+    order_id: 'kflaks232',
+    customer_name: 'Bob Thompson',
+    phone: '(123)566-7892',
+    timestamp: '2023-05-01 15:57:01',
+  },
+  {
+    id: 7,
+    order_id: 'fas34fsfsgagdf',
+    customer_name: 'Li Yang',
+    phone: '(959)234-7892',
+    timestamp: '2023-05-01 16:09:21',
+  },
 ];

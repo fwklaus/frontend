@@ -10,14 +10,11 @@ import {
   MenuScreenHeader,
   MenuScreenFooter,
   MenuListHeader,
-  SectionHeader
+  SectionHeader,
 } from '../../../../../../../src/screens/customer/restaurant/tabs/MenuTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
-
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
 
 describe('MenuScreenHeader tests', () => {
   let params = {
@@ -26,11 +23,11 @@ describe('MenuScreenHeader tests', () => {
     category: 'American',
     distance: 5.2,
     rating: 5,
-    address: '5555 Main St, City, State, 80080'
+    address: '5555 Main St, City, State, 80080',
   };
 
   it('renders correctly', () => {
-    <MenuScreenHeader params={params}/>
+    <MenuScreenHeader params={params} />;
   });
 });
 
@@ -42,25 +39,25 @@ describe('MenuListHeader tests', () => {
       category: 'American',
       distance: 5.2,
       rating: 5,
-      address: '5555 Main St, City, State, 80080'
+      address: '5555 Main St, City, State, 80080',
     };
 
-    <MenuListHeader params={params} />
+    <MenuListHeader params={params} />;
   });
 });
 
 describe('MenuItem tests', () => {
   it('renders correctly', () => {
-    let id = "1";
+    let id = '1';
     let item = {
       id: 1,
       name: 'blueberry',
       cost: 8.99,
       description: 'Yummy...',
-      picture: '../images/order_weasel_small.jpg'
+      picture: '../images/order_weasel_small.jpg',
     };
 
-    <MenuItem item={item} restaurantId={id}/>
+    <MenuItem item={item} restaurantId={id} />;
   });
 
   it.todo('opens up CartModal when pressed');
@@ -68,7 +65,7 @@ describe('MenuItem tests', () => {
 
 describe('MenuScreenFooter tests', () => {
   const navigation = {
-    navigate: jest.fn()
+    navigate: jest.fn(),
   };
 
   let params = {
@@ -77,18 +74,17 @@ describe('MenuScreenFooter tests', () => {
     category: 'American',
     distance: 5.2,
     rating: 5,
-    address: '5555 Main St, City, State, 80080'
+    address: '5555 Main St, City, State, 80080',
   };
 
   it('renders correctly', () => {
-    <MenuScreenFooter navigation={navigation} params={params} />
+    <MenuScreenFooter navigation={navigation} params={params} />;
   });
 
   it.todo('navigates to CartTab when View Cart button is pressed');
 });
 
-
-describe("MenuTab Tests", () => {
+describe('MenuTab Tests', () => {
   let navigation = {
     navigate: jest.fn(),
   };
@@ -99,16 +95,18 @@ describe("MenuTab Tests", () => {
     category: 'American',
     distance: 5.2,
     rating: 5,
-    address: '5555 Main St, City, State, 80080'
+    address: '5555 Main St, City, State, 80080',
   };
 
-  it("renders correctly", () => {
-    <MenuTab params={params} navigation={navigation}/>
+  it('renders correctly', () => {
+    <MenuTab params={params} navigation={navigation} />;
   });
 
-  it.todo("Pressing on a list section header opens a sublist of food items");
+  it.todo('Pressing on a list section header opens a sublist of food items');
 });
 
-describe("SectionHeader Tests", () => {
-  it.todo("renders correctly")
+describe('SectionHeader Tests', () => {
+  it('renders correctly', () => {
+    <SectionHeader />;
+  });
 });

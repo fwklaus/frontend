@@ -1,4 +1,4 @@
-import { STATES } from './states';
+import {STATES} from './states';
 
 function isFullState(text) {
   text = text.toLowerCase();
@@ -12,37 +12,38 @@ function isStateCode(text) {
 
 function getStateCode(text) {
   text = text.split(' ');
-  text = text.map(word => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase());
+  text = text.map(
+    word => word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase(),
+  );
   text = text.join(' ');
 
   if (isFullState(text)) {
-    return (STATES[text]);
+    return STATES[text];
   } else {
     return text;
   }
 }
 
 function isValidEmail(text, merchants, merchant) {
-    let isUnique = !merchants.find(merch => merch.email === text);
-    let password = merchant["password"];
-    return isNotEmpty(text)
-      && text != password
-      && isUnique
-      && text.length >= 4
-      && validEmailPattern(text)
+  let isUnique = !merchants.find(merch => merch.email === text);
+  let password = merchant.password;
+  return (
+    isNotEmpty(text) &&
+    text != password &&
+    isUnique &&
+    text.length >= 4 &&
+    validEmailPattern(text)
+  );
 }
 
 function isValidValidator(text, merchant) {
-  return isNotEmpty(text)
-    && text === merchant['password'];
+  return isNotEmpty(text) && text === merchant.password;
 }
 
 function isValidPassword(text, merchant) {
-  let email = merchant["email"];
+  let email = merchant.email;
 
-  return isNotEmpty(text)
-    && text.length >= 8
-    && text !== email;
+  return isNotEmpty(text) && text.length >= 8 && text !== email;
 }
 
 function isValidRestaurantName(text) {
@@ -69,8 +70,10 @@ function isValidZip(text) {
   return isNotEmpty(text, 5) && validZipPattern(text);
 }
 
-function isNotEmpty(text, maxChars=225) {
-  if (maxChars > 225) return false;
+function isNotEmpty(text, maxChars = 225) {
+  if (maxChars > 225) {
+    return false;
+  }
   text = text.trim();
 
   return text.length > 0 && text.length <= maxChars;
@@ -99,7 +102,9 @@ function validCityPattern(text) {
 }
 
 function validEmailPattern(text) {
-  let validEmail = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)
+  let validEmail = new RegExp(
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+  );
   text = text.trim();
   return validEmail.test(text);
 }
@@ -112,11 +117,23 @@ function validNumPattern(text) {
 }
 
 export {
-  isValidPhoneNumber, isValidRestaurantName, isValidStreet,
-  isValidCity, isValidState, isValidZip,
-  isValidEmail, isValidPassword, isValidValidator,
-  isNotEmpty, getStateCode, formatPhone,
-  validZipPattern, validStreetPattern, validCityPattern,
-  validEmailPattern, validNumPattern, isFullState,
-  isStateCode
+  isValidPhoneNumber,
+  isValidRestaurantName,
+  isValidStreet,
+  isValidCity,
+  isValidState,
+  isValidZip,
+  isValidEmail,
+  isValidPassword,
+  isValidValidator,
+  isNotEmpty,
+  getStateCode,
+  formatPhone,
+  validZipPattern,
+  validStreetPattern,
+  validCityPattern,
+  validEmailPattern,
+  validNumPattern,
+  isFullState,
+  isStateCode,
 };

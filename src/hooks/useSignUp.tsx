@@ -1,7 +1,7 @@
-import { useContext, useEffect } from 'react';
-import { SignUpContext } from '../context/SignUpContext';
+import {useContext, useEffect} from 'react';
+import {SignUpContext} from '../context/SignUpContext';
 
-import { getStateCode, formatPhone } from '../utils/validationUtils'
+import {getStateCode, formatPhone} from '../utils/validationUtils';
 
 // used to handle sign-up form info - createMerchant (POST 'localhost:3000/api/merchants/')
 const useSignUp = () => {
@@ -29,7 +29,7 @@ const useSignUp = () => {
     formatNewMerchant,
     updateNewMerchant,
     newMerchant,
-  }
+  };
 };
 
 export default useSignUp;

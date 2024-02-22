@@ -1,25 +1,25 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   SafeAreaView,
   Text,
   View,
   Pressable,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import useSignIn from '../../../hooks/useSignIn';
 import useOrders from '../../../hooks/useOrders';
-import { HeaderButtons, Item} from 'react-navigation-header-buttons';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 
-import { containerStyles } from '../../../res/styles/container';
-import { textStyles } from '../../../res/styles/text';
+import {containerStyles} from '../../../res/styles/container';
+import {textStyles} from '../../../res/styles/text';
 
-import { SignInTab } from './tabs/SignInTab';
-import { SignUpTab } from './tabs/SignUpTab';
-import { MerchantHomeTab } from './tabs/MerchantHomeTab';
-import { OrdersTab } from './tabs/OrdersTab';
-import { ProfileTab} from './tabs/ProfileTab';
+import {SignInTab} from './tabs/SignInTab';
+import {SignUpTab} from './tabs/SignUpTab';
+import {MerchantHomeTab} from './tabs/MerchantHomeTab';
+import {OrdersTab} from './tabs/OrdersTab';
+import {ProfileTab} from './tabs/ProfileTab';
 // import { MaterialHeaderButton } from '../components/MaterialHeaderButton'
 
 const Tab = createBottomTabNavigator();
@@ -31,14 +31,19 @@ function SignedInHeader({navigation}) {
   return (
     <HeaderButtons>
       <Item
-        title={takingOrders ? "Stop Orders" : "Take Orders"}
+        title={takingOrders ? 'Stop Orders' : 'Take Orders'}
         onPress={() => {
           // if taking orders is true, need to do something on the server to accept orders
 
           setTakingOrders(!takingOrders);
-          navigation.navigate("Orders");
+          navigation.navigate('Orders');
         }}
-        style={[styles.button, takingOrders ? {backgroundColor: 'red'} : {backgroundColor: '#1BC100'}]}
+        style={[
+          styles.button,
+          takingOrders
+            ? {backgroundColor: 'red'}
+            : {backgroundColor: '#1BC100'},
+        ]}
         buttonStyle={styles.buttonText}
       />
       <Item
@@ -61,14 +66,14 @@ function SignedInHeader({navigation}) {
         title="SignOut"
         onPress={() => {
           signOut();
-          alert("Signed Out")
-          navigation.navigate("MerchantHome");
+          alert('Signed Out');
+          navigation.navigate('MerchantHome');
         }}
         style={styles.button}
         buttonStyle={styles.buttonText}
       />
     </HeaderButtons>
-  )
+  );
 }
 
 function SignedOutHeader({navigation}) {
@@ -77,7 +82,7 @@ function SignedOutHeader({navigation}) {
       <Item
         title="Home"
         onPress={() => {
-          navigation.navigate("MerchantHome")
+          navigation.navigate('MerchantHome');
         }}
         style={styles.button}
         buttonStyle={styles.buttonText}
@@ -97,7 +102,7 @@ function SignedOutHeader({navigation}) {
       <Item
         title="SignUp"
         onPress={() => {
-          navigation.navigate("SignUp")
+          navigation.navigate('SignUp');
         }}
         style={styles.button}
         buttonStyle={styles.buttonText}
@@ -105,7 +110,7 @@ function SignedOutHeader({navigation}) {
       <Item
         title="SignIn"
         onPress={() => {
-          navigation.navigate("SignIn")
+          navigation.navigate('SignIn');
         }}
         style={styles.button}
         buttonStyle={styles.buttonText}
@@ -115,14 +120,17 @@ function SignedOutHeader({navigation}) {
 }
 
 function MerchantScreen({navigation}) {
-  const { signedIn } = useSignIn();
+  const {signedIn} = useSignIn();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      title: "ORDERWEASEL",
-      headerRight: () => (
-        signedIn ? <SignedInHeader navigation={navigation}/> : <SignedOutHeader navigation={navigation}/>
-      ),
+      title: 'ORDERWEASEL',
+      headerRight: () =>
+        signedIn ? (
+          <SignedInHeader navigation={navigation} />
+        ) : (
+          <SignedOutHeader navigation={navigation} />
+        ),
     });
   }, [navigation, signedIn]);
 
@@ -136,31 +144,30 @@ function MerchantScreen({navigation}) {
           },
           tabBarLabelStyle: {
             fontSize: 12,
-            fontFamily: "anything",
-            fontWeight: 'bold'
+            fontFamily: 'anything',
+            fontWeight: 'bold',
           },
           tabBarInactiveTintColor: 'grey',
-        }}
-      >
-        <Tab.Screen name="MerchantHome" component={MerchantHomeTab}/>
-        <Tab.Screen name="SignIn" component={SignInTab}/>
-        <Tab.Screen name="SignUp" component={SignUpTab}/>
-        <Tab.Screen name="Orders" component={OrdersTab}/>
-        <Tab.Screen name="Profile" component={ProfileTab}/>
+        }}>
+        <Tab.Screen name="MerchantHome" component={MerchantHomeTab} />
+        <Tab.Screen name="SignIn" component={SignInTab} />
+        <Tab.Screen name="SignUp" component={SignUpTab} />
+        <Tab.Screen name="Orders" component={OrdersTab} />
+        <Tab.Screen name="Profile" component={ProfileTab} />
       </Tab.Navigator>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   button: {
     backgroundColor: 'blue',
     padding: 4,
-    borderRadius: 4
+    borderRadius: 4,
   },
   buttonText: {
-    color: 'white'
-  }
+    color: 'white',
+  },
 });
 
-export { MerchantScreen };
+export {MerchantScreen};

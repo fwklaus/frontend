@@ -5,73 +5,77 @@
 import 'react-native';
 import React from 'react';
 import {
-  SignUpTab, StoreInfo, BusinessAddress,
-  NextButton, ContactInformation, SignUpProgress,
-  ProgressBar, ProgressBox, OAuth, CreateAccount
-}  from '../../../../../../../src/screens/merchant/merchant/tabs/SignUpTab';
+  SignUpTab,
+  StoreInfo,
+  BusinessAddress,
+  NextButton,
+  ContactInformation,
+  SignUpProgress,
+  ProgressBar,
+  ProgressBox,
+  OAuth,
+  CreateAccount,
+} from '../../../../../../../src/screens/merchant/merchant/tabs/SignUpTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
-describe("SignUpTab Tests", () => {
-  it("renders correctly", () => {
-    <SignUpTab />
+describe('SignUpTab Tests', () => {
+  it('renders correctly', () => {
+    <SignUpTab />;
   });
 });
 
-describe("StoreInfo Tests", () => {
-  it("renders correctly", () => {
-    <StoreInfo />
+describe('StoreInfo Tests', () => {
+  it('renders correctly', () => {
+    <StoreInfo />;
   });
 });
 
-describe("BusinessAddress Tests", () => {
-  it("renders correctly", () => {
-    <BusinessAddress />
+describe('BusinessAddress Tests', () => {
+  it('renders correctly', () => {
+    <BusinessAddress />;
   });
 });
 
-describe("NextButton Tests", () => {
-  it("renders correctly", () => {
-    <NextButton />
+describe('NextButton Tests', () => {
+  it('renders correctly', () => {
+    <NextButton />;
   });
 });
 
-describe("ContactInformation Tests", () => {
-  it("renders correctly", () => {
-    <ContactInformation />
+describe('ContactInformation Tests', () => {
+  it('renders correctly', () => {
+    <ContactInformation />;
   });
 });
 
-describe("SignUpProgress Tests", () => {
-  it("renders correctly", () => {
-    <SignUpProgress />
+describe('SignUpProgress Tests', () => {
+  it('renders correctly', () => {
+    <SignUpProgress />;
   });
 });
 
-describe("OAuth Tests", () => {
-  it("renders correctly", () => {
-    <OAuth />
+describe('OAuth Tests', () => {
+  it('renders correctly', () => {
+    <OAuth />;
   });
 });
 
-describe("ProgressBar Tests", () => {
-  it("renders correctly", () => {
-    <ProgressBar />
+describe('ProgressBar Tests', () => {
+  it('renders correctly', () => {
+    <ProgressBar />;
   });
 });
 
-describe("ProgressBox Tests", () => {
-  it("renders correctly", () => {
-    <ProgressBox />
+describe('ProgressBox Tests', () => {
+  it('renders correctly', () => {
+    <ProgressBox />;
   });
 });
 
-describe("CreateAccount Tests", () => {
-  it("renders correctly", () => {
-    <CreateAccount />
+describe('CreateAccount Tests', () => {
+  it('renders correctly', () => {
+    <CreateAccount />;
   });
 });

@@ -1,21 +1,26 @@
-import { useContext, useEffect, useState } from 'react';
-import { ResDataContext } from '../context/ResDataContext';
+import {useContext, useEffect, useState} from 'react';
+import {ResDataContext} from '../context/ResDataContext';
 
 // importing seed restaurant data
 import DATA from '../data/restaurantData.js';
 
 // importing seed menu data
-import menuData from '../data/menuData.js'
+import menuData from '../data/menuData.js';
 
 const useResData = () => {
   const {
-    refreshing, setRefreshing, restaurantData,
-    setRestaurantData, menu, setMenu,
-    resId, setResId
+    refreshing,
+    setRefreshing,
+    restaurantData,
+    setRestaurantData,
+    menu,
+    setMenu,
+    resId,
+    setResId,
   } = useContext(ResDataContext);
   const [expandedSections, setExpandedSections] = useState(new Set());
 
-  useEffect(()=>{},[restaurantData]);
+  useEffect(() => {}, [restaurantData]);
 
   // refactor to fetch data
   // based on proximity - takes location?
@@ -23,35 +28,35 @@ const useResData = () => {
     setRestaurantData(DATA);
 
     setRefreshing(true);
-      setTimeout(() => {
-        setRefreshing(false);
-      }, 1000);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
   }
 
   // refactor to fetch data
   function loadMenu(restaurantId) {
-    let getMenuData = (id) => {
+    let getMenuData = id => {
       return menuData[id];
     };
 
     setMenu(getMenuData(restaurantId));
 
     setRefreshing(true);
-      setTimeout(() => {
-        setRefreshing(false);
-      }, 1000);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
   }
 
   function handleToggle(title) {
-    setExpandedSections((expandedSections) => {
+    setExpandedSections(expandedSections => {
       const next = new Set(expandedSections);
       if (next.has(title)) {
         next.delete(title);
       } else {
-         next.add(title);
+        next.add(title);
       }
-         return next;
-   });
+      return next;
+    });
   }
 
   return {
@@ -64,43 +69,36 @@ const useResData = () => {
     refreshing,
     expandedSections,
     setExpandedSections,
-    handleToggle
-  }
+    handleToggle,
+  };
 };
 
 export default useResData;
 
-
 //   const loadMenu = () => {
-      // // fetching menu data for a restaurant example
+// // fetching menu data for a restaurant example
 //       function getMenuData(id) {
 //         return menuData[id];
 //       }
 
 //       setMenu(() => getMenuData(restaurantId));
-  //     console.log("...logging from useRes.tsx");
+//     console.log("...logging from useRes.tsx");
 
+// use the following when there's actually a server to fetch from
 
-
-
-      // use the following when there's actually a server to fetch from
-
-      // fetch('load/menu/for/id')
-      //  .then((response) => response.json())
-      //  .then((responseJson) => {
-      //    setRefreshing(false);
-      //    var menuData = menuData.concat(responseJson.results);
-      //    setMenuData(menuData);
-      //  })
-      //  .catch((error) => {
-      //    console.error(error);
-      //  });
-
-
+// fetch('load/menu/for/id')
+//  .then((response) => response.json())
+//  .then((responseJson) => {
+//    setRefreshing(false);
+//    var menuData = menuData.concat(responseJson.results);
+//    setMenuData(menuData);
+//  })
+//  .catch((error) => {
+//    console.error(error);
+//  });
 
 //        setRefreshing(true);
 //           setTimeout(() => {
 //             setRefreshing(false);
 //           }, 1000);
 //   }
-

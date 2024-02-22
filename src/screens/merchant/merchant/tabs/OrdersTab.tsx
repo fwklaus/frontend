@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   View,
@@ -6,16 +6,19 @@ import {
   TextInput,
   Pressable,
   StyleSheet,
-  FlatList
+  FlatList,
+  Modal,
 } from 'react-native';
 import useOrders from '../../../../hooks/useOrders';
 
-import { merchContCSS } from '../../../../res/styles/merchantContainer';
-import { merchTextCSS } from '../../../../res/styles/merchantText';
+import {OrderItemModal} from '../../../../components/ui/OrderItemModal';
 
+import {merchContCSS} from '../../../../res/styles/merchantContainer';
+import {merchTextCSS} from '../../../../res/styles/merchantText';
+import {modalStyles} from '../../../../res/styles/modal';
 
 function OrderItem({item}) {
-  console.log(item, "at OrderItem");
+  const [modalVisible, setModalVisible] = useState(false);
   let id = item.id;
   let orderId = item.order_id;
   let customerName = item.customer_name;
@@ -24,21 +27,56 @@ function OrderItem({item}) {
 
   return (
     <Pressable
-      style={{flex: 1, borderColor: 'black', borderWidth: 1, padding: 8,  marginTop: 10, backgroundColor: 'silver'}}
-      onPress={() => {
-        console.log(`Bring Bring Up modal and order details for item ${id}`);
+      style={{
+        flex: 1,
+        borderColor: 'black',
+        borderWidth: 1,
+        padding: 8,
+        marginTop: 10,
+        backgroundColor: 'silver',
       }}
-    >
-      <Text style={[merchTextCSS.text, {fontSize: 16}]}>OrderID: {orderId}</Text>
-      <Text style={[merchTextCSS.text, {fontSize: 16}]}>Name: {customerName}</Text>
-      <Text style={[merchTextCSS.text, {fontSize: 16}]}>Phone: {customerPhone}</Text>
-      <Text style={[merchTextCSS.text, {fontSize: 16}]}>Timestamp: {timestamp}</Text>
+      onPress={() => {
+        setModalVisible(true);
+      }}>
+      <OrderItemModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        item={item}
+      />
+      <Text style={[merchTextCSS.text, {fontSize: 16}]}>
+        OrderID: {orderId}
+      </Text>
+      <Text style={[merchTextCSS.text, {fontSize: 16}]}>
+        Name: {customerName}
+      </Text>
+      <Text style={[merchTextCSS.text, {fontSize: 16}]}>
+        Phone: {customerPhone}
+      </Text>
+      <Text style={[merchTextCSS.text, {fontSize: 16}]}>
+        Timestamp: {timestamp}
+      </Text>
     </Pressable>
   );
 }
 
+function NewOrdersPanel() {
+  const {newOrders} = useOrders();
+
+  return (
+    <View style={[styles.panel, styles.rightBorder]}>
+      <Text style={[merchTextCSS.text, styles.panelText]}>New Orders</Text>
+      <FlatList
+        style={{flex: 1}}
+        data={newOrders}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <OrderItem item={item} />}
+      />
+    </View>
+  );
+}
+
 function OpenOrdersPanel() {
-  const { openOrders } = useOrders();
+  const {openOrders} = useOrders();
 
   return (
     <View style={[styles.panel, styles.rightBorder]}>
@@ -47,57 +85,61 @@ function OpenOrdersPanel() {
         style={{flex: 1}}
         data={openOrders}
         keyExtractor={item => item.id}
-        renderItem={({item})=> (
-          <OrderItem item={item} />
-        )}
+        renderItem={({item}) => <OrderItem item={item} />}
       />
     </View>
   );
 }
 
-function ClosedOrdersPanel() {
-  const { closedOrders } = useOrders();
-
-  return (
-    <View style={[styles.panel, styles.rightBorder]}>
-      <Text style={[merchTextCSS.text, styles.panelText]}>Closed Orders</Text>
-    </View>
-  );
-}
-
-function PickupPendingPanel() {
-  const {pickupPendingOrders} = useOrders();
+function CompleteOrdersPanel() {
+  const {completeOrders} = useOrders();
 
   return (
     <View style={styles.panel}>
-      <Text style={[merchTextCSS.text, styles.panelText]}>Pickup Pending</Text>
+      <Text style={[merchTextCSS.text, styles.panelText]}>Complete Orders</Text>
+      <FlatList
+        style={{flex: 1}}
+        data={completeOrders}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <OrderItem item={item} />}
+      />
     </View>
   );
 }
 
 function Status() {
-  const { takingOrders } = useOrders();
+  const {takingOrders} = useOrders();
   return (
-    <View style={ takingOrders ? styles.available : styles.unavailable}>
-      { takingOrders ?
-      <Text style={styles.statusPanelText}>Taking Orders.</Text> :
-        <Text style={styles.statusPanelText}>Unavailable. Press Take Orders to start accepting new orders.</Text>
-      }
+    <View style={takingOrders ? styles.available : styles.unavailable}>
+      {takingOrders ? (
+        <Text style={styles.statusPanelText}>Taking Orders.</Text>
+      ) : (
+        <Text style={styles.statusPanelText}>
+          Unavailable. Press Take Orders to start accepting new orders.
+        </Text>
+      )}
     </View>
   );
 }
 
 function OrdersTab() {
-  const { loadOrders, takingOrders } = useOrders();
-  useEffect(() => {loadOrders()}, []);
+  const {loadOrders, takingOrders} = useOrders();
+  useEffect(() => {
+    loadOrders();
+  }, []);
 
   return (
-    <SafeAreaView style={[merchContCSS.main, { padding: 0, alignItems: 'left'}]}>
+    <SafeAreaView style={[merchContCSS.main, {padding: 0, alignItems: 'left'}]}>
       <Status />
-      <View style={takingOrders ? styles.mainPanels : [styles.mainPanels, {backgroundColor: 'grey'}]}>
+      <View
+        style={
+          takingOrders
+            ? styles.mainPanels
+            : [styles.mainPanels, {backgroundColor: 'grey'}]
+        }>
+        <NewOrdersPanel />
         <OpenOrdersPanel />
-        <ClosedOrdersPanel />
-        <PickupPendingPanel />
+        <CompleteOrdersPanel />
       </View>
     </SafeAreaView>
   );
@@ -107,26 +149,26 @@ const styles = StyleSheet.create({
   unavailable: {
     backgroundColor: 'red',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
-  available : {
+  available: {
     backgroundColor: '#1BC100',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   statusPanelText: {
     color: 'white',
     textAlign: 'center',
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   panelText: {
-    fontSize: 24
+    fontSize: 24,
   },
   panel: {
     flex: 1,
     borderColor: 'black',
-    padding: 10
+    padding: 10,
   },
   rightBorder: {
     borderRightWidth: 1,
@@ -136,7 +178,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'left',
   },
-  order: {}
+  order: {},
 });
 
-export { OrdersTab, PickupPendingPanel, ClosedOrdersPanel, OpenOrdersPanel, Status };
+export {
+  OrdersTab,
+  NewOrdersPanel,
+  OpenOrdersPanel,
+  CompleteOrdersPanel,
+  Status,
+};

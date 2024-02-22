@@ -4,20 +4,15 @@
 
 import 'react-native';
 import React from 'react';
-import {
-  Text
-} from 'react-native';
+import {Text} from 'react-native';
 import useMerchant from '../../../../src/hooks/useMerchant';
-import { MerchantProvider } from '../../../../src/context/MerchantContext';
+import {MerchantProvider} from '../../../../src/context/MerchantContext';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
-describe("useMerchant Tests", () => {
-  it("renders correctly", () => {
+describe('useMerchant Tests', () => {
+  it('renders correctly', () => {
     function App() {
       return (
         <MerchantProvider>
@@ -27,16 +22,11 @@ describe("useMerchant Tests", () => {
     }
 
     function Test() {
-      const {
-        createMerchant,
-        merchants
-      } = useMerchant();
+      const {createMerchant, merchants} = useMerchant();
 
-      return (
-        <Text>Test</Text>
-      );
+      return <Text>Test</Text>;
     }
 
-    <App />
+    <App />;
   });
-})
+});

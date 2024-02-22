@@ -1,29 +1,29 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const containerStyles = StyleSheet.create({
   main: {
     flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center",
+    alignItems: 'stretch',
+    justifyContent: 'center',
     backgroundColor: 'white',
   },
   mainTabs: {
     flex: 1,
-    alignItems: "stretch",
-    justifyContent: "center",
+    alignItems: 'stretch',
+    justifyContent: 'center',
     backgroundColor: '#FBF501',
   },
   logoContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   itemContainer: {
     borderColor: 'black',
     borderWidth: 1,
     margin: 10,
-    flex: 1
+    flex: 1,
   },
   restaurantItem: {
     backgroundColor: 'white',
@@ -43,16 +43,16 @@ const containerStyles = StyleSheet.create({
     alignItems: 'center',
     borderColor: 'black',
     borderBottomWidth: 1,
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   headerLogoContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   logoSize: {
     height: 50,
-    width: 50
+    width: 50,
   },
   bottomNav: {
     width: '100%',

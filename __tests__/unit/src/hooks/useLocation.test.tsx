@@ -4,20 +4,15 @@
 
 import 'react-native';
 import React from 'react';
-import {
-  Text
-} from 'react-native';
+import {Text} from 'react-native';
 import useLocation from '../../../../src/hooks/useLocation';
-import { LocationProvider } from '../../../../src/context/LocationContext';
+import {LocationProvider} from '../../../../src/context/LocationContext';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
-describe("useLocation Tests", () => {
-  it("renders correctly", () => {
+describe('useLocation Tests', () => {
+  it('renders correctly', () => {
     function App() {
       return (
         <LocationProvider>
@@ -33,14 +28,12 @@ describe("useLocation Tests", () => {
         restaurantData,
         refreshing,
         currentAddress,
-        requestLocationPermission
+        requestLocationPermission,
       } = useLocation();
 
-      return (
-        <Text>Test</Text>
-      );
+      return <Text>Test</Text>;
     }
 
-    <App />
+    <App />;
   });
-})
+});

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import {createContext, useState, useEffect} from 'react';
 // import menu from '../data/seedData';
 
 // menuData should be supplied after selecting a menu
@@ -6,7 +6,7 @@ import { createContext, useState, useEffect } from 'react';
 
 const CartContext = createContext(null);
 
-const CartProvider = (props) => {
+const CartProvider = props => {
   const [cart, setCart] = useState([]);
 
   return (
@@ -14,6 +14,6 @@ const CartProvider = (props) => {
       {props.children}
     </CartContext.Provider>
   );
-}
+};
 
-export { CartContext, CartProvider };
+export {CartContext, CartProvider};

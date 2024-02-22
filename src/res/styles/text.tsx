@@ -1,27 +1,27 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const textStyles = StyleSheet.create({
   cartButtonText: {
     color: 'white',
     fontSize: 16,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   text: {
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   headingText: {
     color: 'black',
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   serviceTermsText: {
-     fontWeight: 'bold',
-     color: 'black',
-     fontSize: 16,
-     marginBottom: 10
+    fontWeight: 'bold',
+    color: 'black',
+    fontSize: 16,
+    marginBottom: 10,
   },
   buttonText: {
     fontSize: 16,
@@ -31,35 +31,34 @@ const textStyles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     borderColor: 'black',
-    borderWidth: 1
+    borderWidth: 1,
   },
   headerText: {
-   color: 'black',
-   fontSize: 18,
-   padding: 20,
-   paddingLeft: 16
+    color: 'black',
+    fontSize: 18,
+    padding: 20,
+    paddingLeft: 16,
   },
   loadingText: {
-   width: 275,
-   color: 'black',
-   marginTop: 20,
-   textAlign: "center"
+    width: 275,
+    color: 'black',
+    marginTop: 20,
+    textAlign: 'center',
   },
-  modalButtonText: {
-   color: 'white',
-   fontWeight: 'bold',
-   textAlign: 'center',
-  },
-  modalText: {
-    textAlign: 'left',
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black'
-  },
+  //   modalButtonText: {
+  //    color: 'white',
+  //    fontWeight: 'bold',
+  //    textAlign: 'center',
+  //   },
+  //   modalText: {
+  //     textAlign: 'left',
+  //     fontSize: 20,
+  //     fontWeight: 'bold',
+  //     color: 'black'
+  //   },
   smallHeadings: {
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 });
 
-
-export { textStyles };
+export {textStyles};

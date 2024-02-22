@@ -5,42 +5,42 @@
 import 'react-native';
 import React from 'react';
 import {
-  OrdersTab, PickupPendingPanel, ClosedOrdersPanel,
-  OpenOrdersPanel, Status
-  } from '../../../../../../../src/screens/merchant/merchant/tabs/OrdersTab';
+  OrdersTab,
+  NewOrdersPanel,
+  OpenOrdersPanel,
+  CompleteOrdersPanel,
+  Status,
+} from '../../../../../../../src/screens/merchant/merchant/tabs/OrdersTab';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
-describe("OrdersTab Tests", () => {
-  it("renders correctly", () => {
-    <OrdersTab />
-  })
+describe('OrdersTab Tests', () => {
+  it('renders correctly', () => {
+    <OrdersTab />;
+  });
 });
 
-describe("PickupPendingPanel Tests", () => {
-  it("renders correctly", () => {
-    <PickupPendingPanel />
-  })
-})
+describe('NewOrdersPanel Tests', () => {
+  it('renders correctly', () => {
+    <NewOrdersPanel />;
+  });
+});
 
-describe("ClosedOrdersPanel Tests", () => {
-  it("renders correctly", () => {
-    <ClosedOrdersPanel />
-  })
-})
+describe('OpenOrdersPanel Tests', () => {
+  it('renders correctly', () => {
+    <OpenOrdersPanel />;
+  });
+});
 
-describe("OpenOrdersPanel Tests", () => {
-  it("renders correctly", () => {
-    <OpenOrdersPanel />
-  })
-})
+describe('CompleteOrdersPanel Tests', () => {
+  it('renders correctly', () => {
+    <CompleteOrdersPanel />;
+  });
+});
 
-describe("Status Tests", () => {
-  it("renders correctly", () => {
-    <Status />
-  })
+describe('Status Tests', () => {
+  it('renders correctly', () => {
+    <Status />;
+  });
 });

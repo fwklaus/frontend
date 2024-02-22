@@ -1,14 +1,18 @@
-import { useContext, useEffect } from 'react';
-import { SignInContext } from '../context/SignInContext';
+import {useContext, useEffect} from 'react';
+import {SignInContext} from '../context/SignInContext';
 import useMerchant from './useMerchant';
 
 const useSignIn = () => {
   const {
-    credentials, setCredentials, signedIn,
-    setSignedIn, currentMerchant, setCurrentMerchant
-    } = useContext(SignInContext);
+    credentials,
+    setCredentials,
+    signedIn,
+    setSignedIn,
+    currentMerchant,
+    setCurrentMerchant,
+  } = useContext(SignInContext);
 
-   const { postSignIn, merchants } = useMerchant();
+  const {postSignIn, merchants} = useMerchant();
 
   function getCredentialsCopy() {
     return JSON.parse(JSON.stringify(credentials));
@@ -16,7 +20,7 @@ const useSignIn = () => {
 
   function getMerchant(email) {
     return merchants.filter(merchant => {
-         return merchant.email === email
+      return merchant.email === email;
     });
   }
 
@@ -35,7 +39,7 @@ const useSignIn = () => {
       setCurrentMerchant(merchant);
       toggleSignIn();
     } catch (e) {
-      throw new Error(e.message, "at SignIn");
+      throw new Error(e.message, 'at SignIn');
     }
   }
 
@@ -46,10 +50,10 @@ const useSignIn = () => {
   }
 
   function resetFields() {
-      setCredentials({
-        'email': '',
-        'password': ''
-      });
+    setCredentials({
+      email: '',
+      password: '',
+    });
   }
 
   function validEmail() {
@@ -67,7 +71,7 @@ const useSignIn = () => {
     setCurrentMerchant,
     signOut,
     toggleSignIn,
-    signIn
+    signIn,
   };
 };
 
