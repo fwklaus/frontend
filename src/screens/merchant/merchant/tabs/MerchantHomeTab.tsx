@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  Pressable
-  } from 'react-native';
+import {SafeAreaView, View, Text, Pressable} from 'react-native';
 import {merchContCSS} from '../../../../res/styles/merchantContainer';
 import {merchTextCSS} from '../../../../res/styles/merchantText';
 

@@ -35,7 +35,7 @@ const useCarts = () => {
 
   return {
     carts,
-    setCarts
+    setCarts,
     loadCart,
     updateCart,
     deleteCart,

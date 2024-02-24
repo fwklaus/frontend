@@ -11,6 +11,7 @@ import {
   isValidState,
   isValidZip,
   isValidEmail,
+  isValidEmailCheckout,
   isValidPassword,
   isValidValidator,
   isNotEmpty,
@@ -21,6 +22,7 @@ import {
   validCityPattern,
   validEmailPattern,
   validNumPattern,
+  validPasswordPattern,
   isFullState,
   isStateCode,
 } from '../../../../src/utils/validationUtils';
@@ -220,12 +222,25 @@ describe('isValidPassword Tests', () => {
     };
 
     let emptyText = '';
-    let validPassword = 'secret123';
-    let result1 = isValidPassword(emptyText, merchant);
-    let result2 = isValidPassword(validPassword, merchant);
+    let validPassword = 'Secretp*ssw0rd';
 
-    expect(result1).toBe(false);
-    expect(result2).toBe(true);
+    expect(isValidPassword(emptyText, merchant)).toBe(false);
+    expect(isValidPassword(validPassword, merchant)).toBe(true);
+  });
+
+  it('should have at least 8 characters, including 1 uppercase letter, 1 symbol, and 1 number', () => {
+    let merchant = {
+      email: 'test@email.com',
+    };
+
+    let validPassword = 'Secretp*ssw0rd';
+    let invalidPassword1 = 'secretpassword';
+    let invalidPassword2 = 'Secretpassword';
+    let invalidPassword3 = 'Secretp*ssword';
+    expect(isValidPassword(validPassword, merchant)).toBe(true);
+    expect(isValidPassword(invalidPassword1, merchant)).toBe(false);
+    expect(isValidPassword(invalidPassword2, merchant)).toBe(false);
+    expect(isValidPassword(invalidPassword3, merchant)).toBe(false);
   });
 
   it('should not be greater than 225 characters', () => {
@@ -233,7 +248,10 @@ describe('isValidPassword Tests', () => {
       email: 'test@email.com',
     };
 
-    const MaxLengthString = Array(225).fill('a').join('');
+    const MaxLengthString = Array(211)
+      .fill('a')
+      .concat('Secretp*ssw0rd')
+      .join('');
     const MaxLengthPlusOne = MaxLengthString + 'a';
 
     expect(isValidPassword(MaxLengthString, merchant)).toBe(true);
@@ -245,7 +263,7 @@ describe('isValidPassword Tests', () => {
       email: 'test@email.com',
     };
     let invalid = 'test@email.com';
-    let valid = 'superSecret123';
+    let valid = 'Secretp*ssw0rd';
 
     expect(isValidPassword(invalid, merchant)).toBe(false);
     expect(isValidPassword(valid, merchant)).toBe(true);
@@ -305,6 +323,8 @@ describe('isValidEmail Tests', () => {
     expect(isValidEmail(valid2, merchants, currentMerchant)).toBe(true);
   });
 });
+
+describe('isValidEmailCheckout tests', () => {});
 
 describe('isValidValidator Tests', () => {
   let currentMerchant = {
@@ -472,4 +492,22 @@ describe('validNumPattern Tests', () => {
   allowNumberWithTenDigits(validNumPattern);
   allowDigits(validNumPattern);
   allowSpecialCharsPhone(validNumPattern);
+});
+
+describe('validPasswordPattern Tests', () => {
+  it('should have at least 8 characters, including 1 uppercase letter, 1 symbol, and 1 number', () => {
+    let validPassword = 'Secretp*ssw0rd';
+    let invalidPassword1 = '';
+    let invalidPassword2 = 'secret';
+    let invalidPassword3 = 'secretpassword';
+    let invalidPassword4 = 'Secretpassword';
+    let invalidPassword5 = 'Secretp*ssword';
+
+    expect(validPasswordPattern(validPassword)).toBe(true);
+    expect(validPasswordPattern(invalidPassword1)).toBe(false);
+    expect(validPasswordPattern(invalidPassword2)).toBe(false);
+    expect(validPasswordPattern(invalidPassword3)).toBe(false);
+    expect(validPasswordPattern(invalidPassword4)).toBe(false);
+    expect(validPasswordPattern(invalidPassword5)).toBe(false);
+  });
 });

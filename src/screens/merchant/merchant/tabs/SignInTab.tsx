@@ -9,7 +9,6 @@ import {merchTextCSS} from '../../../../res/styles/merchantText';
 
 function SignInButton({navigation}) {
   const {resetFields, signIn} = useSignIn();
-
   return (
     <Pressable
       style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
@@ -34,7 +33,7 @@ function SignInTab({navigation}) {
   useFocusEffect(
     React.useCallback(() => {
       getMerchants();
-    }, [merchants, getMerchants]),
+    }, [merchants]),
   );
 
   const email = 'email';

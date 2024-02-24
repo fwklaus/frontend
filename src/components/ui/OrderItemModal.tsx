@@ -1,28 +1,31 @@
-import React from 'react';
-import {View, Text, StyleSheet, Pressable, Modal} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, Pressable, Modal, FlatList} from 'react-native';
 import {merchTextCSS} from '../../res/styles/merchantText';
 import {buttonStyles} from '../../res/styles/button';
 import {modalStyles} from '../../res/styles/modal';
 
-// import useResData from '../../hooks/useResData';
-// import useCart from '../../hooks/useCart';
+import useOrders from '../../hooks/useOrders';
 
 function ModalHeader({modalVisible, setModalVisible, item}) {
-  let id = item.id;
-  let name = item.name;
+  let fullName = item.full_name;
+  let phone = item.phone;
 
   return (
-    <View style={styles.headerContainer}>
-      <View style={styles.headerTextContainer}>
-        <Text style={[modalStyles.modalText, {textAlign: 'left'}]}>{name}</Text>
-        <Text style={[merchTextCSS.text, {fontSize: 14}]}>{id}</Text>
+    <View style={[styles.headerContainer, styles.containerPadding]}>
+      <View style={[styles.headerTextContainer, {flexDirection: 'column'}]}>
+        <Text style={[modalStyles.modalText, {textAlign: 'left'}]}>
+          Customer: {fullName}
+        </Text>
+        <Text style={[modalStyles.modalText, {textAlign: 'left'}]}>
+          Phone: {phone}
+        </Text>
       </View>
       <View style={{flex: 1, padding: 10}}>
         <Pressable
           onPress={() => {
             setModalVisible(!modalVisible);
           }}>
-          <Text style={[merchTextCSS.text, {textAlign: 'right', fontSize: 20}]}>
+          <Text style={[merchTextCSS.text, {textAlign: 'right', fontSize: 25}]}>
             X
           </Text>
         </Pressable>
@@ -31,38 +34,117 @@ function ModalHeader({modalVisible, setModalVisible, item}) {
   );
 }
 
-function ModalBody({item}) {
-  let desc = item.desc;
+function ListItem({item}) {
+  let name = item.name;
+  let quantity = item.quantity;
 
   return (
-    <View style={{flex: 3, width: '100%', padding: 10}}>
-      <View style={{flex: 1}}>
-        <Text style={[merchTextCSS.text, {fontSize: 14}]}>{desc}</Text>
-      </View>
-      <View style={{flex: 2}}>
-        <Text style={[merchTextCSS.text, {fontSize: 14}]}>Hello World</Text>
-      </View>
+    <View style={styles.listItemContainer}>
+      <Text style={[merchTextCSS.text, {flex: 2, paddingLeft: 10}]}>
+        {quantity}
+      </Text>
+      <Text style={[merchTextCSS.text, {flex: 2}]}>X</Text>
+      <Text style={[merchTextCSS.text, {flex: 10}]}>{name}</Text>
     </View>
+  );
+}
+
+function ModalBody({item}) {
+  let items = item.items;
+
+  return (
+    <View style={[styles.containerPadding, styles.modalBodyContainer]}>
+      <FlatList
+        style={{flex: 1}}
+        data={items}
+        renderItem={({item}) => <ListItem item={item} />}
+        keyExtractor={item => item.id}
+      />
+    </View>
+  );
+}
+
+function OrderEnteredButton({modalVisible, setModalVisible, item}) {
+  const {updateOrderStatus, getOrders} = useOrders();
+  let id = item.id;
+
+  return (
+    <Pressable
+      style={buttonStyles.addToCartButton}
+      onPress={() => {
+        console.log(`Update status of ${id} to open`);
+        try {
+          updateOrderStatus(id, 'open');
+          // getOrders();
+          setModalVisible(!modalVisible);
+        } catch (e) {
+          alert(e.message);
+        }
+      }}>
+      <Text style={[modalStyles.modalButtonText, {fontSize: 20}]}>
+        Order was entered
+      </Text>
+    </Pressable>
+  );
+}
+
+function OrderCompleteButton({modalVisible, setModalVisible, item}) {
+  const {updateOrderStatus, getOrders} = useOrders();
+  let id = item.id;
+
+  return (
+    <>
+      {item.status === 'complete' ? (
+        <></>
+      ) : (
+        <Pressable
+          style={buttonStyles.addToCartButton}
+          onPress={() => {
+            console.log(
+              'Send push notification altering the customer that the order is done',
+            );
+            console.log(`Update status of ${id} to complete`);
+            try {
+              updateOrderStatus(id, 'complete');
+              // getOrders()
+              setModalVisible(!modalVisible);
+            } catch (e) {
+              alert(e.message);
+            }
+          }}>
+          <Text style={[modalStyles.modalButtonText, {fontSize: 20}]}>
+            Order is Complete
+          </Text>
+        </Pressable>
+      )}
+    </>
   );
 }
 
 function ModalFooter({modalVisible, setModalVisible, item}) {
   return (
-    <View style={styles.footerContainer}>
-      <View style={{flex: 0.25}}>{/*spacer*/}</View>
+    <View style={[styles.footerContainer, styles.containerPadding]}>
+      <View style={{flex: 1}}>{/*spacer*/}</View>
       <View style={{flex: 1}}>
-        <Pressable style={buttonStyles.addToCartButton} onPress={() => {}}>
-          <Text style={modalStyles.modalButtonText}>Mark Complete</Text>
-        </Pressable>
+        {item.status === 'new' ? (
+          <OrderEnteredButton
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            item={item}
+          />
+        ) : (
+          <OrderCompleteButton
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            item={item}
+          />
+        )}
       </View>
     </View>
   );
 }
 
 function OrderItemModal({modalVisible, setModalVisible, item}) {
-  let id = item.id;
-  let name = item.name;
-
   return (
     <Modal
       transparent={true}
@@ -73,7 +155,7 @@ function OrderItemModal({modalVisible, setModalVisible, item}) {
       <View style={modalStyles.centeredView}>
         <View style={{flex: 1}}>{/*spacer*/}</View>
         <View
-          style={[modalStyles.modalView, {flex: 3, flexDirection: 'colm=umn'}]}>
+          style={[modalStyles.modalView, {flex: 3, flexDirection: 'column'}]}>
           <ModalHeader
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
@@ -103,10 +185,9 @@ const styles = StyleSheet.create({
   },
   headerTextContainer: {
     flex: 4,
-    padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'left',
   },
   footerContainer: {
     flex: 1,
@@ -114,7 +195,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: 'black',
     borderTopWidth: 1,
+  },
+  containerPadding: {
+    paddingRight: 20,
+    paddingLeft: 20,
+  },
+  listItemContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    borderBottomWidth: 0.5,
+    borderColor: 'black',
     padding: 10,
+  },
+  modalBodyContainer: {
+    flex: 3,
+    width: '100%',
+    paddingRight: 0,
+    paddingLeft: 0,
   },
 });
 

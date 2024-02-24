@@ -1,11 +1,5 @@
 import {React} from 'react';
-import {
-  SafeAreaView,
-  Text,
-  Image,
-  View,
-  Button,
-} from 'react-native';
+import {SafeAreaView, Text, Image, View, Button} from 'react-native';
 import {textStyles} from '../res/styles/text';
 import {containerStyles} from '../res/styles/container';
 

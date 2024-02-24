@@ -19,7 +19,7 @@ const modalStyles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    width: '90%',
+    width: '40%',
     flex: 1,
   },
   modalButtonText: {

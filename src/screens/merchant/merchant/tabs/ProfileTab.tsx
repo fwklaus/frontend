@@ -67,7 +67,7 @@ function StoreInformation() {
   ]);
   useEffect(() => {
     fillStoreInfo(currentMerchant);
-  });
+  }, []);
 
   return (
     <View style={styles.bottomMargin}>
@@ -222,7 +222,7 @@ function LoginInformation() {
   useEffect(() => {}, [validEmail, validPassword]);
   useEffect(() => {
     fillLoginInfo(currentMerchant);
-  });
+  }, []);
 
   return (
     <View style={styles.bottomMargin}>

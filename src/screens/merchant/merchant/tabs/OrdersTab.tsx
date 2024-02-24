@@ -19,7 +19,7 @@ function OrderItem({item}) {
   const [modalVisible, setModalVisible] = useState(false);
   let id = item.id;
   let orderId = item.order_id;
-  let customerName = item.customer_name;
+  let fullName = item.full_name;
   let customerPhone = item.phone;
   let timestamp = item.timestamp;
 
@@ -44,9 +44,7 @@ function OrderItem({item}) {
       <Text style={[merchTextCSS.text, {fontSize: 16}]}>
         OrderID: {orderId}
       </Text>
-      <Text style={[merchTextCSS.text, {fontSize: 16}]}>
-        Name: {customerName}
-      </Text>
+      <Text style={[merchTextCSS.text, {fontSize: 16}]}>Name: {fullName}</Text>
       <Text style={[merchTextCSS.text, {fontSize: 16}]}>
         Phone: {customerPhone}
       </Text>
@@ -58,14 +56,14 @@ function OrderItem({item}) {
 }
 
 function NewOrdersPanel() {
-  const {newOrders} = useOrders();
+  const {orders} = useOrders();
 
   return (
     <View style={[styles.panel, styles.rightBorder]}>
       <Text style={[merchTextCSS.text, styles.panelText]}>New Orders</Text>
       <FlatList
         style={{flex: 1}}
-        data={newOrders}
+        data={orders.new}
         keyExtractor={item => item.id}
         renderItem={({item}) => <OrderItem item={item} />}
       />
@@ -74,14 +72,14 @@ function NewOrdersPanel() {
 }
 
 function OpenOrdersPanel() {
-  const {openOrders} = useOrders();
+  const {orders} = useOrders();
 
   return (
     <View style={[styles.panel, styles.rightBorder]}>
       <Text style={[merchTextCSS.text, styles.panelText]}>Open Orders</Text>
       <FlatList
         style={{flex: 1}}
-        data={openOrders}
+        data={orders.open}
         keyExtractor={item => item.id}
         renderItem={({item}) => <OrderItem item={item} />}
       />
@@ -90,14 +88,14 @@ function OpenOrdersPanel() {
 }
 
 function CompleteOrdersPanel() {
-  const {completeOrders} = useOrders();
+  const {orders} = useOrders();
 
   return (
     <View style={styles.panel}>
       <Text style={[merchTextCSS.text, styles.panelText]}>Complete Orders</Text>
       <FlatList
         style={{flex: 1}}
-        data={completeOrders}
+        data={orders.complete}
         keyExtractor={item => item.id}
         renderItem={({item}) => <OrderItem item={item} />}
       />
@@ -121,10 +119,10 @@ function Status() {
 }
 
 function OrdersTab() {
-  const {loadOrders, takingOrders} = useOrders();
+  const {getOrders, takingOrders} = useOrders();
   useEffect(() => {
-    loadOrders();
-  });
+    getOrders();
+  }, []);
 
   return (
     <SafeAreaView style={[merchContCSS.main, {padding: 0, alignItems: 'left'}]}>

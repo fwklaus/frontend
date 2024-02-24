@@ -6,15 +6,19 @@ import {
   View,
   Pressable,
   Image,
+  TextInput,
 } from 'react-native';
-import {ContactInfo} from '../../../components/ui/ContactInfo';
-import {Notifications} from '../../../components/ui/Notifications';
+
+// import { Notifications } from '../../../components/ui/Notifications';
 
 import useOrders from '../../../hooks/useOrders';
 import useCarts from '../../../hooks/useCarts';
 
 import {textStyles} from '../../../res/styles/text';
 import {containerStyles} from '../../../res/styles/container';
+
+import {} from '../../../utils/validationUtils';
+const BULLET_POINT = '\u25CF';
 
 function CheckoutTopHeader({title}) {
   let logo = '../../../res/images/order_weasel_small.jpg';
@@ -30,6 +34,7 @@ function CheckoutTopHeader({title}) {
   );
 }
 
+// likely the only component where we'll jeep Google API integration
 function Address({address}) {
   return (
     <Pressable onPress={() => console.log('Google API to get directions')}>
@@ -66,17 +71,71 @@ function CheckoutBottomHeader({address}) {
 }
 
 function NotificationsSection() {
+  // replace code within main view with Notifications component to add feature
   return (
     <View style={{flex: 3, borderColor: 'black', borderBottomWidth: 1}}>
-      <Notifications />
+      <View style={{flex: 2, paddingLeft: 10}}>
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <Text style={[textStyles.text, textStyles.smallHeadings]}>
+            Text & Email Notifications
+          </Text>
+        </View>
+        <View style={{flex: 3, justifyContent: 'center'}}>
+          <Text style={textStyles.text}>
+            {BULLET_POINT} Feature not currently available.
+          </Text>
+          <Text style={textStyles.text}>
+            {BULLET_POINT} We'll send you a notification when your order is
+            ready👍
+          </Text>
+        </View>
+      </View>
     </View>
   );
 }
 
 function ContactInfoSection() {
+  // all fields need to be filled
+  //  valid email
+  // first name and last name are non-empty
+  // valid phone number
+
+  // need to validate this shit
+  // highlight TextInputs with red if submit without information
+  // only allow submission once inputs are filled
+  // need validation messages? alert?
+  // need
+
+  const [validFirstName, setValidFirstName] = useState(false);
+  const [validLastName, setValidLastName] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPhone, setValidPhone] = useState(false);
+
   return (
     <View style={{flex: 4, borderColor: 'black', borderBottomWidth: 1}}>
-      <ContactInfo />
+      <View style={styles.contactInfoHeader}>
+        <Text
+          style={[
+            textStyles.text,
+            textStyles.smallHeadings,
+            {flex: 1, marginLeft: 10},
+          ]}>
+          Contact Info
+        </Text>
+        <Text style={{color: 'red', fontSize: 12, flex: 1}}>
+          *All fields required
+        </Text>
+      </View>
+      <View style={{flex: 10}}>
+        <TextInput
+          style={styles.input}
+          placeholder="First Name"
+          onChangeText={text => {}}
+        />
+        <TextInput style={styles.input} placeholder="Last Name" />
+        <TextInput style={styles.input} placeholder="Email" />
+        <TextInput style={styles.input} placeholder="Phone" />
+      </View>
     </View>
   );
 }
@@ -131,8 +190,9 @@ function CheckoutFooter({resId, cart}) {
           try {
             // in current implementation, need to create user first before we can create the order
 
-            await createOrder(resId, cart);
-            await deleteCart(resId);
+            let response = await createOrder(resId, cart);
+
+            //             await deleteCart(resId);
           } catch (e) {
             alert(e.message);
           }
@@ -174,7 +234,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 2,
     borderRadius: 8,
-    backgroundColor: 'grey',
+    backgroundColor: '#DEDEDE',
   },
   bottom: {
     paddingTop: 10,
@@ -196,6 +256,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  contactInfoHeader: {
+    flex: 1.75,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 

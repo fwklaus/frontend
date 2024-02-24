@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {SignUpContext} from '../context/SignUpContext';
 
 import {getStateCode, formatPhone} from '../utils/validationUtils';

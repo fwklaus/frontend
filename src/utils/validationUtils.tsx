@@ -36,6 +36,13 @@ function isValidEmail(text, merchants, merchant) {
   );
 }
 
+function isValidEmailCheckout(text) {
+  let merchants = [];
+  let merchant = {password: null};
+
+  return isValidEmail(text, merchants, merchant);
+}
+
 function isValidValidator(text, merchant) {
   return isNotEmpty(text) && text === merchant.password;
 }
@@ -43,7 +50,7 @@ function isValidValidator(text, merchant) {
 function isValidPassword(text, merchant) {
   let email = merchant.email;
 
-  return isNotEmpty(text) && text.length >= 8 && text !== email;
+  return isNotEmpty(text) && validPasswordPattern(text) && text !== email;
 }
 
 function isValidRestaurantName(text) {
@@ -81,6 +88,14 @@ function isNotEmpty(text, maxChars = 225) {
 
 function formatPhone(text) {
   return text.replace(/[-()]/g, '');
+}
+
+function validPasswordPattern(text) {
+  let validPass = new RegExp(
+    /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}/,
+  );
+  text = text.trim();
+  return validPass.test(text);
 }
 
 function validZipPattern(text) {
@@ -124,6 +139,7 @@ export {
   isValidState,
   isValidZip,
   isValidEmail,
+  isValidEmailCheckout,
   isValidPassword,
   isValidValidator,
   isNotEmpty,
@@ -134,6 +150,7 @@ export {
   validCityPattern,
   validEmailPattern,
   validNumPattern,
+  validPasswordPattern,
   isFullState,
   isStateCode,
 };

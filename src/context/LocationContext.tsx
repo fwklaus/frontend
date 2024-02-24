@@ -6,8 +6,7 @@ const LocationContext = createContext(null);
 const LocationProvider = props => {
   const [location, setLocation] = useState(false);
   const [currentAddress, setCurrentAddress] = useState(false);
-  //   const [refreshing, setRefreshing] = useState(false);
-  //   const [restaurantData, setRestaurantData] = useState([]);
+
   useEffect(() => {
     //     console.log(location)
   }, [location]);

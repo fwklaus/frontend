@@ -519,7 +519,7 @@ function SignUpTab() {
   const {getMerchants} = useMerchant();
   useEffect(() => {
     getMerchants();
-  });
+  }, []);
 
   return (
     <SignUpProvider>

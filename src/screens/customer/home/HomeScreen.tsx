@@ -1,10 +1,6 @@
 import {React} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
-  SafeAreaView,
-  Text,
-  View,
-} from 'react-native';
+import {SafeAreaView, Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import {HomeTab} from './tabs/HomeTab';

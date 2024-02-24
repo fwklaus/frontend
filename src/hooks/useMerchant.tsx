@@ -6,6 +6,8 @@ import {MerchantContext} from '../context/MerchantContext';
 // const baseURL = 'http://172.24.112.109:3000';
 // const baseURL = 'http://172.25.103.21:3000/api/merchants/';
 const baseURL = 'http://172.21.238.183:3000/api/merchants/';
+const signUpURL = 'http://172.21.238.183:3000/api/signup/';
+const loginURL = 'http://172.21.238.183:3000/api/login/';
 
 // import { formatPhone, getStateCode } from '../utils/validationUtils';
 
@@ -187,7 +189,7 @@ const useMerchant = () => {
     };
 
     try {
-      let response = await fetch(baseURL, requestObject);
+      let response = await fetch(signUpURL, requestObject);
       let json = await response.json();
 
       if (response.status === 400) {
@@ -211,13 +213,13 @@ const useMerchant = () => {
     };
 
     try {
-      let response = await fetch(baseURL + 'sign-in', requestObject);
+      let response = await fetch(loginURL, requestObject);
       let json = await response.json();
       if (response.status === 400) {
-        throw new Error(json.error, 'at /sign-in');
+        throw new Error(json.error, 'at /login');
       }
 
-      alert(json.success);
+      alert(json.message);
     } catch (e) {
       throw new Error(e.message, 'at postSignIn');
     }

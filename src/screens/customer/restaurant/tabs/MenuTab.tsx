@@ -222,14 +222,8 @@ function SectionHeader({handleToggle, title}) {
 function MenuTab({route, navigation}) {
   const {cart, setCart, cartTotal} = useCart();
 
-  const {
-    refreshing,
-    loadMenu,
-    menu,
-    expandedSections,
-    handleToggle,
-    setResId,
-  } = useResData();
+  const {refreshing, loadMenu, menu, expandedSections, handleToggle, setResId} =
+    useResData();
   const {loadCart} = useCarts();
 
   let params = route.params.params;
@@ -248,7 +242,7 @@ function MenuTab({route, navigation}) {
         console.log(e);
       }
     })();
-  });
+  }, []);
 
   return (
     <SafeAreaView style={containerStyles.main}>

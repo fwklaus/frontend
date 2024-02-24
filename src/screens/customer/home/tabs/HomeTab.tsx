@@ -128,7 +128,7 @@ function HomeTab() {
 
   useEffect(() => {
     loadRestaurants();
-  });
+  }, []);
   useEffect(() => {
     (async function () {
       try {
@@ -138,7 +138,7 @@ function HomeTab() {
         console.log(e);
       }
     })();
-  });
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>

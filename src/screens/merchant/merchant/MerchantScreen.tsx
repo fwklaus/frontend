@@ -1,9 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import useSignIn from '../../../hooks/useSignIn';
 import useOrders from '../../../hooks/useOrders';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
