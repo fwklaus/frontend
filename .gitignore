@@ -34,6 +34,10 @@ local.properties
 *.keystore
 !debug.keystore
 
+# error logs
+
+android/*.log
+
 # node.js
 #
 node_modules/

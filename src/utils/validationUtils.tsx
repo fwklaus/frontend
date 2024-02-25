@@ -43,6 +43,10 @@ function isValidEmailCheckout(text) {
   return isValidEmail(text, merchants, merchant);
 }
 
+function isValidNameCheckout(text) {
+  return isNotEmpty(text);
+}
+
 function isValidValidator(text, merchant) {
   return isNotEmpty(text) && text === merchant.password;
 }
@@ -139,7 +143,6 @@ export {
   isValidState,
   isValidZip,
   isValidEmail,
-  isValidEmailCheckout,
   isValidPassword,
   isValidValidator,
   isNotEmpty,
@@ -153,4 +156,6 @@ export {
   validPasswordPattern,
   isFullState,
   isStateCode,
+  isValidEmailCheckout,
+  isValidNameCheckout
 };

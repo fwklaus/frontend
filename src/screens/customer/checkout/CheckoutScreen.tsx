@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useContext, createContext} from 'react';
 import {
   SafeAreaView,
   Text,
@@ -17,8 +17,12 @@ import useCarts from '../../../hooks/useCarts';
 import {textStyles} from '../../../res/styles/text';
 import {containerStyles} from '../../../res/styles/container';
 
+import {isValidEmailCheckout, isValidNameCheckout, isValidPhoneNumber} from '../../../utils/validationUtils';
+
 import {} from '../../../utils/validationUtils';
 const BULLET_POINT = '\u25CF';
+
+let ValidationsContext = createContext(null);
 
 function CheckoutTopHeader({title}) {
   let logo = '../../../res/images/order_weasel_small.jpg';
@@ -106,10 +110,16 @@ function ContactInfoSection() {
   // need validation messages? alert?
   // need
 
-  const [validFirstName, setValidFirstName] = useState(false);
-  const [validLastName, setValidLastName] = useState(false);
-  const [validEmail, setValidEmail] = useState(false);
-  const [validPhone, setValidPhone] = useState(false);
+//   const [validFirstName, setValidFirstName] = useState(false);
+//   const [validLastName, setValidLastName] = useState(false);
+//   const [validEmail, setValidEmail] = useState(false);
+//   const [validPhone, setValidPhone] = useState(false);
+
+  let {
+    validFirstName, setValidFirstName ,validLastName,
+    setValidLastName, validEmail, setValidEmail,
+    validPhone, setValidPhone
+  } = useContext(ValidationsContext);
 
   return (
     <View style={{flex: 4, borderColor: 'black', borderBottomWidth: 1}}>
@@ -128,13 +138,49 @@ function ContactInfoSection() {
       </View>
       <View style={{flex: 10}}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, validFirstName ?  {} : styles.invalidInput ]}
           placeholder="First Name"
-          onChangeText={text => {}}
+          onChangeText={text => {
+            if (isValidNameCheckout(text)) {
+              setValidFirstName(true);
+            } else {
+              setValidFirstName(false);
+            }
+          }}
         />
-        <TextInput style={styles.input} placeholder="Last Name" />
-        <TextInput style={styles.input} placeholder="Email" />
-        <TextInput style={styles.input} placeholder="Phone" />
+        <TextInput
+          style={[styles.input, validLastName ?  {} : styles.invalidInput ]}
+          placeholder="Last Name"
+          onChangeText={text => {
+            if (isValidNameCheckout(text)) {
+              setValidLastName(true);
+            } else {
+              setValidLastName(false);
+            }
+          }}
+        />
+        <TextInput
+          style={[styles.input, validEmail ?  {} : styles.invalidInput ]}
+          placeholder="Email"
+          onChangeText={text => {
+            if (isValidEmailCheckout(text)) {
+              setValidEmail(true);
+            } else {
+              setValidEmail(false);
+            }
+          }}
+        />
+        <TextInput
+          style={[styles.input, validPhone ?  {} : styles.invalidInput ]}
+          placeholder="Phone"
+          onChangeText={text => {
+            if (isValidPhoneNumber(text)) {
+              setValidPhone(true);
+            } else {
+              setValidPhone(false);
+            }
+          }}
+        />
       </View>
     </View>
   );
@@ -180,6 +226,7 @@ function CheckoutTotals({totals}) {
 function CheckoutFooter({resId, cart}) {
   const {createOrder} = useOrders();
   const {deleteCart} = useCarts();
+  const {validFirstName, validLastName, validEmail, validPhone} = useContext(ValidationsContext);
   // once an order is created, need to remove order from AsyncStorage using useCarts
 
   return (
@@ -189,6 +236,9 @@ function CheckoutFooter({resId, cart}) {
         onPress={async () => {
           try {
             // in current implementation, need to create user first before we can create the order
+            if (!validFirstName || !validLastName || !validEmail || !validPhone) {
+              throw new Error("Please provide valid info to submit your order");
+            }
 
             let response = await createOrder(resId, cart);
 
@@ -214,14 +264,27 @@ function CheckoutScreen({route}) {
   let address = resInfo.address;
   let resId = resInfo.id;
 
+  const [validFirstName, setValidFirstName] = useState(false);
+  const [validLastName, setValidLastName] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPhone, setValidPhone] = useState(false);
+
   return (
     <SafeAreaView style={containerStyles.main}>
-      <CheckoutTopHeader title={title} />
-      <CheckoutBottomHeader address={address} />
-      <ContactInfoSection />
-      <NotificationsSection />
-      <CheckoutTotals totals={totals} />
-      <CheckoutFooter resId={resId} cart={cart} />
+      <ValidationsContext.Provider
+        value={{
+        validFirstName, setValidFirstName, validLastName,
+        setValidLastName, validEmail, setValidEmail,
+        validPhone, setValidPhone
+        }}
+      >
+        <CheckoutTopHeader title={title} />
+        <CheckoutBottomHeader address={address} />
+        <ContactInfoSection />
+        <NotificationsSection />
+        <CheckoutTotals totals={totals} />
+        <CheckoutFooter resId={resId} cart={cart} />
+      </ValidationsContext.Provider>
     </SafeAreaView>
   );
 }
@@ -235,6 +298,13 @@ const styles = StyleSheet.create({
     padding: 2,
     borderRadius: 8,
     backgroundColor: '#DEDEDE',
+  },
+  invalidInput: {
+    shadowColor: 'red',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 1,
+    borderColor: 'red',
+    elevation: 6, // For Android
   },
   bottom: {
     paddingTop: 10,
