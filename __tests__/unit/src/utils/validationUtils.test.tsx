@@ -324,14 +324,7 @@ describe('isValidEmail Tests', () => {
   });
 });
 
-describe('isValidEmailCheckout tests', () => {
-
-
-
-
-
-
-});
+describe('isValidEmailCheckout tests', () => {});
 
 describe('isValidValidator Tests', () => {
   let currentMerchant = {

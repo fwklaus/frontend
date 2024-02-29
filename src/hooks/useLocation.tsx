@@ -2,7 +2,6 @@ import {useContext, useEffect} from 'react';
 import {PermissionsAndroid} from 'react-native';
 import {LocationContext} from '../context/LocationContext';
 import {GOOGLE_API_KEY} from '@env';
-const baseURL = '172.25.103.21:3000';
 
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';

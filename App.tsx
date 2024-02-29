@@ -13,8 +13,8 @@ import {OrdersProvider} from './src/context/OrdersContext';
 import {SessionProvider} from './src/context/SessionContext';
 
 // API Contexts should be available across app
-  // should take some data, make a request
-  // return necessary data
+// should take some data, make a request
+// return necessary data
 
 // splash page
 import {LoadingScreen} from './src/screens/LoadingScreen';

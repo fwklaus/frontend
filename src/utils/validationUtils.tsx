@@ -157,5 +157,5 @@ export {
   isFullState,
   isStateCode,
   isValidEmailCheckout,
-  isValidNameCheckout
+  isValidNameCheckout,
 };

@@ -27,7 +27,7 @@ const MerchantProvider = props => {
   const [storeInfo, setStoreInfo] = useState(defaultStoreInfo);
 
   useEffect(() => {
-//         console.log(merchants, " from MerchantContext");
+    //         console.log(merchants, " from MerchantContext");
   }, [merchants]);
 
   useEffect(() => {

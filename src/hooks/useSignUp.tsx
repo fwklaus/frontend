@@ -12,7 +12,7 @@ const useSignUp = () => {
 
   // API methods
   async function signUp() {
-    let formattedBody = formatNewMerchant(newMerchant)
+    let formattedBody = formatNewMerchant(newMerchant);
 
     let requestObject = {
       method: 'POST',
@@ -35,7 +35,7 @@ const useSignUp = () => {
       console.log(json.message);
       return json;
     } catch (e) {
-      console.log(e.message + ' (at useSignUp.signUp)')
+      console.log(e.message + ' (at useSignUp.signUp)');
       throw new Error(e.message);
     }
   }
@@ -64,7 +64,7 @@ const useSignUp = () => {
     formatNewMerchant,
     updateNewMerchant,
     newMerchant,
-    signUp
+    signUp,
   };
 };
 

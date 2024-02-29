@@ -15,9 +15,6 @@ const useMerchant = () => {
     setPassword,
     storeInfo,
     setStoreInfo,
-    defaultEmail,
-    defaultPassword,
-    defaultStoreInfo
   } = useContext(MerchantContext);
 
   const {encodeSessionId} = useSessions();
@@ -25,7 +22,7 @@ const useMerchant = () => {
   // API methods
 
   // should be an anonymous user that calls this when loading SignInTab
-    // ie no Cookie - check with Steven about this
+  // ie no Cookie - check with Steven about this
   async function getMerchants() {
     try {
       let response = await fetch(merchantsURL);
@@ -48,29 +45,29 @@ const useMerchant = () => {
     let sessionID = encodeSessionId();
     let cookie = `connect.sid=${sessionID}`;
     let requestObject = {
-      method: "GET",
+      method: 'GET',
       headers: {
         Cookie: cookie,
         Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }
+        'Content-Type': 'application/json',
+      },
+    };
 
     try {
       let response = await fetch(merchantsURL + merchantId, requestObject);
       let json = await response.json();
 
       if (response.status !== 200) {
-        throw new Error(json.error)
+        throw new Error(json.error);
       }
 
       if (update) {
-         replaceUpdatedMerchant(json)
+        replaceUpdatedMerchant(json);
       }
 
       return json;
     } catch (e) {
-      console.log(e.message + " (at getMerchant)");
+      console.log(e.message + ' (at getMerchant)');
       throw new Error(e.message);
     }
   }
@@ -83,9 +80,9 @@ const useMerchant = () => {
       let responses = await Promise.all(requests);
 
       // check for 400 status
-        // comes from trying to update password
-        // comes from trying to update id
-        // comes from trying to update nonexistent merchant
+      // comes from trying to update password
+      // comes from trying to update id
+      // comes from trying to update nonexistent merchant
       responses.forEach(response => {
         if (response.status === 400) {
           throw new Error('Bad request');
@@ -96,7 +93,7 @@ const useMerchant = () => {
       json.forEach(obj => console.log(obj.message || obj.error));
       alert('Successfully updated merchant.');
     } catch (e) {
-      console.log(e.message + ' (at useMerchant.updateMerchant)')
+      console.log(e.message + ' (at useMerchant.updateMerchant)');
       throw new Error(e.message);
     }
   }
@@ -134,7 +131,6 @@ const useMerchant = () => {
 
   function getUpdateFields(merchant, updateObj) {
     let updateFields = [];
-    let merchantId = merchant.id;
 
     for (const field in updateObj) {
       let value = updateObj[field];
@@ -187,7 +183,7 @@ const useMerchant = () => {
   function addNewMerchant(newMerchant) {
     let merchantsCopy = getCopy(merchants);
     merchantsCopy.push(newMerchant.newMerchantDetails);
-    setMerchants(merchantsCopy)
+    setMerchants(merchantsCopy);
   }
 
   function removeMerchant(id) {
@@ -198,20 +194,6 @@ const useMerchant = () => {
 
   function getCopy(collection) {
     return JSON.parse(JSON.stringify(collection));
-  }
-
-  function updateNewMerchant(field, input) {
-    let copy = getCopy(newMerchant);
-    copy[field] = input;
-    setNewMerchant(copy);
-  }
-
-  function formatNewMerchant(newMerchant) {
-    let newMerchantCopy = getCopy(newMerchant);
-    newMerchantCopy.state = getStateCode(newMerchantCopy.state);
-    newMerchantCopy.phone = formatPhone(newMerchantCopy.phone);
-
-    return newMerchantCopy;
   }
 
   function fillStoreInfo(currentMerchant) {
@@ -285,31 +267,3 @@ const useMerchant = () => {
 };
 
 export default useMerchant;
-
-
-//     return fetch(`${merchantsURL}`)
-//       .then(response => response.json())
-//       .then(json => {
-//         if (JSON.stringify(merchants) !== JSON.stringify(json)) {
-//           setMerchants(json);
-//         }
-//       })
-//       .catch(error => console.log(error));
-
-
-//   function resetFields(type) {
-//     switch(type) {
-//       case('email'):
-//         setEmail(defaultEmail);
-//         break;
-//       case('password'):
-//         setPassword(defaultPassword);
-//         break;
-//       case('storeInfo'):
-//         setStoreInfo(defaultStoreInfo);
-//         break;
-//       default:
-//         let _exhaustiveCheck: never = type;
-//         throw new Error(`Invalid type: ${JSON.stringify(_exhaustiveCheck)}`);
-//     }
-//   }

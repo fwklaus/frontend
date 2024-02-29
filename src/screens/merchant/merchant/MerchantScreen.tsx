@@ -19,7 +19,6 @@ const Tab = createBottomTabNavigator();
 
 function SignedInHeader({navigation}) {
   const {toggleLogout, logout, currentMerchant} = useLogin();
-  const {merchants} = useMerchant();
   const {takingOrders, setTakingOrders} = useOrders();
 
   return (
@@ -58,7 +57,7 @@ function SignedInHeader({navigation}) {
       />
       <Item
         title="Logout"
-        onPress={ async () => {
+        onPress={async () => {
           try {
             let response = await logout(currentMerchant.id);
             toggleLogout();

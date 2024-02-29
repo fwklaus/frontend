@@ -269,7 +269,11 @@ function LoginInformation() {
           */}
 
           <TextInput
-            style={[merchContCSS.input, styles.profileInput, {backgroundColor: 'grey'}]}
+            style={[
+              merchContCSS.input,
+              styles.profileInput,
+              {backgroundColor: 'grey'},
+            ]}
             placeholder={'********'}
             editable={false}
           />
@@ -297,20 +301,19 @@ function LoginInformation() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent]}
           onPress={async () => {
-
-//             // should raise a 400 error
-//             try {
-//               if (!validPassword) {
-//                 throw new Error('Invalid password input. Please try again');
-//               }
-//
-//               await updateMerchant(currentMerchant, password);
-//               let merchant = await getMerchant(currentMerchant.id, true);
-//               setCurrentMerchant(merchant);
-//             } catch (e) {
-//               alert(e.message);
-//             }
-            alert("Unable to change password at this time");
+            //             // should raise a 400 error
+            //             try {
+            //               if (!validPassword) {
+            //                 throw new Error('Invalid password input. Please try again');
+            //               }
+            //
+            //               await updateMerchant(currentMerchant, password);
+            //               let merchant = await getMerchant(currentMerchant.id, true);
+            //               setCurrentMerchant(merchant);
+            //             } catch (e) {
+            //               alert(e.message);
+            //             }
+            alert('Unable to change password at this time');
           }}>
           <Text style={merchTextCSS.buttonText}>Change Password</Text>
         </Pressable>
@@ -323,7 +326,7 @@ function LoginInformation() {
 
 function DeleteAccount() {
   const {currentMerchant, toggleLogout} = useLogin();
-  const {deleteMerchant, merchants} = useMerchant();
+  const {deleteMerchant} = useMerchant();
   const navigation = useNavigation();
 
   return (

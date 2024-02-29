@@ -13,13 +13,13 @@ const defaultMerchant = {
   zip: '',
   phone: '',
   sq_access_token: '',
-  sq_access_token: '',
+  sq_refresh_token: '',
 };
 
 const defaultCredentials = {
- email: '',
- password: '',
-}
+  email: '',
+  password: '',
+};
 
 const LoginProvider = props => {
   const [credentials, setCredentials] = useState(defaultCredentials);
@@ -36,7 +36,7 @@ const LoginProvider = props => {
   }, [loggedIn]);
 
   useEffect(() => {
-//     console.log(currentMerchant, "currentMerchant");
+    //     console.log(currentMerchant, "currentMerchant");
   }, [currentMerchant]);
 
   useEffect(() => {

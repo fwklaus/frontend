@@ -34,7 +34,7 @@ function SignInTab({navigation}) {
   // need to be able to call this prior to authentication
   useFocusEffect(
     React.useCallback(() => {
-      (async function(){
+      (async function () {
         try {
           await getMerchants();
         } catch (e) {
@@ -56,7 +56,9 @@ function SignInTab({navigation}) {
       <View style={[merchContCSS.mainSpacer]}>{/*spacer*/}</View>
       <View style={merchContCSS.mainContent}>
         <View style={[merchContCSS.header, {flex: 2}]}>
-          <Text style={[merchTextCSS.text, merchTextCSS.header]}>Log in to OrderWeasel</Text>
+          <Text style={[merchTextCSS.text, merchTextCSS.header]}>
+            Log in to OrderWeasel
+          </Text>
         </View>
         <View style={[merchContCSS.tabMain, {flexDirection: 'column'}]}>
           <View style={{flexDirection: 'row'}}>

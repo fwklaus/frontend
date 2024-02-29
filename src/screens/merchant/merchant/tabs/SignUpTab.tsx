@@ -14,7 +14,6 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {SignUpProvider} from '../../../../context/SignUpContext';
 import useMerchant from '../../../../hooks/useMerchant';
 import useSignUp from '../../../../hooks/useSignUp';
-import useSignIn from '../../../../hooks/useSignIn';
 import useLogin from '../../../../hooks/useLogin';
 
 import {

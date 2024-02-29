@@ -17,7 +17,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 function MerchantPathway({navigation}) {
-  const [smallScreen, setSmallScreen] = useState(() => {
+  const [smallScreen, _setSmallScreen] = useState(() => {
     return windowWidth < 400;
   });
 
@@ -55,7 +55,7 @@ function MerchantPathway({navigation}) {
 
 function CustomerPathway({navigation}) {
   //   const { requestLocationPermission, getLocation, location, setLocation } = useLocation();
-  const [largeScreen, setLargeScreen] = useState(() => {
+  const [largeScreen, _setLargeScreen] = useState(() => {
     return windowWidth > 400;
   });
 

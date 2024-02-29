@@ -19,7 +19,7 @@ const SignUpProvider = props => {
   });
 
   useEffect(() => {
-//           console.log(newMerchant);
+    //           console.log(newMerchant);
   }, [newMerchant]);
 
   return (

@@ -6,9 +6,9 @@ const useSessions = () => {
 
   function decodeAndFormatCookie(cookie) {
     let encodedSessionInfo = cookie.split(';')[0];
-    let [name, sessionId] = encodedSessionInfo.split('=');
+    let [_name, sessionId] = encodedSessionInfo.split('=');
 
-    return  decodeURIComponent(sessionId);
+    return decodeURIComponent(sessionId);
   }
 
   function encodeSessionId() {
@@ -22,7 +22,7 @@ const useSessions = () => {
 
   return {
     createNewSession,
-    encodeSessionId
+    encodeSessionId,
   };
 };
 
