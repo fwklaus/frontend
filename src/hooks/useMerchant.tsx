@@ -1,17 +1,10 @@
 import {useContext} from 'react';
 import {MerchantContext} from '../context/MerchantContext';
+import useSessions from './useSessions';
 
 // this should be changed after deployment
-//   const url = 'http://localhost:3000/api/merchants';
-// const baseURL = 'http://172.24.112.109:3000';
-// const baseURL = 'http://172.25.103.21:3000/api/merchants/';
-const baseURL = 'http://172.21.238.183:3000/api/merchants/';
-const signUpURL = 'http://172.21.238.183:3000/api/signup/';
-const loginURL = 'http://172.21.238.183:3000/api/login/';
+const merchantsURL = 'http://172.21.238.183:3000/api/merchants/';
 
-// import { formatPhone, getStateCode } from '../utils/validationUtils';
-
-// interfaces with backend
 const useMerchant = () => {
   const {
     merchants,
@@ -22,7 +15,204 @@ const useMerchant = () => {
     setPassword,
     storeInfo,
     setStoreInfo,
+    defaultEmail,
+    defaultPassword,
+    defaultStoreInfo
   } = useContext(MerchantContext);
+
+  const {encodeSessionId} = useSessions();
+
+  // API methods
+
+  // should be an anonymous user that calls this when loading SignInTab
+    // ie no Cookie - check with Steven about this
+  async function getMerchants() {
+    try {
+      let response = await fetch(merchantsURL);
+      let json = await response.json();
+
+      if (response.status !== 200) {
+        throw new Error(json.error);
+      }
+
+      if (JSON.stringify(merchants) !== JSON.stringify(json)) {
+        setMerchants(json);
+      }
+    } catch (e) {
+      console.log(e.message + ' (at getMerchants)');
+      throw new Error(e.message);
+    }
+  }
+
+  async function getMerchant(merchantId, update = false) {
+    let sessionID = encodeSessionId();
+    let cookie = `connect.sid=${sessionID}`;
+    let requestObject = {
+      method: "GET",
+      headers: {
+        Cookie: cookie,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+
+    try {
+      let response = await fetch(merchantsURL + merchantId, requestObject);
+      let json = await response.json();
+
+      if (response.status !== 200) {
+        throw new Error(json.error)
+      }
+
+      if (update) {
+         replaceUpdatedMerchant(json)
+      }
+
+      return json;
+    } catch (e) {
+      console.log(e.message + " (at getMerchant)");
+      throw new Error(e.message);
+    }
+  }
+
+  async function updateMerchant(merchant, updateObj) {
+    let updateFields = getUpdateFields(merchant, updateObj);
+    let requests = createRequests(merchant, updateFields, updateObj);
+
+    try {
+      let responses = await Promise.all(requests);
+
+      // check for 400 status
+        // comes from trying to update password
+        // comes from trying to update id
+        // comes from trying to update nonexistent merchant
+      responses.forEach(response => {
+        if (response.status === 400) {
+          throw new Error('Bad request');
+        }
+      });
+
+      let json = await Promise.all(responses.map(response => response.json()));
+      json.forEach(obj => console.log(obj.message || obj.error));
+      alert('Successfully updated merchant.');
+    } catch (e) {
+      console.log(e.message + ' (at useMerchant.updateMerchant)')
+      throw new Error(e.message);
+    }
+  }
+
+  async function deleteMerchant(id) {
+    removeMerchant(id);
+    let sessionID = encodeSessionId();
+    let cookie = `connect.sid=${sessionID}`;
+    let requestObj = {
+      method: 'DELETE',
+      headers: {
+        Cookie: cookie,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    };
+
+    // delete the merchant on the server
+    try {
+      let res = await fetch(merchantsURL + id, requestObj);
+      let json = await res.json();
+
+      if (res.status === 400) {
+        throw new Error(json.error);
+      }
+
+      alert(json.message);
+    } catch (e) {
+      console.log(e.message + ' (at deleteMerchant)');
+      throw new Error(e.message);
+    }
+  }
+
+  // helper functions
+
+  function getUpdateFields(merchant, updateObj) {
+    let updateFields = [];
+    let merchantId = merchant.id;
+
+    for (const field in updateObj) {
+      let value = updateObj[field];
+      let merchantValue = merchant[field];
+      if (value !== merchantValue) {
+        updateFields.push(field);
+      }
+    }
+
+    return updateFields;
+  }
+
+  function createRequests(merchant, updateFields, updateObj) {
+    let merchantId = merchant.id;
+    let sessionID = encodeSessionId();
+    let cookie = `connect.sid=${sessionID}`;
+    let requests = updateFields.map(field => {
+      let body = {
+        columnName: field,
+        newValue: updateObj[field],
+      };
+
+      let requestObject = {
+        method: 'PATCH',
+        headers: {
+          Cookie: cookie,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      };
+
+      return fetch(merchantsURL + merchantId, requestObject);
+    });
+
+    return requests;
+  }
+
+  function replaceUpdatedMerchant(newMerchant) {
+    let idx = findIndex(newMerchant.id);
+    if (idx === -1) {
+      throw Error('Id is undefined (at replaceUpdatedMerchant)');
+    }
+
+    let merchantsCopy = getCopy(merchants);
+    merchantsCopy.splice(idx, 1, newMerchant);
+    setMerchants(merchantsCopy);
+  }
+
+  function addNewMerchant(newMerchant) {
+    let merchantsCopy = getCopy(merchants);
+    merchantsCopy.push(newMerchant.newMerchantDetails);
+    setMerchants(merchantsCopy)
+  }
+
+  function removeMerchant(id) {
+    let merchantsCopy = getCopy(merchants);
+    let filtered = merchantsCopy.filter(merchant => merchant.id !== id);
+    setMerchants(filtered);
+  }
+
+  function getCopy(collection) {
+    return JSON.parse(JSON.stringify(collection));
+  }
+
+  function updateNewMerchant(field, input) {
+    let copy = getCopy(newMerchant);
+    copy[field] = input;
+    setNewMerchant(copy);
+  }
+
+  function formatNewMerchant(newMerchant) {
+    let newMerchantCopy = getCopy(newMerchant);
+    newMerchantCopy.state = getStateCode(newMerchantCopy.state);
+    newMerchantCopy.phone = formatPhone(newMerchantCopy.phone);
+
+    return newMerchantCopy;
+  }
 
   function fillStoreInfo(currentMerchant) {
     let fields = {
@@ -68,171 +258,21 @@ const useMerchant = () => {
     setEmail(copy);
   }
 
-  function getMerchantsCopy() {
-    return JSON.parse(JSON.stringify(merchants));
-  }
-
-  function getMerchants() {
-    return fetch(`${baseURL}`)
-      .then(response => response.json())
-      .then(json => {
-        if (JSON.stringify(merchants) !== JSON.stringify(json)) {
-          setMerchants(json);
-        }
-      })
-      .catch(error => console.log(error));
+  function getCopy(collection) {
+    return JSON.parse(JSON.stringify(collection));
   }
 
   function findIndex(id) {
     return merchants.findIndex(merchant => merchant.id === id);
   }
 
-  function getMerchant(id, update = false) {
-    return fetch(baseURL + id)
-      .then(response => response.json())
-      .then(json => {
-        let merchant = json;
-        // if we are updating, replace merchant in merchants with updated merchant
-        if (update) {
-          let idx = findIndex(merchant.id);
-          if (idx === -1) {
-            throw Error('getMerchant: merchant is missing');
-          }
-
-          let merchantsCopy = getMerchantsCopy();
-          merchantsCopy.splice(idx, 1, merchant);
-          setMerchants(merchantsCopy);
-        }
-
-        return merchant;
-      })
-      .catch(error => console.log(error));
-  }
-
-  async function updateMerchant(merchant, updateObj) {
-    let updateFields = [];
-    let merchantId = merchant.id;
-
-    for (const field in updateObj) {
-      let value = updateObj[field];
-      let merchantValue = merchant[field];
-      if (value !== merchantValue) {
-        updateFields.push(field);
-      }
-    }
-
-    let requests = updateFields.map(field => {
-      let body = {
-        columnName: field,
-        newValue: updateObj[field],
-      };
-
-      let requestObject = {
-        method: 'PATCH',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      };
-
-      return fetch(baseURL + merchantId, requestObject);
-    });
-
-    try {
-      let responses = await Promise.all(requests);
-      let json = await Promise.all(responses.map(response => response.json()));
-      json.forEach(obj => console.log(obj.message));
-      alert('Successfully update merchant.');
-    } catch (e) {
-      throw new Error(e.message, 'at UpdateMerchant');
-    }
-  }
-
-  async function deleteMerchant(id) {
-    // filter out merchant fom merchants and setMerchants to new merchant array
-    let merchantsCopy = getMerchantsCopy();
-    let filtered = merchantsCopy.filter(merchant => merchant.id !== id);
-    setMerchants(filtered);
-
-    let requestObj = {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    };
-
-    // delete the merchant on the server
-    try {
-      let res = await fetch(baseURL + id, requestObj);
-      let json = await res.json();
-
-      if (res.status === 400) {
-        throw new Error(json.error);
-      }
-
-      alert(json.message);
-    } catch (e) {
-      throw new Error(e.message);
-    }
-  }
-
-  async function createMerchant(newMerchant) {
-    let requestObject = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newMerchant),
-    };
-
-    try {
-      let response = await fetch(signUpURL, requestObject);
-      let json = await response.json();
-
-      if (response.status === 400) {
-        throw new Error(json.error);
-      }
-
-      alert(json.success);
-    } catch (e) {
-      throw new Error(e.message);
-    }
-  }
-
-  async function postSignIn(credentials) {
-    let requestObject = {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    };
-
-    try {
-      let response = await fetch(loginURL, requestObject);
-      let json = await response.json();
-      if (response.status === 400) {
-        throw new Error(json.error, 'at /login');
-      }
-
-      alert(json.message);
-    } catch (e) {
-      throw new Error(e.message, 'at postSignIn');
-    }
-  }
-
   return {
+    addNewMerchant,
     getMerchants,
     getMerchant,
-    createMerchant,
     merchants,
     updateMerchant,
     deleteMerchant,
-    postSignIn,
     updatePassword,
     updateEmail,
     fillStoreInfo,
@@ -245,3 +285,31 @@ const useMerchant = () => {
 };
 
 export default useMerchant;
+
+
+//     return fetch(`${merchantsURL}`)
+//       .then(response => response.json())
+//       .then(json => {
+//         if (JSON.stringify(merchants) !== JSON.stringify(json)) {
+//           setMerchants(json);
+//         }
+//       })
+//       .catch(error => console.log(error));
+
+
+//   function resetFields(type) {
+//     switch(type) {
+//       case('email'):
+//         setEmail(defaultEmail);
+//         break;
+//       case('password'):
+//         setPassword(defaultPassword);
+//         break;
+//       case('storeInfo'):
+//         setStoreInfo(defaultStoreInfo);
+//         break;
+//       default:
+//         let _exhaustiveCheck: never = type;
+//         throw new Error(`Invalid type: ${JSON.stringify(_exhaustiveCheck)}`);
+//     }
+//   }

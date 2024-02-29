@@ -9,7 +9,7 @@ const ResDataProvider = props => {
   const [resId, setResId] = useState(null);
 
   useEffect(() => {
-    console.log('RestaurantId: ' + resId);
+//     console.log('RestaurantId: ' + resId);
   }, [resId]);
 
   useEffect(() => {

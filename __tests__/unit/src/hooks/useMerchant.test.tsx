@@ -22,7 +22,7 @@ describe('useMerchant Tests', () => {
     }
 
     function Test() {
-      const {createMerchant, merchants} = useMerchant();
+      const {signUp, merchants} = useMerchant();
 
       return <Text>Test</Text>;
     }

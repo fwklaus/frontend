@@ -10,7 +10,7 @@ import {
   Dimensions,
   SafeAreaView,
 } from 'react-native';
-import useSignIn from '../../../../hooks/useSignIn';
+import useLogin from '../../../../hooks/useLogin';
 import useMerchant from '../../../../hooks/useMerchant';
 
 import {merchContCSS} from '../../../../res/styles/merchantContainer';
@@ -43,7 +43,7 @@ import {
 const windowHeight = Dimensions.get('window').height;
 
 function StoreInformation() {
-  const {currentMerchant, setCurrentMerchant} = useSignIn();
+  const {currentMerchant, setCurrentMerchant} = useLogin();
   const {
     updateMerchant,
     getMerchant,
@@ -206,7 +206,7 @@ function StoreInformation() {
 }
 
 function LoginInformation() {
-  const {currentMerchant, setCurrentMerchant} = useSignIn();
+  const {currentMerchant, setCurrentMerchant} = useLogin();
   const {
     updateMerchant,
     getMerchant,
@@ -252,6 +252,7 @@ function LoginInformation() {
               updateEmail(text);
             }}
           />
+          {/*
           <TextInput
             style={[merchContCSS.input, styles.profileInput]}
             placeholder={'********'}
@@ -264,6 +265,13 @@ function LoginInformation() {
 
               updatePassword(text);
             }}
+          />
+          */}
+
+          <TextInput
+            style={[merchContCSS.input, styles.profileInput, {backgroundColor: 'grey'}]}
+            placeholder={'********'}
+            editable={false}
           />
         </View>
       </View>
@@ -289,17 +297,20 @@ function LoginInformation() {
         <Pressable
           style={[merchContCSS.button, merchContCSS.mainContent]}
           onPress={async () => {
-            try {
-              if (!validPassword) {
-                throw new Error('Invalid password input. Please try again');
-              }
 
-              await updateMerchant(currentMerchant, password);
-              let merchant = await getMerchant(currentMerchant.id, true);
-              setCurrentMerchant(merchant);
-            } catch (e) {
-              alert(e.message, 'at LoginInformation: Password');
-            }
+//             // should raise a 400 error
+//             try {
+//               if (!validPassword) {
+//                 throw new Error('Invalid password input. Please try again');
+//               }
+//
+//               await updateMerchant(currentMerchant, password);
+//               let merchant = await getMerchant(currentMerchant.id, true);
+//               setCurrentMerchant(merchant);
+//             } catch (e) {
+//               alert(e.message);
+//             }
+            alert("Unable to change password at this time");
           }}>
           <Text style={merchTextCSS.buttonText}>Change Password</Text>
         </Pressable>
@@ -311,8 +322,8 @@ function LoginInformation() {
 }
 
 function DeleteAccount() {
-  const {currentMerchant, signOut} = useSignIn();
-  const {deleteMerchant} = useMerchant();
+  const {currentMerchant, toggleLogout} = useLogin();
+  const {deleteMerchant, merchants} = useMerchant();
   const navigation = useNavigation();
 
   return (
@@ -330,7 +341,7 @@ function DeleteAccount() {
           onPress={async () => {
             try {
               await deleteMerchant(currentMerchant.id);
-              signOut();
+              toggleLogout();
               navigation.navigate('MerchantHome');
             } catch (e) {
               alert(e.message);
@@ -346,7 +357,7 @@ function DeleteAccount() {
 }
 
 function ProfileTab() {
-  const {currentMerchant} = useSignIn();
+  const {currentMerchant} = useLogin();
 
   return (
     <SafeAreaView

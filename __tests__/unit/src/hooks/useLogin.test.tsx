@@ -5,19 +5,22 @@
 import 'react-native';
 import React from 'react';
 import {Text} from 'react-native';
-import useSignIn from '../../../../src/hooks/useSignIn';
-import {SignInProvider} from '../../../../src/context/SignInContext';
+// import useSignIn from '../../../../src/hooks/useSignIn';
+// import {SignInProvider} from '../../../../src/context/SignInContext';
+
+import useLogin from '../../../../src/hooks/useLogin';
+import {LoginProvider} from '../../../../src/context/LoginContext';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-describe('useSignIn Tests', () => {
+describe('useLogin Tests', () => {
   it('renders correctly', () => {
     function App() {
       return (
-        <SignInProvider>
+        <LoginProvider>
           <Test />
-        </SignInProvider>
+        </LoginProvider>
       );
     }
 
@@ -27,11 +30,12 @@ describe('useSignIn Tests', () => {
         updateCredentials,
         validCredentials,
         resetFields,
-        signedIn,
+        loggedIn,
+        setLoggedIn,
         currentMerchant,
-        signOut,
-        signIn,
-      } = useSignIn();
+        toggleSignOut,
+        toggleSignIn,
+      } = useLogin();
 
       return <Text>Test</Text>;
     }

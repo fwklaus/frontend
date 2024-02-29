@@ -1,20 +1,21 @@
 import React from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import {SafeAreaView, View, Text, TextInput, Pressable} from 'react-native';
-import useSignIn from '../../../../hooks/useSignIn';
+import useLogin from '../../../../hooks/useLogin';
 import useMerchant from '../../../../hooks/useMerchant';
 
 import {merchContCSS} from '../../../../res/styles/merchantContainer';
 import {merchTextCSS} from '../../../../res/styles/merchantText';
 
 function SignInButton({navigation}) {
-  const {resetFields, signIn} = useSignIn();
+  const {resetFields, login} = useLogin();
+
   return (
     <Pressable
       style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
       onPress={async () => {
         try {
-          await signIn();
+          await login();
           navigation.navigate('Orders');
         } catch (e) {
           alert(e.message);
@@ -27,12 +28,19 @@ function SignInButton({navigation}) {
 }
 
 function SignInTab({navigation}) {
-  const {credentials, updateCredentials} = useSignIn();
+  const {credentials, updateCredentials} = useLogin();
   const {getMerchants, merchants} = useMerchant();
 
+  // need to be able to call this prior to authentication
   useFocusEffect(
     React.useCallback(() => {
-      getMerchants();
+      (async function(){
+        try {
+          await getMerchants();
+        } catch (e) {
+          alert(e.message);
+        }
+      })();
     }, [merchants]),
   );
 
@@ -48,7 +56,7 @@ function SignInTab({navigation}) {
       <View style={[merchContCSS.mainSpacer]}>{/*spacer*/}</View>
       <View style={merchContCSS.mainContent}>
         <View style={[merchContCSS.header, {flex: 2}]}>
-          <Text style={[merchTextCSS.text, merchTextCSS.header]}>Sign In</Text>
+          <Text style={[merchTextCSS.text, merchTextCSS.header]}>Log in to OrderWeasel</Text>
         </View>
         <View style={[merchContCSS.tabMain, {flexDirection: 'column'}]}>
           <View style={{flexDirection: 'row'}}>

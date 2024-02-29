@@ -1,8 +1,9 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import useSignIn from '../../../hooks/useSignIn';
+import useLogin from '../../../hooks/useLogin';
 import useOrders from '../../../hooks/useOrders';
+import useMerchant from '../../../hooks/useMerchant';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 
 import {containerStyles} from '../../../res/styles/container';
@@ -17,7 +18,8 @@ import {ProfileTab} from './tabs/ProfileTab';
 const Tab = createBottomTabNavigator();
 
 function SignedInHeader({navigation}) {
-  const {signOut} = useSignIn();
+  const {toggleLogout, logout, currentMerchant} = useLogin();
+  const {merchants} = useMerchant();
   const {takingOrders, setTakingOrders} = useOrders();
 
   return (
@@ -55,11 +57,16 @@ function SignedInHeader({navigation}) {
         buttonStyle={styles.buttonText}
       />
       <Item
-        title="SignOut"
-        onPress={() => {
-          signOut();
-          alert('Signed Out');
-          navigation.navigate('MerchantHome');
+        title="Logout"
+        onPress={ async () => {
+          try {
+            let response = await logout(currentMerchant.id);
+            toggleLogout();
+            alert(response.message);
+            navigation.navigate('MerchantHome');
+          } catch (e) {
+            console.log(e.message);
+          }
         }}
         style={styles.button}
         buttonStyle={styles.buttonText}
@@ -100,7 +107,7 @@ function SignedOutHeader({navigation}) {
         buttonStyle={styles.buttonText}
       />
       <Item
-        title="SignIn"
+        title="Login"
         onPress={() => {
           navigation.navigate('SignIn');
         }}
@@ -112,19 +119,19 @@ function SignedOutHeader({navigation}) {
 }
 
 function MerchantScreen({navigation}) {
-  const {signedIn} = useSignIn();
+  const {loggedIn} = useLogin();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       title: 'ORDERWEASEL',
       headerRight: () =>
-        signedIn ? (
+        loggedIn ? (
           <SignedInHeader navigation={navigation} />
         ) : (
           <SignedOutHeader navigation={navigation} />
         ),
     });
-  }, [navigation, signedIn]);
+  }, [navigation, loggedIn]);
 
   return (
     <SafeAreaView style={containerStyles.main}>

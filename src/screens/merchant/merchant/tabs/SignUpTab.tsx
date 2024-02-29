@@ -15,6 +15,7 @@ import {SignUpProvider} from '../../../../context/SignUpContext';
 import useMerchant from '../../../../hooks/useMerchant';
 import useSignUp from '../../../../hooks/useSignUp';
 import useSignIn from '../../../../hooks/useSignIn';
+import useLogin from '../../../../hooks/useLogin';
 
 import {
   isValidPhoneNumber,
@@ -472,9 +473,9 @@ function OAuth({navigation}) {
 }
 
 function CreateAccount({navigation}) {
-  const {formatNewMerchant} = useSignUp();
-  const {createMerchant} = useMerchant();
-  const {resetFields} = useSignIn();
+  const {signUp} = useSignUp();
+  const {addNewMerchant} = useMerchant();
+  const {toggleLogin, currentMerchant, setCurrentMerchant} = useLogin();
 
   return (
     <SafeAreaView
@@ -499,10 +500,18 @@ function CreateAccount({navigation}) {
             style={{backgroundColor: 'blue', padding: 10, borderRadius: 10}}
             onPress={async () => {
               try {
-                let newMerchantCopy = formatNewMerchant();
-                await createMerchant(newMerchantCopy);
-                resetFields();
-                navigation.navigate('SignIn');
+                // sign up and create session
+                let newMerchant = await signUp();
+                let email = newMerchant.newMerchantDetails.email;
+
+                // adds merchant to merchants state
+                addNewMerchant(newMerchant);
+
+                // set current merchant and login state for display
+                setCurrentMerchant(newMerchant.newMerchantDetails);
+                toggleLogin();
+                navigation.navigate('Orders');
+                alert(`Welcome ${email}!`);
               } catch (e) {
                 alert(e.message);
               }
@@ -516,11 +525,6 @@ function CreateAccount({navigation}) {
 }
 
 function SignUpTab() {
-  const {getMerchants} = useMerchant();
-  useEffect(() => {
-    getMerchants();
-  }, []);
-
   return (
     <SignUpProvider>
       <SafeAreaView

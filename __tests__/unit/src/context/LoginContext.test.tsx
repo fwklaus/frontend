@@ -5,15 +5,15 @@
 import 'react-native';
 import {Text} from 'react-native';
 import React from 'react';
-import {SignInProvider} from '../../../../src/context/SignInContext';
+import {LoginProvider} from '../../../../src/context/LoginContext';
 
 // Note: import explicitly to use the types shipped with jest.
 import {it} from '@jest/globals';
 
-describe('SignInProvider Tests', () => {
+describe('LoginProvider Tests', () => {
   it('renders correctly', () => {
-    <SignInProvider>
+    <LoginProvider>
       <Text>Test</Text>
-    </SignInProvider>;
+    </LoginProvider>;
   });
 });

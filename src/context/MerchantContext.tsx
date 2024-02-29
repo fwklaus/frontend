@@ -3,26 +3,31 @@ import {createContext, useState, useEffect} from 'react';
 
 const MerchantContext = createContext(null);
 
+const defaultEmail = {
+  email: '',
+};
+
+const defaultPassword = {
+  password: '',
+};
+
+const defaultStoreInfo = {
+  restaurant_name: '',
+  phone: '',
+  street: '',
+  city: '',
+  state: '',
+  zip: '',
+};
+
 const MerchantProvider = props => {
   const [merchants, setMerchants] = useState([]);
-  const [email, setEmail] = useState({
-    email: '',
-  });
-  const [password, setPassword] = useState({
-    password: '',
-  });
-
-  const [storeInfo, setStoreInfo] = useState({
-    restaurant_name: '',
-    phone: '',
-    street: '',
-    city: '',
-    state: '',
-    zip: '',
-  });
+  const [email, setEmail] = useState(defaultEmail);
+  const [password, setPassword] = useState(defaultPassword);
+  const [storeInfo, setStoreInfo] = useState(defaultStoreInfo);
 
   useEffect(() => {
-    //     console.log(merchants, " from MerchantContext");
+//         console.log(merchants, " from MerchantContext");
   }, [merchants]);
 
   useEffect(() => {
@@ -42,6 +47,9 @@ const MerchantProvider = props => {
         setPassword,
         storeInfo,
         setStoreInfo,
+        defaultEmail,
+        defaultPassword,
+        defaultStoreInfo,
       }}>
       {props.children}
     </MerchantContext.Provider>
