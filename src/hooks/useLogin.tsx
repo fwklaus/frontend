@@ -77,9 +77,12 @@ const useLogin = () => {
     try {
       await loginAPI(credentials);
 
-      // doesn't work until we've authenticated
-      // need to be able to getAllMerchants before we set the currentMerchant upon login
+      // we're setting the current merchant on login because we call getMerchants
+        // in SignInTab, so the merchants are set
       setCurrentMerchant(getMerchantByEmail(credentials.email));
+
+      // after login, we should then get the new merchant and set as current merchant
+       // rather than calling getMerchants
 
       toggleLogin();
     } catch (e) {

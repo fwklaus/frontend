@@ -1,5 +1,5 @@
 import React from 'react';
-import {useFocusEffect} from '@react-navigation/native';
+// import {useFocusEffect} from '@react-navigation/native';
 import {SafeAreaView, View, Text, TextInput, Pressable} from 'react-native';
 import useLogin from '../../../../hooks/useLogin';
 import useMerchant from '../../../../hooks/useMerchant';
@@ -31,18 +31,18 @@ function SignInTab({navigation}) {
   const {credentials, updateCredentials} = useLogin();
   const {getMerchants, merchants} = useMerchant();
 
-  // need to be able to call this prior to authentication
-  useFocusEffect(
-    React.useCallback(() => {
-      (async function () {
-        try {
-          await getMerchants();
-        } catch (e) {
-          alert(e.message);
-        }
-      })();
-    }, [merchants]),
-  );
+//   // need to be able to call this prior to authentication
+//   useFocusEffect(
+//     React.useCallback(() => {
+//       (async function () {
+//         try {
+//           await getMerchants();
+//         } catch (e) {
+//           alert(e.message);
+//         }
+//       })();
+//     }, [merchants]),
+//   );
 
   const email = 'email';
   const password = 'password';

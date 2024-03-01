@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 
 import useLocation from '../hooks/useLocation';
+import useMerchant from '../hooks/useMerchant';
+import useSessions from '../hooks/useSessions';
 
 import {containerStyles} from '../res/styles/container';
 import {textStyles} from '../res/styles/text';
@@ -54,7 +56,6 @@ function MerchantPathway({navigation}) {
 }
 
 function CustomerPathway({navigation}) {
-  //   const { requestLocationPermission, getLocation, location, setLocation } = useLocation();
   const [largeScreen, _setLargeScreen] = useState(() => {
     return windowWidth > 400;
   });
@@ -80,8 +81,6 @@ function CustomerPathway({navigation}) {
             alert('Please use an adequate device');
             return;
           }
-          //               await requestLocationPermission();
-          //               await getLocation(location, setLocation);
           navigation.navigate('HomeScreen');
         }}>
         <Text style={styles.buttonText}>I want to buy food</Text>
@@ -93,10 +92,28 @@ function CustomerPathway({navigation}) {
 
 function WelcomeScreen({navigation}) {
   const {getLocation, location, setLocation} = useLocation();
+  const {createNewSession} = useSessions();
+  const {getMerchants} = useMerchant();
+
+//   useEffect(() => {
+//     (async function () {
+//       await getLocation(location, setLocation);
+//     })();
+//   }, []);
 
   useEffect(() => {
     (async function () {
-      getLocation(location, setLocation);
+      try {
+        await getLocation(location, setLocation);
+        // get Merchants loads merchants and returns header with cookie
+        let response = await getMerchants();
+
+        // createNewSession uses response headers to set sessionID for subsequent requests
+        createNewSession(response);
+      } catch (e) {
+        console.log(e.message + ' (at WelcomeScreen)');
+        alert(e.message);
+      }
     })();
   }, []);
 

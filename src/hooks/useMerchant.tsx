@@ -35,6 +35,8 @@ const useMerchant = () => {
       if (JSON.stringify(merchants) !== JSON.stringify(json)) {
         setMerchants(json);
       }
+
+      return response;
     } catch (e) {
       console.log(e.message + ' (at getMerchants)');
       throw new Error(e.message);

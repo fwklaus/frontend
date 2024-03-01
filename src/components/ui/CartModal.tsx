@@ -156,6 +156,10 @@ function CartModal({modalVisible, setModalVisible, item, cart}) {
   let itemQuantity = route.name === 'Menu' ? '0' : item.quantity;
   const [quantity, setQuantity] = useState(itemQuantity);
 
+//   const [smallScreen, _setSmallScreen] = useState(() => {
+//     return windowWidth < 400;
+//   });
+
   return (
     <Modal
       transparent={true}
@@ -166,7 +170,11 @@ function CartModal({modalVisible, setModalVisible, item, cart}) {
       <View style={[modalStyles.centeredView, {flexDirection: 'column'}]}>
         <View style={{flex: 1}}>{/*spacer*/}</View>
         <View
-          style={[modalStyles.modalView, {flex: 1, flexDirection: 'column'}]}>
+          style={[
+            modalStyles.modalView,
+            {flex: 1, flexDirection: 'column', width: '90%'}
+          ]}
+        >
           <ModalHeader
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
