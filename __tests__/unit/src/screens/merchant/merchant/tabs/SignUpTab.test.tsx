@@ -13,6 +13,7 @@ import {
   SignUpProgress,
   ProgressBar,
   ProgressBox,
+  BackButton,
 //   OAuth,
   CreateAccount,
 } from '../../../../../../../src/screens/merchant/merchant/tabs/SignUpTab';
@@ -41,6 +42,12 @@ describe('BusinessAddress Tests', () => {
 describe('NextButton Tests', () => {
   it('renders correctly', () => {
     <NextButton />;
+  });
+});
+
+describe('BackButton Tests', () => {
+  it('renders correctly', () => {
+    <BackButton />;
   });
 });
 
