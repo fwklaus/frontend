@@ -7,7 +7,14 @@ import {getStateCode, formatPhone} from '../utils/validationUtils';
 const signUpURL = 'http://172.21.238.183:3000/api/signup/';
 
 const useSignUp = () => {
-  const [newMerchant, setNewMerchant] = useContext(SignUpContext);
+  const {
+    newMerchant, setNewMerchant, useSignUpProgressBar,
+    validName, setValidName, validPhone, setValidPhone,
+    validStreet, setValidStreet, validCity, setValidCity,
+    validZip, setValidZip, validState, setValidState,
+    validEmail, setValidEmail, validPassword, setValidPassword,
+    validValidator, setValidValidator
+  } = useContext(SignUpContext);
   const {createNewSession} = useSessions();
 
   // API methods
@@ -65,6 +72,25 @@ const useSignUp = () => {
     updateNewMerchant,
     newMerchant,
     signUp,
+    useSignUpProgressBar,
+    validName,
+    setValidName,
+    validPhone,
+    setValidPhone,
+    validStreet,
+    setValidStreet,
+    validCity,
+    setValidCity,
+    validZip,
+    setValidZip,
+    validState,
+    setValidState,
+    validEmail,
+    setValidEmail,
+    validPassword,
+    setValidPassword,
+    validValidator,
+    setValidValidator
   };
 };
 

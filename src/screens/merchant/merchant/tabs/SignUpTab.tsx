@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   SafeAreaView,
   View,
@@ -45,46 +45,47 @@ import {merchTextCSS} from '../../../../res/styles/merchantText';
 const Tab = createMaterialTopTabNavigator();
 const BULLET_POINT = '\u25CF';
 
-// function ProgressBar({count}) {
-//   let percent = 50;
-  //   const countInterval = useRef(null);
-  //   const [count, setCount] = useState(0);
-  //
-  //   const loaderValue = useRef(new Animated.Value(0)).current;
-  //   const load = (count) => {
-  //     Animated.timing(loaderValue, {
-  //       toValue: count,
-  //       duration: 500,
-  //       useNativeDriver: true
-  //     }).start();
-  //   };
-  //
-  //   useEffect(() => {
-  //     load(count);
-  //     if (count >= 100) {
-  //       setCount(100);
-  //       clearInterval(countInterval);
-  //     }
-  //   }, [count]);
+function ProgressBar() {
+  let percent = 50;
+    const countInterval = useRef(null);
+    const [count, setCount] = useState(0);
 
-//   return (
-//     <View style={styles.progressBar}>
-//       <Animated.View
-//         style={[
-//           StyleSheet.absoluteFill,
-//           {backgroundColor: '#8BED4F', width: '50%'},
-//         ]}
-//       />
-//       <Text style={[merchTextCSS.text, {textAlign: 'center'}]}>{percent}%</Text>
-//     </View>
-//   );
-// }
+    const loaderValue = useRef(new Animated.Value(0)).current;
+    const load = (count) => {
+      Animated.timing(loaderValue, {
+        toValue: count,
+        duration: 500,
+        useNativeDriver: true
+      }).start();
+    };
 
-// function ProgressBox({percent, index}) {
-//   return <View style={styles.progressBarSmall} />;
-// }
+    useEffect(() => {
+      load(count);
+      if (count >= 100) {
+        setCount(100);
+        clearInterval(countInterval);
+      }
+    }, [count]);
+
+  return (
+    <View style={styles.progressBar}>
+      <Animated.View
+        style={[
+          StyleSheet.absoluteFill,
+          {backgroundColor: '#8BED4F', width: '50%'},
+        ]}
+      />
+      <Text style={[merchTextCSS.text, {textAlign: 'center'}]}>{percent}%</Text>
+    </View>
+  );
+}
+
+function ProgressBox({percent, index}) {
+  return <View style={styles.progressBarSmall} />;
+}
 
 function SignUpProgress() {
+	const {useSignUpProgressBar} = useSignUp();
   return (
     <SafeAreaView
       style={[
@@ -95,10 +96,10 @@ function SignUpProgress() {
         <Text style={[merchTextCSS.text, merchTextCSS.list]}>
           Sign Up Progress
         </Text>
-        {/*<ProgressBar />*/}
+        {useSignUpProgressBar ? <ProgressBar /> : <></> }
       </View>
       <View style={[merchContCSS.container, {flexDirection: 'row', flex: 2}]}>
-			{/* <View
+			<View
           style={[
             merchContCSS.container,
             {flex: 1, justifyContent: 'flex-start', alignItems: 'center'},
@@ -106,7 +107,7 @@ function SignUpProgress() {
           {['20%', '40%', '60%', '80%', '100%'].map((percent, index) => {
             return <ProgressBox percent={percent} key={index} />;
           })}
-        </View>  */}
+        </View>
         <View
           style={[
             merchContCSS.container,
@@ -147,10 +148,10 @@ function NextButton({navigation, nextTab}) {
 }
 
 function StoreInfo({navigation}) {
-  const {newMerchant, updateNewMerchant} = useSignUp();
-  const [validName, setValidName] = useState(false);
-  const [validPhone, setValidPhone] = useState(false);
-  useEffect(() => {}, [validName, validPhone]);
+  const {
+    newMerchant, updateNewMerchant, validName,
+    setValidName, validPhone, setValidPhone
+  } = useSignUp();
 
   const restaurantName = 'restaurantName';
   const phone = 'phone';
@@ -211,12 +212,11 @@ function StoreInfo({navigation}) {
 }
 
 function BusinessAddress({navigation}) {
-  const {newMerchant, updateNewMerchant} = useSignUp();
-  const [validStreet, setValidStreet] = useState(false);
-  const [validCity, setValidCity] = useState(false);
-  const [validZip, setValidZip] = useState(false);
-  const [validState, setValidState] = useState(false);
-  useEffect(() => {}, [validStreet, validCity, validZip, validState]);
+  const {
+    newMerchant, updateNewMerchant, validStreet, setValidStreet,
+    validCity, setValidCity, validZip, setValidZip, validState,
+    setValidState
+  } = useSignUp();
 
   const street = 'street';
   const city = 'city';
@@ -309,12 +309,11 @@ function BusinessAddress({navigation}) {
 }
 
 function ContactInformation({navigation}) {
-  const {newMerchant, updateNewMerchant} = useSignUp();
+  const {
+    newMerchant, updateNewMerchant, validEmail, setValidEmail,
+    validPassword, setValidPassword, validValidator, setValidValidator
+  } = useSignUp();
   const {merchants} = useMerchant();
-  const [validEmail, setValidEmail] = useState(false);
-  const [validPassword, setValidPassword] = useState(false);
-  const [validValidator, setValidValidator] = useState(false);
-  useEffect(() => {}, [validEmail, validPassword, validValidator]);
 
   const email = 'email';
   const password = 'password';
@@ -615,8 +614,8 @@ export {
   NextButton,
   ContactInformation,
   SignUpProgress,
-//   ProgressBar,
-//   ProgressBox,
+  ProgressBar,
+  ProgressBox,
   OAuth,
   CreateAccount,
 };
