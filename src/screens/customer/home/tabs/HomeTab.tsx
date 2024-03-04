@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import useLocation from '../../../../hooks/useLocation';
+// import useLocation from '../../../../hooks/useLocation';
 import useResData from '../../../../hooks/useResData';
 
 // import {GetDirections} from '../../../../components/api/GetDirections';
@@ -31,8 +31,8 @@ function ResListResults() {
 }
 
 function ResListHeader() {
-  const {currentAddress, location, setCurrentAddress, getAddress} =
-    useLocation();
+//   const {currentAddress, location, setCurrentAddress, getAddress} =
+//     useLocation();
   let locationMarker = '../../../../res/images/marker.png';
 
   return (
@@ -51,14 +51,15 @@ function ResListHeader() {
               textDecorationLine: 'underline',
               fontSize: 16,
             }}
-            onPress={async () => {
+            {/* onPress={async () => {
               try {
                 let address = await getAddress(location);
                 setCurrentAddress(address);
               } catch (e) {
                 console.log(e);
-              }
-            }}>
+              } */}
+            }}
+            >
             {currentAddress ? currentAddress : 'Get Current Address'}
           </Text>
         </View>
@@ -123,22 +124,22 @@ function RestaurantItem({
 }
 
 function HomeTab() {
-  const {location, setCurrentAddress, getAddress} = useLocation();
+//   const {location, setCurrentAddress, getAddress} = useLocation();
   const {loadRestaurants, restaurantData, refreshing} = useResData();
 
-  useEffect(() => {
-    loadRestaurants();
-  }, []);
-  useEffect(() => {
-    (async function () {
-      try {
-        let address = await getAddress(location);
-        setCurrentAddress(address);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-  }, []);
+//   useEffect(() => {
+//     loadRestaurants();
+//   }, []);
+//   useEffect(() => {
+//     (async function () {
+//       try {
+//         let address = await getAddress(location);
+//         setCurrentAddress(address);
+//       } catch (e) {
+//         console.log(e);
+//       }
+//     })();
+//   }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>

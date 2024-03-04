@@ -44,9 +44,6 @@ node_modules/
 npm-debug.log
 yarn-error.log
 
-# discard directory if unused
-src/components/logic/
-
 # env
 .env
 

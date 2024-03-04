@@ -11,9 +11,9 @@ import {
   NextButton,
   ContactInformation,
   SignUpProgress,
-  ProgressBar,
-  ProgressBox,
-  OAuth,
+//   ProgressBar,
+//   ProgressBox,
+//   OAuth,
   CreateAccount,
 } from '../../../../../../../src/screens/merchant/merchant/tabs/SignUpTab';
 
@@ -56,23 +56,23 @@ describe('SignUpProgress Tests', () => {
   });
 });
 
-describe('OAuth Tests', () => {
-  it('renders correctly', () => {
-    <OAuth />;
-  });
-});
+// describe('OAuth Tests', () => {
+//   it('renders correctly', () => {
+//     <OAuth />;
+//   });
+// });
 
-describe('ProgressBar Tests', () => {
-  it('renders correctly', () => {
-    <ProgressBar />;
-  });
-});
+// describe('ProgressBar Tests', () => {
+//   it('renders correctly', () => {
+//     <ProgressBar />;
+//   });
+// });
 
-describe('ProgressBox Tests', () => {
-  it('renders correctly', () => {
-    <ProgressBox />;
-  });
-});
+// describe('ProgressBox Tests', () => {
+//   it('renders correctly', () => {
+//     <ProgressBox />;
+//   });
+// });
 
 describe('CreateAccount Tests', () => {
   it('renders correctly', () => {

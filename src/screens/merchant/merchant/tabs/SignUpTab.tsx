@@ -45,8 +45,8 @@ import {merchTextCSS} from '../../../../res/styles/merchantText';
 const Tab = createMaterialTopTabNavigator();
 const BULLET_POINT = '\u25CF';
 
-function ProgressBar({count}) {
-  let percent = 50;
+// function ProgressBar({count}) {
+//   let percent = 50;
   //   const countInterval = useRef(null);
   //   const [count, setCount] = useState(0);
   //
@@ -67,22 +67,22 @@ function ProgressBar({count}) {
   //     }
   //   }, [count]);
 
-  return (
-    <View style={styles.progressBar}>
-      <Animated.View
-        style={[
-          StyleSheet.absoluteFill,
-          {backgroundColor: '#8BED4F', width: '50%'},
-        ]}
-      />
-      <Text style={[merchTextCSS.text, {textAlign: 'center'}]}>{percent}%</Text>
-    </View>
-  );
-}
+//   return (
+//     <View style={styles.progressBar}>
+//       <Animated.View
+//         style={[
+//           StyleSheet.absoluteFill,
+//           {backgroundColor: '#8BED4F', width: '50%'},
+//         ]}
+//       />
+//       <Text style={[merchTextCSS.text, {textAlign: 'center'}]}>{percent}%</Text>
+//     </View>
+//   );
+// }
 
-function ProgressBox({percent, index}) {
-  return <View style={styles.progressBarSmall} />;
-}
+// function ProgressBox({percent, index}) {
+//   return <View style={styles.progressBarSmall} />;
+// }
 
 function SignUpProgress() {
   return (
@@ -95,10 +95,10 @@ function SignUpProgress() {
         <Text style={[merchTextCSS.text, merchTextCSS.list]}>
           Sign Up Progress
         </Text>
-        <ProgressBar />
+        {/*<ProgressBar />*/}
       </View>
       <View style={[merchContCSS.container, {flexDirection: 'row', flex: 2}]}>
-        <View
+			{/* <View
           style={[
             merchContCSS.container,
             {flex: 1, justifyContent: 'flex-start', alignItems: 'center'},
@@ -106,7 +106,7 @@ function SignUpProgress() {
           {['20%', '40%', '60%', '80%', '100%'].map((percent, index) => {
             return <ProgressBox percent={percent} key={index} />;
           })}
-        </View>
+        </View>  */}
         <View
           style={[
             merchContCSS.container,
@@ -615,8 +615,8 @@ export {
   NextButton,
   ContactInformation,
   SignUpProgress,
-  ProgressBar,
-  ProgressBox,
+//   ProgressBar,
+//   ProgressBox,
   OAuth,
   CreateAccount,
 };
