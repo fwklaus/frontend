@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 
-// import useLocation from '../hooks/useLocation';
+import useLocation from '../hooks/useLocation';
 import useMerchant from '../hooks/useMerchant';
 import useSessions from '../hooks/useSessions';
 
@@ -91,14 +91,17 @@ function CustomerPathway({navigation}) {
 }
 
 function WelcomeScreen({navigation}) {
-//   const {getLocation, location, setLocation} = useLocation();
+  const {getLocation, location, setLocation, useLocationServices} = useLocation();
   const {createNewSession} = useSessions();
   const {getMerchants} = useMerchant();
 
   useEffect(() => {
     (async function () {
       try {
-//         await getLocation(location, setLocation);
+        if (useLocationServices) {
+          await getLocation(location, setLocation);
+        }
+
         // get Merchants loads merchants and returns header with cookie
         let response = await getMerchants();
 

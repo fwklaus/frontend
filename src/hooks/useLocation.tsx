@@ -14,7 +14,7 @@ import Geocoder from 'react-native-geocoding';
 Geocoder.init(GOOGLE_API_KEY);
 
 const useLocation = () => {
-  const {location, setLocation, currentAddress, setCurrentAddress} =
+  const {location, setLocation, currentAddress, setCurrentAddress, useLocationServices} =
     useContext(LocationContext);
   useEffect(() => {}, [location]);
 
@@ -99,6 +99,7 @@ const useLocation = () => {
     currentAddress,
     setCurrentAddress,
     requestLocationPermission,
+    useLocationServices
   };
 };
 
