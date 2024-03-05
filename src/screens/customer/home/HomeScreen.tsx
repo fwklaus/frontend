@@ -44,7 +44,7 @@ function TermsTab() {
   );
 }
 
-export function ServicesTab() {
+function ServicesTab() {
   let text = [
     'Select from any one of our participating merchants',
     'Add items to your cart and place your order',

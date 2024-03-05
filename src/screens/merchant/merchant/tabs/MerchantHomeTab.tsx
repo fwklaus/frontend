@@ -65,7 +65,7 @@ function ScreenFour() {
       <Text style={[merchTextCSS.text, merchTextCSS.list]}>
         {BULLET_POINT} You can think of our service as an online alternative to
         calling in an order so customers can order carryout in a convenient way
-        ay no extra cost to you or the customer.
+        at no extra cost to you or the customer.
       </Text>
       <Text style={[merchTextCSS.text, merchTextCSS.list]}>
         {BULLET_POINT} That's it. It's just another way to connect you to the

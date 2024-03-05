@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "305097392364",
+    "project_id": "robust-magpie-410721",
+    "storage_bucket": "robust-magpie-410721.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305097392364:android:22c75fe0083d2a0f49a5c9",
+        "android_client_info": {
+          "package_name": "com.orderweaselfrontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARSBGYm7vR35f8FyED6g6hPw1jd74L1I4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
