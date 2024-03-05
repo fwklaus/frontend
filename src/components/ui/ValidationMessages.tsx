@@ -127,7 +127,7 @@ function InvalidPasswordMessage({validPassword}) {
         <></>
       ) : (
         <Text style={[merchTextCSS.text, {marginLeft: 10, color: 'red'}]}>
-          {BULLET_POINT} Password is required and must have 8 or more characters (1 uppercase, 1 number, 1 symbol) and must not match email
+          {BULLET_POINT} Password is required and must have 8 or more characters, including 1 uppercase, 1 number, and 191 symbol
         </Text>
       )}
     </>

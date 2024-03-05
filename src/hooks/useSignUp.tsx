@@ -67,6 +67,22 @@ const useSignUp = () => {
     return newMerchantCopy;
   }
 
+  function isAllValid() {
+    return validName && validPhone && validStreet && validCity && validZip && validState
+    && validEmail && validPassword && validValidator
+  }
+
+  function isValidStoreInfo() {
+    return validName && validPhone;
+  }
+
+  function isValidLocationInfo() {
+    return validStreet && validCity && validZip && validState;
+  }
+
+	function isValidContactInfo() {
+		return validEmail && validPassword && validValidator;
+	}
   return {
     formatNewMerchant,
     updateNewMerchant,
@@ -90,7 +106,11 @@ const useSignUp = () => {
     validPassword,
     setValidPassword,
     validValidator,
-    setValidValidator
+    setValidValidator,
+    isAllValid,
+    isValidStoreInfo,
+    isValidContactInfo,
+    isValidLocationInfo
   };
 };
 

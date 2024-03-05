@@ -99,14 +99,9 @@ function ProgressBox({complete}) {
 
 function SignUpProgress() {
 	const {
-		useSignUpProgressBar, validName, validPhone, validStreet,
-		validCity, validZip, validState, validEmail, validPassword,
-		validValidator
+		useSignUpProgressBar, isValidStoreInfo, isValidContactInfo,
+		isValidLocationInfo
 	} = useSignUp();
-
-	let validStoreInfo = validName && validPhone;
-	let validLocationInfo = validStreet && validCity &&  validZip && validState
-	let validContactInfo = validEmail && validPassword && validValidator;
 
 	// need to check if authorization is valid
 	let validOAuth;
@@ -129,9 +124,9 @@ function SignUpProgress() {
             merchContCSS.container,
             {flex: 1, justifyContent: 'flex-start', alignItems: 'center'},
           ]}>
-          <ProgressBox complete={validStoreInfo} />
-          <ProgressBox complete={validLocationInfo} />
-          <ProgressBox complete={validContactInfo} />
+          <ProgressBox complete={isValidStoreInfo()} />
+          <ProgressBox complete={isValidLocationInfo()} />
+          <ProgressBox complete={isValidContactInfo()} />
           <ProgressBox complete={false} />
         </View>
         <View
@@ -457,7 +452,7 @@ function OAuthButton({navigation}) {
 
         setTimeout(() => {
           console.log("Replace with redirection to OAuth");
-          navigation.navigate("CreateAccount");
+          navigation.navigate("Orders");
         }, 3000)
         } catch (e) {
           console.error(e);
@@ -466,6 +461,65 @@ function OAuthButton({navigation}) {
     >
       <Text style={merchTextCSS.buttonText}>Grant Access to OrderWeasel</Text>
     </Pressable>
+  );
+}
+
+function CreateAccount({navigation}) {
+  const {signUp, isAllValid} = useSignUp();
+  const {addNewMerchant} = useMerchant();
+  const { toggleLogin, currentMerchant, setCurrentMerchant} = useLogin();
+
+  return (
+    <SafeAreaView
+      style={[merchContCSS.main, {alignItems: 'left', padding: 20}]}>
+      <View style={merchContCSS.header}>
+        <Text style={[merchTextCSS.text, merchTextCSS.header]}>
+          Create Account
+        </Text>
+      </View>
+      <View
+        style={[
+          merchContCSS.tabMain,
+          {flexDirection: 'column', alignItems: 'left'},
+        ]}>
+        <View style={{flex: 1}}>
+          <Text style={[merchTextCSS.text, {margin: 20, color: '#A1000E'}]}>
+            Finish...
+          </Text>
+        </View>
+        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+          <BackButton navigation={navigation} previousTab={'ContactInformation'}/>
+          <Pressable
+            style={[merchContCSS.button, {height: 50, flex: 1}]}
+            onPress={async () => {
+              if (!isAllValid()) {
+                alert('Please correct invalid input fields.');
+                return;
+              }
+
+              try {
+                // sign up and create session
+                let newMerchant = await signUp();
+                let email = newMerchant.newMerchantDetails.email;
+
+                // adds merchant to merchants state
+                addNewMerchant(newMerchant);
+
+                // set current merchant and login state for display
+                setCurrentMerchant(newMerchant.newMerchantDetails);
+                toggleLogin();
+                navigation.navigate('OAuth');
+                alert(`Welcome ${email}!`);
+              } catch (e) {
+                alert(e.message);
+              }
+            }}>
+            <Text style={merchTextCSS.buttonText}>Finish Account Setup</Text>
+          </Pressable>
+					<View style={merchContCSS.mainSpacer}>{/*spacer*/}</View>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -492,60 +546,6 @@ function OAuth({navigation}) {
         </View>
         <View style={{flex: 1, alignItems: 'center'}}>
 					<OAuthButton navigation={navigation} />
-        </View>
-      </View>
-    </SafeAreaView>
-  );
-}
-
-function CreateAccount({navigation}) {
-  const {signUp} = useSignUp();
-  const {addNewMerchant} = useMerchant();
-  const {toggleLogin, currentMerchant, setCurrentMerchant} = useLogin();
-
-  return (
-    <SafeAreaView
-      style={[merchContCSS.main, {alignItems: 'left', padding: 20}]}>
-      <View style={merchContCSS.header}>
-        <Text style={[merchTextCSS.text, merchTextCSS.header]}>
-          Create Account
-        </Text>
-      </View>
-      <View
-        style={[
-          merchContCSS.tabMain,
-          {flexDirection: 'column', alignItems: 'left'},
-        ]}>
-        <View style={{flex: 1}}>
-          <Text style={[merchTextCSS.text, {margin: 20, color: '#A1000E'}]}>
-            Finish...
-          </Text>
-        </View>
-        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-          <BackButton navigation={navigation} previousTab={'ContactInformation'}/>
-          <Pressable
-            style={[merchContCSS.button, {height: 50, flex: 1}]}
-            onPress={async () => {
-              try {
-                // sign up and create session
-                let newMerchant = await signUp();
-                let email = newMerchant.newMerchantDetails.email;
-
-                // adds merchant to merchants state
-                addNewMerchant(newMerchant);
-
-                // set current merchant and login state for display
-                setCurrentMerchant(newMerchant.newMerchantDetails);
-                toggleLogin();
-                navigation.navigate('Orders');
-                alert(`Welcome ${email}!`);
-              } catch (e) {
-                alert(e.message);
-              }
-            }}>
-            <Text style={merchTextCSS.buttonText}>Finish Account Setup</Text>
-          </Pressable>
-					<View style={merchContCSS.mainSpacer}>{/*spacer*/}</View>
         </View>
       </View>
     </SafeAreaView>
