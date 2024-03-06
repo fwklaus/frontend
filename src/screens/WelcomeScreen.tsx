@@ -11,6 +11,7 @@ import {
 import useLocation from '../hooks/useLocation';
 import useMerchant from '../hooks/useMerchant';
 import useSessions from '../hooks/useSessions';
+import usePush from '../hooks/usePush';
 
 import {containerStyles} from '../res/styles/container';
 import {textStyles} from '../res/styles/text';
@@ -94,6 +95,7 @@ function WelcomeScreen({navigation}) {
   const {getLocation, location, setLocation, useLocationServices} = useLocation();
   const {createNewSession} = useSessions();
   const {getMerchants} = useMerchant();
+  const {usePushNotifications, setDeviceUUID} = usePush();
 
   useEffect(() => {
     (async function () {
@@ -101,6 +103,10 @@ function WelcomeScreen({navigation}) {
         if (useLocationServices) {
           await getLocation(location, setLocation);
         }
+
+				if (usePushNotifications) {
+					await setDeviceUUID();
+				}
 
         // get Merchants loads merchants and returns header with cookie
         let response = await getMerchants();
