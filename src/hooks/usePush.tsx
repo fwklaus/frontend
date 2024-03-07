@@ -20,18 +20,19 @@ const usePush = () => {
     try {
       const fcmToken = await messaging().getToken();
       if (fcmToken) {
-//         console.log('FCM Token:', fcmToken);
-        // add token to State and local storage
-        addToken(fcmToken);
+        if (tokens.length > 0 && fcmToken !== lastToken()) {
+          await updateToken(fcmToken);
+        } else {
+          await saveFcmToken(fcmToken);
+        }
 
-        // add tokens to database with the uuid
-        // or only save latest token? and store tokens in AsyncStorage?
-        await saveFcmToken(fcmToken);
+        // add token to state and local storage either way
+        addToken(fcmToken);
       } else {
         console.log('No FCM token available.');
       }
     } catch (error) {
-      console.error('Error getting FCM token:', error);
+      console.log('Error getting FCM token:', error);
     }
   };
 
@@ -82,6 +83,30 @@ const usePush = () => {
     }
   };
 
+  async function updateToken(fcmToken) {
+    let body = {
+      method: "PATCH",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({newToken: fcmToken, deviceUUID: uuid}),
+    }
+
+    try {
+      const response = await fetch(messagesURL + '/update-fcm-token', body);
+      const json = await response.json();
+
+      if (response.status !== 200) {
+        throw new Error(json.error)
+      }
+
+      console.log(json.message); // Success message from the server
+    } catch (error) {
+      throw new Error('Error updating FCM token: ' + error.message);
+    }
+  }
+
   // generate uuid on startup at WelcomeScreen
   async function setDeviceUUID() {
 		try {
@@ -102,10 +127,24 @@ const usePush = () => {
 		}
   }
 
+//   // set tokens from AsyncStorage on WelcomeScreen
+//   async function setTokensFromStorage() {
+//     try {
+//
+//
+//     } catch (e) {
+//       throw new Error(e.message);
+//     }
+//   }
+
   // notification handlers
 
-  const foreground = messaging().onMessage(async remoteMessage => {
-    console.log(JSON.stringify(remoteMessage))
+	// listens for a foreground state message
+  messaging().onMessage(async remoteMessage => {
+
+    console.log("Title: " + remoteMessage.notification.title);
+    console.log("Body: " + remoteMessage.notification.body);
+    console.log("Data: " + JSON.stringify(remoteMessage.data));
     alert('A new FCM foreground message arrived!');
   });
 
@@ -113,6 +152,10 @@ const usePush = () => {
 
 	function getCopy(collection) {
 		return JSON.parse(JSON.stringify(collection))
+	}
+
+	function lastToken() {
+		return tokens[tokens.length - 1];
 	}
 
 	// currently adds token to state
@@ -128,7 +171,8 @@ const usePush = () => {
 		requestNotificationsPermissions,
 		getFCMToken,
 		usePushNotifications,
-		setDeviceUUID
+		setDeviceUUID,
+// 		setTokensFromStorage
 	};
 };
 

@@ -6,7 +6,7 @@ const SessionContext = createContext(null);
 const SessionProvider = props => {
   const [sessionID, setSessionID] = useState([]);
   useEffect(() => {
-    console.log(sessionID || 'null' + ' (at SessionContext)');
+//     console.log(sessionID.length > 0 ? sessionID : 'null sessionID' + ' (at SessionContext)');
   }, [sessionID]);
 
   return (

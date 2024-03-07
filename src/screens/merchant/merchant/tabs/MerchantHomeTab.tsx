@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, View, Text, Pressable} from 'react-native';
 import {merchContCSS} from '../../../../res/styles/merchantContainer';
 import {merchTextCSS} from '../../../../res/styles/merchantText';
+import usePush from '../../../../hooks/usePush';
 
 const BULLET_POINT = '\u25CF';
 
@@ -89,6 +90,21 @@ function SignUpButton({navigation}) {
 }
 
 function MerchantHomeTab({navigation}) {
+	const {requestNotificationsPermissions, getFCMToken, usePushNotifications} = usePush();
+
+  useEffect(() => {
+    (async function(){
+	    try {
+		    if (usePushNotifications) {
+		      await getFCMToken();
+		      await requestNotificationsPermissions();
+		    }
+	    } catch (e) {
+				console.log(e.message);
+	    }
+    })();
+  },[]);
+
   return (
     <SafeAreaView style={[merchContCSS.main, {flexDirection: 'row'}]}>
       <View style={merchContCSS.mainSpacer}>{/*spacer*/}</View>
