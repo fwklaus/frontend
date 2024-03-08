@@ -1,7 +1,9 @@
-import {React} from 'react';
+import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {SafeAreaView, Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
+
+import usePush from '../../../hooks/usePush';
 
 import {HomeTab} from './tabs/HomeTab';
 
@@ -44,7 +46,7 @@ function TermsTab() {
   );
 }
 
-export function ServicesTab() {
+function ServicesTab() {
   let text = [
     'Select from any one of our participating merchants',
     'Add items to your cart and place your order',
@@ -78,8 +80,20 @@ export function ServicesTab() {
 }
 
 function HomeScreen() {
+  const {requestNotificationsPermissions, getFCMToken, usePushNotifications} = usePush();
 
-
+  useEffect(() => {
+    (async function(){
+	    try {
+		    if (usePushNotifications) {
+		      await getFCMToken();
+		      await requestNotificationsPermissions();
+		    }
+	    } catch (e) {
+				console.log(e.message);
+	    }
+    })();
+  },[]);
 
   return (
     <SafeAreaView style={containerStyles.main}>

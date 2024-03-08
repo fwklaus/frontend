@@ -11,6 +11,7 @@ import {CartsProvider} from './src/context/CartsContext';
 import {ResDataProvider} from './src/context/ResDataContext';
 import {OrdersProvider} from './src/context/OrdersContext';
 import {SessionProvider} from './src/context/SessionContext';
+import {PushProvider} from './src/context/PushContext';
 
 // API Contexts should be available across app
 // should take some data, make a request
@@ -37,81 +38,83 @@ const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
   return (
     <NavigationContainer>
-      <SessionProvider>
-        <MerchantProvider>
-          <LocationProvider>
-            <OrdersProvider>
-              <ResDataProvider>
-                <LoginProvider>
-                  <CartsProvider>
-                    <HeaderButtonsProvider stackType={stackType}>
-                      <Stack.Navigator
-                        screenOptions={{
-                          headerTintColor: 'blue',
-                          headerStyle: {
-                            backgroundColor: '#FBF501',
-                          },
-                          headerTitleStyle: {
-                            fontWeight: 'bold',
-                            fontSize: 24,
-                            fontFamily: 'sans-serif-condensed',
-                          },
-                          headerTitleAlign: 'center',
-                          statusBarStyle: 'auto',
-                        }}>
-                        <Stack.Screen
-                          name="Loading"
-                          component={LoadingScreen}
-                          options={{
-                            headerShown: false,
-                          }}
-                        />
-                        <Stack.Screen
-                          name="WelcomeScreen"
-                          component={WelcomeScreen}
-                          options={{
-                            title: 'WELCOME',
-                            headerBackVisible: false,
-                          }}
-                        />
-                        <Stack.Screen
-                          name="MerchantScreen"
-                          component={MerchantScreen}
-                          options={{
-                            title: 'MERCHANT SIGN-UP',
-                            headerBackVisible: false,
-                          }}
-                        />
-                        <Stack.Screen
-                          name="HomeScreen"
-                          component={HomeScreen}
-                          options={{
-                            title: 'ORDERWEASEL',
-                          }}
-                        />
-                        <Stack.Screen
-                          name="RestaurantScreen"
-                          component={RestaurantScreen}
-                          options={{
-                            title: 'ORDER',
-                          }}
-                        />
-                        <Stack.Screen
-                          name="CheckoutScreen"
-                          component={CheckoutScreen}
-                          options={{
-                            title: 'CHECKOUT',
-                          }}
-                        />
-                      </Stack.Navigator>
-                    </HeaderButtonsProvider>
-                  </CartsProvider>
-                </LoginProvider>
-              </ResDataProvider>
-            </OrdersProvider>
-          </LocationProvider>
-        </MerchantProvider>
-      </SessionProvider>
+      <PushProvider>
+	      <SessionProvider>
+	        <MerchantProvider>
+	          <LocationProvider>
+	            <OrdersProvider>
+	              <ResDataProvider>
+	                <LoginProvider>
+	                  <CartsProvider>
+	                    <HeaderButtonsProvider stackType={stackType}>
+	                      <Stack.Navigator
+	                        screenOptions={{
+	                          headerTintColor: 'blue',
+	                          headerStyle: {
+	                            backgroundColor: '#FBF501',
+	                          },
+	                          headerTitleStyle: {
+	                            fontWeight: 'bold',
+	                            fontSize: 24,
+	                            fontFamily: 'sans-serif-condensed',
+	                          },
+	                          headerTitleAlign: 'center',
+	                          statusBarStyle: 'auto',
+	                        }}>
+	                        <Stack.Screen
+	                          name="Loading"
+	                          component={LoadingScreen}
+	                          options={{
+	                            headerShown: false,
+	                          }}
+	                        />
+	                        <Stack.Screen
+	                          name="WelcomeScreen"
+	                          component={WelcomeScreen}
+	                          options={{
+	                            title: 'WELCOME',
+	                            headerBackVisible: false,
+	                          }}
+	                        />
+	                        <Stack.Screen
+	                          name="MerchantScreen"
+	                          component={MerchantScreen}
+	                          options={{
+	                            title: 'MERCHANT SIGN-UP',
+	                            headerBackVisible: false,
+	                          }}
+	                        />
+	                        <Stack.Screen
+	                          name="HomeScreen"
+	                          component={HomeScreen}
+	                          options={{
+	                            title: 'ORDERWEASEL',
+	                          }}
+	                        />
+	                        <Stack.Screen
+	                          name="RestaurantScreen"
+	                          component={RestaurantScreen}
+	                          options={{
+	                            title: 'ORDER',
+	                          }}
+	                        />
+	                        <Stack.Screen
+	                          name="CheckoutScreen"
+	                          component={CheckoutScreen}
+	                          options={{
+	                            title: 'CHECKOUT',
+	                          }}
+	                        />
+	                      </Stack.Navigator>
+	                    </HeaderButtonsProvider>
+	                  </CartsProvider>
+	                </LoginProvider>
+	              </ResDataProvider>
+	            </OrdersProvider>
+	          </LocationProvider>
+	        </MerchantProvider>
+	      </SessionProvider>
+      </PushProvider>
     </NavigationContainer>
   );
 }
